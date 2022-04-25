@@ -1,0 +1,470 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{ENGR 251: Thermodynamics I}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Table of contents
+% \renewcommand{\contentsname}{Table of contents title} % Change the table of contents title
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Theorems and proofs
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+
+\setlength{\abovedisplayskip}{2pt} % Space above displayed equations
+\setlength{\belowdisplayskip}{2pt} % Space below displayed equations
+
+\section{Pressure and hydrostatic}
+\paragraph{Pascal Law}
+The pressure at one point in equilibrium is independent of the direction of observation.
+
+Variation of pressure with change in height:
+\[
+  P_2 - P_1 = -g\int_{z_1 }^{z_2 }{\rho\diffint{z}}
+\]
+
+Incompressible fluid (\(\rho\) constant):
+\[
+  P_2 - P_1 = -\rho g\left( z_2 - z_1 \right)
+\]
+
+Compressible ideal gas:
+\[
+  \frac{P_2 }{P_1 } = e^{- \frac{g}{RT}\left( z_2 - z_1 \right)}
+\]
+
+\paragraph{Stevin principle}
+The pressure of a fluid at rest is independent of the shape of the container.
+It varies with depth but is the same horizontally.
+
+\section{Quality}
+\[
+  x = \frac{m_{\mathrm{gas}}}{m_{\mathrm{total}}} = \frac{u - u_f }{u_g - u_f } = \frac{h - h_f }{h_g - h_f } = \frac{s - s_f }{s_g - s_f }
+\]
+
+\section{Ideal gas}
+Reduced temperature and pressure:
+\[
+  T_R = \frac{T}{T_C } \text{ and } P_R = \frac{P}{P_C }
+\]
+
+Guidelines:
+\begin{itemize}
+  \item \(P \ll P_C \)
+  \item \(P_R < 10\) and \(T_R > 2\)
+  \item \(T > 2T_C \) for \(P < 4P_C \)
+  \item \(P_R \ll 1\)
+\end{itemize}
+
+Ideal gas law:
+\begin{align*}
+  PV   & = mRT \\
+  P\nu & = RT
+\end{align*}
+
+Compressibility factor for non-ideal gas:
+\[
+  Z = \frac{P\nu}{RT}
+\]
+
+Internal energy (\(K_B = \SI{1.381 e-23}{\joule\per\kelvin}\)):
+\[
+  U = \frac{3}{2}nK_B T
+\]
+
+\section{First Law of Thermodynamics}
+Energy relations:
+\begin{align*}
+  \Delta E & = Q_{1 \rightarrow 2} - W_{1 \rightarrow 2}           \\
+           & = \Delta K + \Delta E_{\mathrm{potential}} + \Delta U
+\end{align*}
+
+Types of energy:
+\begin{align*}
+  \Delta K                      & = \frac{1}{2}m\left( v_2 ^2 - v_1 ^2 \right) \\
+  \Delta E_{\mathrm{potential}} & = mg\left( z_2 - z_1 \right)               \\
+  \Delta U                      & = m\left( u_2 - u_1 \right)
+\end{align*}
+
+Sign convention:
+\begin{itemize}
+  \item Heat:
+        \begin{itemize}
+          \item Heat entering the system: \(Q > 0\)
+          \item Heat leaving the system: \(Q < 0\)
+        \end{itemize}
+  \item Work:
+        \begin{itemize}
+          \item Work done by the system: \(W > 0\)
+          \item Work done on the system: \(W < 0\)
+        \end{itemize}
+\end{itemize}
+
+Work:
+\begin{itemize}
+  \item Mechanical work:
+        \[
+          W_{1 \rightarrow 2} = \int_1 ^2 {\vec{F} \bullet \diffint\vec{s}}
+        \]
+  \item Expansion work:
+        \[
+          W_{1 \rightarrow 2} = \int_1 ^2 {P \diffint{V}}
+        \]
+        \begin{itemize}
+          \item Isobaric work:
+                \[
+                  W_{1 \rightarrow 2} = P\left( V_2 - V_1 \right)
+                \]
+          \item Isothermal work:
+                \[
+                  W_{1 \rightarrow 2} = mRT\ln\left( \frac{V_2 }{V_1 } \right)
+                \]
+          \item Polytropic process (\(PV^n \) constant):
+                \[
+                  W_{1 \rightarrow 2} = \frac{P_2 V_2 - P_1 V_1 }{1 - n}
+                \]
+        \end{itemize}
+  \item Electrical work:
+        \[
+          W_{1 \rightarrow 2} = \int_1 ^2 {VI \diffint{t}}
+        \]
+  \item Shaft work:
+        \[
+          W_{1 \rightarrow 2} = 2\pi NT
+        \]
+  \item Spring work:
+        \[
+          W_{1 \rightarrow 2} = \frac{1}{2}k\left( x_2 ^2 - x_1 ^2 \right)
+        \]
+        \begin{itemize}
+          \item Spring based piston:
+                \begin{align*}
+                  P_2                 & = P_1 + \frac{k}{A^2 }\left( V_2 - V_1 \right)                 \\
+                  W_{1 \rightarrow 2} & = \frac{1}{2}\left( P_1 + P_2 \right)\left( V_1 - V_2 \right)
+                \end{align*}
+        \end{itemize}
+\end{itemize}
+
+Enthalpy:
+\begin{align*}
+  H & = U + PV   \\
+  h & = u + P\nu
+\end{align*}
+\begin{itemize}
+  \item Heat exchange for isobaric process:
+        \[
+          Q_{1 \rightarrow 2} = H_2 - H_1 = m\left( h_2 - h_1 \right)
+        \]
+\end{itemize}
+
+Specific heat:
+\[
+  C = \derivative{u}{t} + P\derivative{\nu}{t} + \nu\derivative{P}{t}
+\]
+\begin{itemize}
+  \item Isochoric process:
+        \[
+          C_V = \derivative{u}{T}
+        \]
+  \item Isobaric process:
+        \[
+          C_P = \derivative{h}{T}
+        \]
+  \item Normal temperature set (\(\SI[scientific-notation = false]{500+-300}{\kelvin}\)): \(C_V \) and \(C_P \) constant at \(T_{\mathrm{average}}\)
+        \begin{align*}
+          u_2 - u_1 & = C_V \left( T_2 - T_1 \right) \\
+          h_2 - h_1 & = C_P \left( T_2 - T_1 \right)
+        \end{align*}
+\end{itemize}
+
+\section{Control volume and steady flow}
+Reynold Transport Theorem:
+\begin{align*}
+  \derivative{B_S }{t} & = \derivative{B_{CV}}{t} + \sum_{\mathrm{out}}{\derivative{B_{\mathrm{out}}}{t}} - \sum_{\mathrm{out}}{\derivative{B_{\mathrm{in}}}{t}} \\
+  \dot{B}_S            & = {\dot{B}}_{CV} + \sum_{\mathrm{out}}{\dot{B}_{\mathrm{out}}} - \sum_{\mathrm{in}}{\dot{B}_{\mathrm{in}}}
+\end{align*}
+
+Mass equation:
+\[
+  \dot{m}_S = \dot{m}_{CV} + \sum_{\mathrm{out}}{\dot{m}_{\mathrm{out}}} - \sum_{\mathrm{in}}{\dot{m}_{\mathrm{in}}} \text{ and } \dot{m} = \int{\rho v\diffint{A}}
+\]
+
+\begin{itemize}
+  \item Conservation of mass (\(\dot{m}_S \) constant):
+        \[
+          \dot{m}_{CV} = \sum_{\mathrm{in}}{\dot{m}_{\mathrm{in}}} - \sum_{\mathrm{out}}{\dot{m}_{\mathrm{out}}}
+        \]
+        \begin{itemize}
+          \item Steady flow (\(\dot{m}_{CV}\) constant):
+                \[
+                  \sum_{\mathrm{in}}{\dot{m}_{\mathrm{in}}} = \sum_{\mathrm{out}}{\dot{m}_{\mathrm{out}}}
+                \]
+          \item Incompressible fluid (\(\rho\) constant):
+                \[
+                  \sum_{\mathrm{in}}{\dot{Q}_{\mathrm{in}}} = \sum_{\mathrm{out}}{\dot{Q}_{\mathrm{out}}} \text{ and } \dot{Q} = vA
+                \]
+        \end{itemize}
+\end{itemize}
+
+Energy equation:
+\begin{multline*}
+  \dot{E}_{CV} = \dot{Q} - \dot{W}_t - \dot{W}_p
+  + \sum_{\mathrm{in}}{\dot{m}_{\mathrm{in}}\left( \frac{1}{2}v_{\mathrm{in}}^2 + gz_{\mathrm{in}} + h_{\mathrm{in}} \right)} \\
+  - \sum_{\mathrm{out}}{\dot{m}_{\mathrm{out}}\left( \frac{1}{2}v_{\mathrm{out}}^2 + gz_{\mathrm{out}} + h_{\mathrm{out}} \right)}
+\end{multline*}
+
+\begin{itemize}
+  \item Steady flow equation (\(\dot{m}\) constant):
+        \begin{multline*}
+          \dot{Q} + \sum_{\mathrm{in}}{\dot{m}\left( \frac{1}{2}v_{\mathrm{in}}^2 + gz_{\mathrm{in}} + h_{\mathrm{in}} \right)} \\
+          = \dot{W}_t + \dot{W}_p + \sum_{\mathrm{out}}{\dot{m}\left( \frac{1}{2}v_{\mathrm{out}}^2 + gz_{\mathrm{out}} + h_{\mathrm{out}} \right)}
+        \end{multline*}
+        \begin{itemize}
+          \item Bernoulli's equation (steady flow, adiabatic, no turbine and no pump):
+                \[
+                  \frac{1}{2}v_{\mathrm{in}}^2 + gz_{\mathrm{in}} + h_{\mathrm{in}} = \frac{1}{2}v_{\mathrm{out}}^2 + gz_{\mathrm{out}} + h_{\mathrm{out}}
+                \]
+        \end{itemize}
+  \item Unsteady flow:
+        \[
+          \dot{E}_{CV} = {\dot{U}}_{CV} = {\dot{m}u}_{CV}\text{ with } \dot{m}\text{ changing over time}
+        \]
+\end{itemize}
+
+\section{Second law of Thermodynamics}
+Efficiency:
+\begin{itemize}
+  \item Thermal efficiency of a heat engine:
+        \[
+          \eta = \frac{W_{\mathrm{net}}}{Q_H } = 1 - \frac{Q_L }{Q_H } \text{ and } 0 \leqslant \eta < 1
+        \]
+  \item Coefficient of performance of a refrigerator:
+        \[
+          \beta = \frac{Q_L }{W_{\mathrm{net}}} = \frac{1}{\frac{Q_H }{Q_L } - 1}
+        \]
+  \item Coefficient of performance of a heat pump:
+        \[
+          \beta = \frac{Q_H }{W_{\mathrm{net}}} = \frac{1}{1 - \frac{Q_L }{Q_H }}
+        \]
+\end{itemize}
+
+Carnot cycle:
+\begin{itemize}
+  \item Processes:
+        \begin{description}
+          \item[\(1 \rightarrow 2\)] Isothermal process: heat exchange at \(T_H \)
+          \item[\(2 \rightarrow 3\)] Adiabatic reversible (isentropic) expansion: positive work
+          \item[\(3 \rightarrow 4\)] Isothermal process: heat exchange at \(T_L \)
+          \item[\(4 \rightarrow 1\)] Adiabatic reversible (isentropic) compression: negative work
+        \end{description}
+  \item Carnot efficiency:
+        \begin{itemize}
+          \item Carnot thermal efficiency of a heat engine:
+                \[
+                  \eta_{\mathrm{car}} = 1 - \frac{T_L }{T_H } \text{ and } 0 \leqslant \eta < 1
+                \]
+          \item Carnot coefficient of performance of a refrigerator:
+                \[
+                  \beta_{\mathrm{car}} = \frac{1}{\frac{T_H }{T_L } - 1}
+                \]
+          \item Carnot coefficient of performance of a heat pump:
+                \[
+                  \beta_{\mathrm{car}} = \frac{1}{1 - \frac{T_L }{T_H }}
+                \]
+        \end{itemize}
+  \item Carnot principle:
+        \begin{itemize}
+          \item \(\eta < \eta_{\mathrm{car}} \text{ or } \beta < \beta_{\mathrm{car}}\): irreversible cycle
+          \item \(\eta = \eta_{\mathrm{car}} \text{ or } \beta = \beta_{\mathrm{car}}\): ideal Carnot cycle
+          \item \(\eta > \eta_{\mathrm{car}} \text{ or } \beta > \beta_{\mathrm{car}}\): impossible cycle (PMM of type 2)
+        \end{itemize}
+\end{itemize}
+
+Entropy:
+\begin{itemize}
+  \item Clausius inequality (for any reversible or irreversible process):
+        \[
+          \oint{\frac{\diffint{Q}}{T}} \leqslant 0
+        \]
+  \item Entropy for a reversible process:
+        \[
+          S_2 - S_1 = \int_1 ^2 {\frac{\diffint{Q}}{T}}
+        \]
+  \item Heat exchange:
+        \[
+          Q_{1 \rightarrow 2} = \int_1 ^2 {T \diffint{S}}
+        \]
+  \item Increasing entropy:
+        \[
+          \diff{}{S} \geqslant \frac{\diff{}{Q}}{T}
+        \]
+  \item Entropy generation:
+        \[
+          S_{\mathrm{gen}} = \Delta S_{\mathrm{total}} = \Delta S_{\mathrm{system}} + \Delta S_{\mathrm{surrounding}} \geqslant 0
+        \]
+        \begin{itemize}
+          \item \(S_{\mathrm{gen}} > 0\): irreversible process
+          \item \(S_{\mathrm{gen}} = 0\): reversible process
+          \item \(S_{\mathrm{gen}} < 0\): impossible process (PMM of type 2)
+        \end{itemize}
+\end{itemize}
+
+Gibbs equations (\(T\diff{}{S}\) equations):
+\begin{itemize}
+  \item First Gibbs equation:
+        \begin{align*}
+          T\diff{}{S} & = \diff{}{U} + P\diff{}{V}   \\
+          T\diff{}{s} & = \diff{}{u} + P\diff{}{\}nu
+        \end{align*}
+  \item Second Gibbs equation:
+        \begin{align*}
+          T\diff{}{S} & = \diff{}{H} - V\diff{}{P}    \\
+          T\diff{}{s} & = \diff{}{h} - \nu \diff{}{P}
+        \end{align*}
+\end{itemize}
+
+Application to entropy change:
+\begin{itemize}
+  \item Solids and liquids:
+        \[
+          s_2 - s_1 = C\ln{\left( \frac{T_2 }{T_1 } \right)}
+        \]
+  \item Ideal gas:
+        \begin{align*}
+          s_2 - s_1 & = C_V \ln{\left( \frac{T_2 }{T_1 } \right)} + R\ln{\left( \frac{\nu_2 }{\nu_1 } \right)} \\
+          s_2 - s_1 & = C_P \ln{\left( \frac{T_2 }{T_1 } \right)} - R\ln{\left( \frac{P_2 }{P_1 } \right)}
+        \end{align*}
+        \begin{itemize}
+          \item Isentropic process on an ideal gas:
+                \begin{itemize}
+                  \item \(C_P = C_V + R\) and \(n = \frac{C_P }{C_V }\)
+                  \item Work in a closed system:
+                        \[
+                          W_{1 \rightarrow 2} = \frac{P_2 V_2 - P_1 V_1 }{1 - n} = \frac{mR\left( T_2 - T_1 \right)}{1 - n}
+                        \]
+                  \item Work in a steady flow:
+                        \[
+                          W_{1 \rightarrow 2} = \frac{P_2 V_2 - P_1 V_1 }{n - 1} = \frac{mR\left( T_2 - T_1 \right)}{n - 1}
+                        \]
+                  \item Isentropic relation for an ideal gas:
+                        \[
+                          \frac{T_2 }{T_1 } = \left( \frac{V_1 }{V_2 } \right)^{n - 1} = \left( \frac{P_2 }{P_1 } \right)^{\frac{n - 1}{n}}
+                        \]
+                \end{itemize}
+        \end{itemize}
+\end{itemize}
+
+Enthalpy variation of an isentropic steady flow process:
+\[
+  w_{1 \rightarrow 2} = h_1 - h_2 = - \int_1 ^2 {\nu\diffint{P}}
+\]
+\begin{itemize}
+  \item Work done by a pump (\(\nu\) constant):
+        \[
+          w_{1 \rightarrow 2} = \nu\left( P_1 - P_2 \right)
+        \]
+\end{itemize}
+
+Isentropic efficiency of a steady flow device:
+\begin{itemize}
+  \item Turbine:
+        \[
+          \eta = \frac{h_{2 \text{ real}} - h_1 }{h_2 - h_1 }
+        \]
+  \item Pump/compressor:
+        \[
+          \eta = \frac{h_2 - h_1 }{h_{2 \text{ real}} - h_1 }
+        \]
+  \item Nozzle:
+        \[
+          \eta = \frac{v_{\mathrm{real}}^2 }{v^2 }
+        \]
+\end{itemize}
+
+\section{Application to cyclic processes}
+Rankine cycle: operates with both liquid and gas states
+\begin{itemize}
+  \item Processes:
+        \begin{description}
+          \item[\(1 \rightarrow 2\)] Isentropic compression in a pump from saturated liquid to compressed liquid
+          \item[\(2 \rightarrow 3\)] Isobaric heating from compressed liquid to superheated gas
+          \item[\(3 \rightarrow 4\)] Isentropic expansion in a turbine
+          \item[\(4 \rightarrow 1\)] Isobaric cooling from gas to saturated liquid
+        \end{description}
+  \item Efficiency:
+        \[
+          \eta = \frac{h_1 - h_2 + h_3 - h_4 }{h_3 - h_2 }
+        \]
+\end{itemize}
+
+Brayton cycle: operates with gas state
+\begin{itemize}
+  \item Processes:
+        \begin{description}
+          \item[\(1 \rightarrow 2\)] Isentropic compression in a compressor
+          \item[\(2 \rightarrow 3\)] Isobaric heating
+          \item[\(3 \rightarrow 4\)] Isentropic expansion in a turbine
+          \item[\(4 \rightarrow 1\)] Isobaric cooling
+        \end{description}
+  \item Pressure ratio:
+        \[
+          r_P = \frac{P_2 }{P_1 } = \frac{P_3 }{P_4 }
+        \]
+  \item Ideal Brayton efficiency:
+        \[
+          \eta_B = 1 - \frac{1}{r_p ^{\frac{n - 1}{n}}}
+        \]
+  \item Back work ratio:
+        \[
+          r_{BW} = \frac{W_{\mathrm{compressor}}}{W_{\mathrm{turbine}}}
+        \]
+\end{itemize}
+
+Otto cycle: closed version of the four-stroke engine
+\begin{itemize}
+  \item Processes:
+        \begin{description}
+          \item[\(1 \rightarrow 2\)] Isentropic compression from the BDC to the TDC
+          \item[\(2 \rightarrow 3\)] Isochoric heating
+          \item[\(3 \rightarrow 4\)] Isentropic expansion from the TDC to the BDC (the work is done here)
+          \item[\(4 \rightarrow 1\)] Isochoric cooling
+        \end{description}
+  \item Mean effective pressure:
+        \[
+          MEP = \frac{W_{\mathrm{net}}}{V_{BDC} - V_{TDC}}
+        \]
+  \item Volume ratio:
+        \[
+          r_V = \frac{V_1 }{V_2 } = \frac{V_4 }{V_3 } = \frac{V_{BDC}}{V_{TDC}}
+        \]
+  \item Ideal Otto efficiency:
+        \[
+          \eta_{\mathrm{otto}} = 1 - r_V ^{1 - n}
+        \]
+  \item Heat exchange:
+        \begin{align*}
+          Q_{\mathrm{in}}  & = U_3 - U_2 = mC_V \left( T_3 - T_2 \right) \\
+          Q_{\mathrm{out}} & = U_4 - U_1 = mC_V \left( T_4 - T_1 \right)
+        \end{align*}
+\end{itemize}
+
+\end{document}

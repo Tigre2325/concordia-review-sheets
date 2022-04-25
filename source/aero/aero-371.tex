@@ -1,0 +1,1538 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{AERO 371: Modelling and Control Systems}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+% \renewcommand{\abstractname}{} % Change the abstract title
+\section{Introduction}
+\subsection{Control system definition}
+A control system consists of subsystem and processes (or plants) assembled for the purpose of obtaining a desired output with desired performance, given a specified input.
+
+
+\subsection{Advantages of control systems}
+Control systems are built for:
+\begin{itemize}
+  \item Power amplification (gain) between the input and the output
+  \item Remote control
+  \item Convenience of input form
+  \item Compensation for disturbances
+  \item Others: automation, augmentation\dots{}
+\end{itemize}
+
+In aerospace, control systems are everywhere and they are more and more used.
+
+
+\subsection{Response characteristics}
+A response is made of 2 important durations:
+\begin{description}
+  \item[Transient response:] time taken to achieve steady-state
+  \item[Steady-state response:] duration of the steady-state
+\end{description}
+
+
+\subsubsection{Control syystem configuration}
+Their are 2 control system configuration:
+\begin{description}
+  \item[Open-loop system:] the system take an input and process to get an output without accounting for disturbances, meaning it cannot correct for disturbances.
+  \item[Closed-loop system:] the system take an input and process to get an output while having a sensor and a feedback path, allowing the system to account for disturbances.
+\end{description}
+
+Obviously closed-loop systems seems more attractive thanks to their ability to correct disturbances and adapt to them.
+However, they are more complex and expensive to build and develop than open-loop systems.
+
+A control system can be modeled using a functional block diagram: the main blocks of this diagram are the input (or reference), the input transducer, the controller, the process (or plant), the summing junction, the sensor and the output (or controlled variable).
+
+
+\subsection{Analysis and design objectives}
+The typical primary objectives of a control system analysis and design are:
+\begin{itemize}
+  \item Speed of response (transient response time)
+  \item Accuracy
+  \item Stability
+\end{itemize}
+and other objectives are:
+\begin{itemize}
+  \item Robustness or sensitivity, meaning the control system correctly adapts to different kind of disturbances under different conditions and with different input
+  \item Cost
+  \item Fault-tolerance
+\end{itemize}
+
+
+\subsection{Control system design process}
+The steps in a control system design process are:
+\begin{enumerate}
+  \item Determine a physical system and specifications from the requirements
+  \item Draw the functional block diagram
+  \item Transform the physical system into a schematic, which includes the detailed layout and the schematic layout
+  \item Draw the control block diagram (or state-space representation): use ordinary differential equations, Laplace transform and transfer functions
+  \item Reduce the block diagram and the equations
+  \item Analyze and design: define a controller, optimize controller's parameters, analyze the performance using time-domain methods (stability, transient and steady-state responses), complex-domain methods (root locus), frequency-domain methods (Nyquist plots, Bode diagrams) and state-space mode based methods
+\end{enumerate}
+
+
+\section{Modeling in the frequency domain}
+\subsection{Laplace transform}
+The Laplace transform is used to simplify the representation of physical systems and to reduce the resolution of differential equations to more simple algebraic equations.
+The Laplace transform is defined as:
+\[
+  \Laplace{f(t)} = F(s) = \int_0^\infty{e^{-st} f(t) \diffint{t}}
+\]
+where \(t\) is the time domain defined for \(\set{R}{+}{}\) and \(s\) the frequency domain.
+The \(s\)-plane is not a real plane, but a complex plane.
+
+The inverse Laplace transform is the opposite of the Laplace transform and is defined as:
+\[
+  \invLaplace{F(s)} = f(t)\unitstep{t} = \frac{1}{2\pi i} \int_{a - i\infty}^{a + i\infty}{F(S) e^{st} \diffint{s}}
+\]
+where \(t\) is in the time domain defined for \(\set{R}{+}{}\) and \(s\) in the frequency domain.
+The \(s\)-plane is not a real plane, but a complex plane.
+
+\(\unitstep{t}\) is called the unit step function and is defined to be:
+\[
+  \unitstep{t - a} =
+  \begin{cases}
+    0, & 0 \leqslant t < a \\
+    1, & t \geqslant a     \\
+  \end{cases}
+\]
+
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Laplace transform table}
+  \label{tab:laplace-transform}
+  \centering % Horizontal alignment of the table
+  % \renewcommand{\arraystretch}{2}
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers) = number of column
+      L D
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule % Header
+    \multicolumn{1}{c}{\(f(t)\)}                & \multicolumn{1}{c}{\(F(s)\)} \\
+    \midrule % Content
+    \diracdelta{}{t} \text{ (impulse function)} & 1                            \\
+    \unitstep{t} \text{ (unit step function)}   & \frac{1}{s}                  \\
+    t^n \unitstep{t}                            & \frac{n!}{s^{n + 1}}         \\
+    e^{-at} \unitstep{t}                        & \frac{1}{s + a}              \\
+    \sin(kt) \unitstep{t}                       & \frac{k}{s^2 + k^2}          \\
+    \cos(kt) \unitstep{t}                       & \frac{s}{s^2 + k^2}          \\
+    \sinh(kt) \unitstep{t}                      & \frac{k}{s^2 - k^2}          \\
+    \cosh(kt) \unitstep{t}                      & \frac{s}{s^2 - k^2}          \\
+    \bottomrule
+  \end{tabular}
+  % \renewcommand{\arraystretch}{1}
+\end{table}
+
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table*}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Laplace transform theorems}
+  \label{tab:laplace-transform-theorems}
+  \centering % Horizontal alignment of the table
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers) = number of column
+      l L L
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule % Header
+    \multicolumn{1}{c}{\textbf{Name}} & \multicolumn{1}{c}{\textbf{Time domain}} & \multicolumn{1}{c}{\textbf{Frequency domain}}           \\
+    \midrule % Content
+    Definition                        & f(t)                                     & F(s) = \int_0^\infty{e^{-st} f(t) \diffint{t}}          \\
+    Linearity                         & k_1 f_1(t) + k_2 f_2(t)                  & k_1F_1(s) + k_2F_2(s)                                   \\
+    Frequency shift                   & e^{at} f(t)                              & F(s - a)                                                \\
+    Time shift                        & f(t - a) \unitstep{t - a}                & e^{-as}F(s)                                             \\
+    Time shift (alternative)          & f(t) \unitstep{t - a}                    & e^{-as}\Laplace{f(t + a)}                               \\
+    Scaling                           & f(at)                                    & \frac{1}{a} F\left( \frac{s}{a} \right)                 \\
+    Differentiation                   & \nderivative{n}{f(t)}{t}                 & s^n F(s) - \sum_{k = 1}^n{s^{n - k} f^{(k - 1)}(t = 0)} \\
+    Integration                       & \int_0^t{f(\tau) \diffint{\tau}}         & \frac{1}{s} F(s)                                        \\
+    Final value\footnotemark[1]       & f(\infty)                                & \limit{s}{0}{sF(s)}                                     \\
+    Initial value\footnotemark[2]     & f(0)                                     & \limit{s}{\infty}{sF(s)}                                \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
+\footnotetext[1]{For this theorem to yield correct finite results, all roots of the denominator of \(F(s)\) must have negative real parts and no more than one can be at the origin.}
+\footnotetext[2]{For this theorem to be valid, \(f(t)\) must be continuous or have a step discontinuity at \(t = 0\) (i.e. no impulse or their derivatives at \(t = 0\)).}
+
+
+\subsection{Partial fraction expansion}
+In order to to the inverse Laplace transform of a complicated function, the long division and partial fraction expansion of a fraction must be done to rewrite it into a sum of simpler terms.
+
+
+\subsubsection{Real and distinct denominator's roots}
+Assuming the order of \(N(s)\) is less than the order of \(D(s)\):
+\begin{align*}
+  F(s) & = \frac{N(s)}{D(s)} = \frac{N(s)}{(s + p_1) \cdots (s + p_m) \cdots (s + p_n)}            \\
+       & = \frac{K_1}{(s + p_1)} + \cdots + \frac{K_m}{(s + p_m)} + \cdots + \frac{K_n}{(s + p_n)}
+\end{align*}
+
+\begin{enumerate}
+  \item Multiply \(F(s)\) by \((s + p_m)\);
+  \item Let \(s\) approach \(- p_m\) to find \(K_m\):
+        \[
+          K_m = \left[ \frac{\cancel{(s + p_m)} N(s)}{(s + p_1) \cdots \cancel{(s + p_m)} \cdots (s + p_n)} \right]_{s \to -p_m}
+        \]
+  \item Repeat for each residue \(K_i\).
+\end{enumerate}
+
+
+\subsubsection{Real and repeated denominator's roots}
+Assuming the order of \(N(s)\) is less than the order of \(D(s)\):
+\begin{align*}
+  F(s) & = \frac{N(s)}{D(s)} = \frac{N(s)}{(s + p_1)^r (s + p_m) \cdots (s + p_n)}                  \\
+       & = \frac{K_1}{(s + p_1)^r} + \frac{K_2}{(s + p_1)^{r - 1}} + \cdots + \frac{K_r}{(s + p_1)} \\
+       & + \frac{K_{r + 1}}{(s + p_2)} + \cdots + \frac{K_n}{(s + p_n)}
+\end{align*}
+
+\begin{enumerate}
+  \item Multiply \(F(s)\) by \((s + p_1)^r\) to obtain \(F_1(s)\):
+        \begin{align*}
+          F_1(s) & = \frac{\cancel{(s + p_1)^r}N(s)}{\cancel{(s + p_1)^r} (s + p_2) \cdots (s + p_n)}   \\
+                 & = K_1 + K_2(s + p_1) + \cdots + K_r(s + p_1)^{r - 1}                                 \\
+                 & + \frac{K_{r + 1}(s + p_1)^r}{(s + p_2)} + \cdots + \frac{K_n(s + p_1)^r}{(s + p_n)}
+        \end{align*}
+  \item Let \(s\) approach \(- p_1\) to find \(K_1\):
+        \[
+          K_1 = \left[ \frac{N(s)}{(s + p_2) \cdots (s + p_n)} \right]_{s \to -p_1}
+        \]
+  \item Differentiate \(F_1(s)\) with respect to \(s\);
+  \item Let \(s\) approach \(- p_1\) to find \(K_2\):
+        \[
+          K_2 = \left[ \derivative{F_1(s)}{s} \right]_{s \to -p_1}
+        \]
+  \item Repeat for each residue \(K_i\):
+        \[
+          K_i = \left[ \nderivative{i - 1}{F_1(s)}{s} \right]_{s \to -p_1}
+        \]
+  \item Find other residues from \(K_{r + 1}\) to \(K_n\) using the corresponding method.
+\end{enumerate}
+
+
+\subsubsection{Complex denominator's roots}
+Assuming the order of \(N(s)\) is less than the order of \(D(s)\):
+\begin{align*}
+  F(s) & = \frac{N(s)}{D(s)} = \frac{N(s)}{(as^2 + bs + c) (s + p_3) \cdots (s + p_n)}                 \\
+       & = \frac{K_1s + K_2}{(as^2 + bs + c)} + \frac{K_3}{(s + p_3)} + \cdots + \frac{K_n}{(s + p_n)}
+\end{align*}
+
+\begin{enumerate}
+  \item Find other residues from \(K_3\) to \(K_n\) using the other corresponding method;
+  \item Multiply \(F(s)\) by \(D(s)\) to obtain \(N(s)\):
+        \begin{align*}
+          N(s) & = (K_1s + K_2)(s + p_3) \cdots (s + p_n)                        \\
+               & + K_3(as^2 + bs + c) (s + p_4) \cdots (s + p_n)                 \\
+               & + \cdots + K_n (as^2 + bs + c) (s + p_3) \cdots (s + p_{n - 1})
+        \end{align*}
+  \item Replace the known \(K_i\) by their values;
+  \item Set the numerators equal and collect like terms;
+  \item Set the coefficients equal to get a system of equation and solve to get the remaining constants \(K_1\) and \(K_2\);
+  \item The inverse Laplace can be found using the method of completing the square, paired with the frequency shift theorem.
+\end{enumerate}
+
+
+
+\subsection{Transfer function}
+The transfer function if the function that relates the system output to its input.
+Assuming the input is \(X(s)\), the output \(Y(s)\) and the transfer function \(G(s)\), then we have:
+\[
+  G(s) = \frac{Y(s)}{X(s)} \iff Y(s) = X(s) G(s)
+\]
+In order to describe the behavior of a complex system, the lumped-parameter model is used: the system is split into discrete fundamental components.
+The lumped-parameter model is representative of the relevant characteristics of the system's response only, for simplicity and computation efficiency.
+
+
+\subsection{Electrical systems}
+The fundamental electrical passive components can be seen in \prettyref{tab:electrical-components}.
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table*}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Fundamental electrical passive components}
+  \label{tab:electrical-components}
+  \centering % Horizontal alignment of the table
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers) = number of column
+      l L L L D D
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule % Header
+    \multicolumn{1}{c}{\textbf{Component}} & \multicolumn{1}{c}{\textbf{Voltage-current}}        & \multicolumn{1}{c}{\textbf{Current-voltage}}        & \multicolumn{1}{c}{\textbf{Voltage-charge}} & \multicolumn{1}{c}{\textbf{Impedance}\footnotemark[1]} & \multicolumn{1}{c}{\textbf{Admittance}\footnotemark[2]} \\
+    \midrule % Content
+    Capacitor                              & v(t) = \frac{1}{C} \int_0^t{i(\tau) \diffint{\tau}} & i(t) = C \derivative{v(t)}{t}                       & v(t) = \frac{1}{C} q(t)                     & \frac{1}{Cs}                                           & Cs                                                      \\
+    Resistor                               & v(t) = R i(t)                                       & i(t) = \frac{1}{R}v(t)                              & v(t) = R \derivative{q(t)}{t}               & R                                                      & \frac{1}{R} = G                                         \\
+    Inductor                               & v(t) = L \derivative{i(t)}{t}                       & i(t) = \frac{1}{L} \int_0^t{v(\tau) \diffint{\tau}} & v(t) = L \nderivative{2}{q(t)}{t}           & Ls                                                     & \frac{1}{Ls}                                            \\
+    \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+    \item Units: \(v(t)\) [\si{\volt}], \(i(t)\) [\si{\ampere}], \(q(t)\) [\si{\coulomb}], \(C\) [\si{\farad}], \(R\) [\si{\ohm}], \(G\) [\si{\siemens}], \(L\) [\si{\henry}].
+  \end{tablenotes}
+\end{table*}
+\footnotetext[1]{Impedance is defined as \(Z = \frac{V}{I}\).}
+\footnotetext[2]{Admittance is defined as \(Y = \frac{1}{Z} = \frac{I}{V}\).}
+
+
+\subsubsection{Kirchhoff laws}
+\paragraph{Kirchhoff current law}
+Kirchhoff current law (or junction rule) represent the conservation of charges, meaning at any node:
+\[
+  \sum{I_\mathrm{in}} = \sum{I_\mathrm{in}}
+\]
+
+
+\paragraph{Kirchhoff voltage law}
+Kirchhoff voltage law (or loop rule) states that the net voltage across a closed loop is zero
+\[
+  \Delta V_{\mathrm{loop}} = \sum_k {\Delta V_k } = 0
+\]
+
+
+\subsubsection{Method of analysis}
+\paragraph{Mesh analysis}
+\begin{enumerate}
+  \item Replace current sources with voltage sources;
+  \item Replace passive element values with their impedances \(Z(s)\) in the frequency domain;
+  \item Assume a transform current and a current direction in each mesh;
+  \item Write Kirchhoff voltage law around each mesh;
+  \item Solve the simultaneous equations for the output;
+  \item Form the transfer function.
+\end{enumerate}
+
+For mesh 1 of \(n\) meshes, Kirchhoff voltage law will be in the form:
+\begin{multline*}
+  \left[ \sum_\text{mesh 1}{Z} \right] I_1(s) - \left[ \sum_\text{mesh 1 and 2}{Z} \right] I_2(s)\\
+  - \cdots - \left[ \sum_{\text{mesh 1 and } n}{Z} \right] I_n(s) = \sum_\text{mesh 1}{V_\text{source}}
+\end{multline*}
+
+This can be written in matrix form for \(n\) meshes:
+\begin{multline*}
+  \begin{bmatrix}
+    \sum_1 {Z}       & - \sum_{1\&2}{Z} & \cdots & - \sum_{1\&n}{Z} \\
+    - \sum_{1\&2}{Z} & \sum_2 {Z}       & \cdots & - \sum_{2\&n}{Z} \\
+    \vdots           & \vdots           & \ddots & \vdots           \\
+    - \sum_{1\&n}{Z} & -\sum_{2\&n}{Z}  & \cdots & \sum_n{Z}
+  \end{bmatrix}
+  \begin{bmatrix}
+    I_1(s) \\
+    I_2(s) \\
+    \vdots \\
+    I_n(s) \\
+  \end{bmatrix} \\
+  =
+  \begin{bmatrix}
+    \sum_1{V_\text{source}} \\
+    \sum_2{V_\text{source}} \\
+    \vdots                  \\
+    \sum_n{V_\text{source}} \\
+  \end{bmatrix}
+\end{multline*}
+
+
+\paragraph{Nodal analysis}
+\begin{enumerate}
+  \item Replace voltage sources with current sources;
+  \item Replace passive element values with their admittance \(Y(s)\) in the frequency domain;
+  \item Write Kirchhoff current law at each node;
+  \item Solve the simultaneous equations for the output;
+  \item Form the transfer function.
+\end{enumerate}
+
+For node 1 of \(n\) nodes, Kirchhoff current law will be in the form:
+\begin{multline*}
+  \left[ \sum_\text{node 1}{Y} \right] V_1(s) - \left[ \sum_\text{node 1 and 2}{Y} \right] V_2(s)\\
+  - \cdots - \left[ \sum_{\text{node 1 and } n}{Y} \right] V_n(s) = \sum_\text{node 1}{I_\text{source}}
+\end{multline*}
+
+This can be written in matrix form for \(n\) nodes:
+\begin{multline*}
+  \begin{bmatrix}
+    \sum_1 {Y}       & - \sum_{1\&2}{Y} & \cdots & - \sum_{1\&n}{Y} \\
+    - \sum_{1\&2}{Y} & \sum_2 {Y}       & \cdots & - \sum_{2\&n}{Y} \\
+    \vdots           & \vdots           & \ddots & \vdots           \\
+    - \sum_{1\&n}{Y} & -\sum_{2\&n}{Y}  & \cdots & \sum_n{Y}
+  \end{bmatrix}
+  \begin{bmatrix}
+    V_1(s) \\
+    V_2(s) \\
+    \vdots \\
+    V_n(s) \\
+  \end{bmatrix} \\
+  =
+  \begin{bmatrix}
+    \sum_1{I_\text{source}} \\
+    \sum_2{I_\text{source}} \\
+    \vdots                  \\
+    \sum_n{I_\text{source}} \\
+  \end{bmatrix}
+\end{multline*}
+
+
+\subsection{Translational mechanical systems}
+The fundamental translational mechanical passive components can found in \prettyref{tab:translational-components}.
+\begin{table*}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Fundamental translational mechanical passive components}
+  \label{tab:translational-components}
+  \centering % Horizontal alignment of the table
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers) = number of column
+      l L L D
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule % Header
+    \multicolumn{1}{c}{\textbf{Component}} & \multicolumn{1}{c}{\textbf{Force-velocity}} & \multicolumn{1}{c}{\textbf{Force-displacement}} & \multicolumn{1}{c}{\textbf{Impedance}\footnotemark[1]} \\
+    \midrule % Content
+    Spring                                 & f(t) = k \int_0^t{v(\tau) \diffint{\tau}}   & f(t) = kx(t)                                    & k                                                      \\
+    Viscous damper                         & f(t) = f_v v(t) = \beta v(t)                & f(t) = f_v \derivative{x(t)}{t} = \beta\dot{x}  & f_v s = \beta s                                        \\
+    Mass                                   & f(t) = m \derivative{v(t)}{t}               & f(t) = m \nderivative{2}{x(t)}{t} = m\ddot{x}   & ms^2                                                   \\
+    \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+    \item Units: \(f(t)\) [\si{\newton}], \(x(t)\) [\si{\metre}], \(v(t)\) [\si{\metre\per\second}], \(k\) [\si{\newton\per\metre}], \(f_v = \beta\) [\si{\newton\second\per\metre}], \(m\) [\si{\kilogram}].
+  \end{tablenotes}
+\end{table*}
+\footnotetext[1]{Impedance is defined as \(Z_M = \frac{F}{X}\).}
+
+
+\subsubsection{Method of analysis}
+The number of equation of motion is equal to the number of linearly independent motions or degrees of freedom.
+
+\begin{enumerate}
+  \item Represent the physical system with a lumped-parameter model;
+  \item Draw the free body diagram for each point of motion using the impedances \(Z(s)\) in the frequency domain;
+  \item Write Newton's second law for each point of motion;
+  \item Solve the simultaneous equations for the output;
+  \item Form the transfer function.
+\end{enumerate}
+
+For point 1 of \(n\) points, Newton's law will be in the form:
+\begin{multline*}
+  \left[ \sum_\text{point 1}{Z_M} \right] X_1(s) - \left[ \sum_\text{point 1 and 2}{Z_M} \right] X_2(s)\\
+  - \cdots - \left[ \sum_{\text{point 1 and } n}{Z_M} \right] X_n(s) = \sum_\text{point 1}{F_\text{external}}
+\end{multline*}
+
+This can be written in matrix form for \(n\) points:
+\begin{multline*}
+  \begin{bmatrix}
+    \sum_1 {Z_M}       & - \sum_{1\&2}{Z_M} & \cdots & - \sum_{1\&n}{Z_M} \\
+    - \sum_{1\&2}{Z_M} & \sum_2 {Z_M}       & \cdots & - \sum_{2\&n}{Z_M} \\
+    \vdots             & \vdots             & \ddots & \vdots             \\
+    - \sum_{1\&n}{Z_M} & -\sum_{2\&n}{Z_M}  & \cdots & \sum_n{Z_M}
+  \end{bmatrix} \\
+  \begin{bmatrix}
+    X_1(s) \\
+    X_2(s) \\
+    \vdots \\
+    X_n(s) \\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \sum_1{F_\text{external}} \\
+    \sum_2{F_\text{external}} \\
+    \vdots                    \\
+    \sum_n{F_\text{external}} \\
+  \end{bmatrix}
+\end{multline*}
+
+
+
+\subsection{Rotational mechanical systems}
+The fundamental rotational mechanical passive components can found in \prettyref{tab:rotational-components}.
+\begin{table*}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Fundamental rotational mechanical passive components}
+  \label{tab:rotational-components}
+  \centering % Horizontal alignment of the table
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers) = number of column
+      l L L D
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule % Header
+    \multicolumn{1}{c}{\textbf{Component}} & \multicolumn{1}{c}{\textbf{Torque-angular velocity}} & \multicolumn{1}{c}{\textbf{Torque-angular displacement}} & \multicolumn{1}{c}{\textbf{Impedance}\footnotemark[1]} \\
+    \midrule % Content
+    Spring                                 & T(t) = K \int_0^t{\omega(\tau) \diffint{\tau}}       & T(t) = K\theta(t)                                        & K                                                      \\
+    Viscous damper                         & T(t) = D \omega(t)                                   & T(t) = D \derivative{\theta(t)}{t} = \beta\dot{\theta}   & D s                                                    \\
+    Inertia                                & T(t) = J \derivative{\omega(t)}{t}                   & T(t) = J \nderivative{2}{\theta(t)}{t} = J\ddot{\theta}  & Js^2                                                   \\
+    \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+    \item Units: \(T(t)\) [\si{\newton\metre}], \(\theta(t)\) [\si{\radian}], \(\omega(t)\) [\si{\radian\per\second}], \(K\) [\si{\newton\metre\per\radian}], \(D\) [\si{\newton\metre\second\per\radian}], \(J\) [\si{\kilogram\metre\squared}].
+  \end{tablenotes}
+\end{table*}
+\footnotetext[1]{Impedance is defined as \(Z_M = \frac{T}{\theta}\).}
+
+
+\subsubsection{Systems with gears}
+Using ideal gears, there is no backlash and no friction.
+The mechanical advantage \(k\), which is the inverse reduction ratio is:
+\[
+  k = \frac{\theta_\mathrm{in}}{\theta_\mathrm{out}} = \frac{\omega_\mathrm{in}}{\omega_\mathrm{out}} = \frac{T_\mathrm{out}}{T_\mathrm{in}} = \frac{\prod_\mathrm{driven}{N}}{\prod_\mathrm{driving}{N}}
+\]
+where \(N\) is the number of teeth of the gear.
+\(k\) can be multiplied by \((-1)^{n + 1}\) (\(n\) number of gears) to get the direction of rotation.
+
+This let us find the equivalent impedance between difference axes of rotation.
+
+
+\subsubsection{Method of analysis}
+The number of equation of motion is equal to the number of rotational independent motions or degrees of freedom.
+
+\begin{enumerate}
+  \item Represent the physical system with a lumped-parameter model;
+  \item Draw the free body diagram for each point of motion using the impedances \(Z(s)\) in the frequency domain;
+  \item Write Newton's second law for each point of motion;
+  \item Solve the simultaneous equations for the output;
+  \item Form the transfer function.
+\end{enumerate}
+
+For axis 1 of \(n\) axes, Newton's law will be in the form:
+\begin{multline*}
+  \left[ \sum_\text{axis 1}{Z_M} \right] \theta_1(s) - \left[ \sum_\text{axes 1 and 2}{Z_M} \right] \theta_2(s)\\
+  - \cdots - \left[ \sum_{\text{axes 1 and } n}{Z_M} \right] \theta_n(s) = \sum_\text{axis 1}{T_\text{external}}
+\end{multline*}
+
+This can be written in matrix form for \(n\) points:
+\begin{multline*}
+  \begin{bmatrix}
+    \sum_1 {Z_M}       & - \sum_{1\&2}{Z_M} & \cdots & - \sum_{1\&n}{Z_M} \\
+    - \sum_{1\&2}{Z_M} & \sum_2 {Z_M}       & \cdots & - \sum_{2\&n}{Z_M} \\
+    \vdots             & \vdots             & \ddots & \vdots             \\
+    - \sum_{1\&n}{Z_M} & -\sum_{2\&n}{Z_M}  & \cdots & \sum_n{Z_M}
+  \end{bmatrix} \\
+  \begin{bmatrix}
+    \theta_1(s) \\
+    \theta_2(s) \\
+    \vdots      \\
+    \theta_n(s) \\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+    \sum_1{T_\text{external}} \\
+    \sum_2{T_\text{external}} \\
+    \vdots                    \\
+    \sum_n{T_\text{external}} \\
+  \end{bmatrix}
+\end{multline*}
+
+
+\subsection{Electromechanical systems}
+Electromechanical systems are everywhere as most of the systems used nowadays often use an electrical control and a mechanical actuator.
+
+
+\subsubsection{Electric motor}
+The permanent magnet brushless DC motor (or just brushless motor) has permanent magnets on the rotor that creates a magnetic field, and electromagnets on the stator that are used to rotate the stator.
+The relative motion between the rotor and the stator generates a voltage loss \(v_\mathrm{b}\) called the back electromotive force (back emf).
+
+The lumped-parameter model of a brushless motor is made of a resistor \(R\), an inductor \(L\), a load (back emf) \(v_\mathrm{b}\), an inertia \(J\) and a viscous damper \(D\) (lubrication).
+
+Moreover, we have the following relations:
+\begin{align*}
+  T_\mathrm{motor} & = K_t i(t)                        \\
+  v_\mathrm{b}     & = K_b \dot{\theta}_\mathrm{shaft}
+\end{align*}
+where \(K_t\) [\si{\newton\metre\per\ampere}] is the torque constant and \(K_b\) [\si{\volt\second\per\radian}] is the back emf constant.
+
+The transfer function \(G_\theta(s)\) between the input voltage \(V_\mathrm{in}(s)\) and the output angle of rotation \(\theta_\mathrm{shaft}\) is:
+\[
+  G_\theta(s) = \frac{\theta_\mathrm{shaft}}{V_\mathrm{in}(s)} = \frac{K_t}{s\left[ L J s^2 + (L + RJ)s + RD + K_t K_b \right]}
+\]
+and transfer function \(G_\omega(s)\) between the input voltage \(V_\mathrm{in}(s)\) and the output angle of rotation \(\dot{\theta}_\mathrm{shaft}\) is:
+\begin{align*}
+  G_\omega(s) & = sG_\theta(s) = \frac{\dot{\theta}_\mathrm{shaft}}{V_\mathrm{in}(s)} \\
+              & = \frac{K_t}{L J s^2 + (L + RJ)s + RD + K_t K_b}
+\end{align*}
+
+Assuming that \(L\) and \(D\) are negligible, the following form for the transfer function \(G_\omega(s)\) can be found:
+\[
+  G_\omega(s) = \frac{K}{\tau s + 1}
+\]
+where \(K = \frac{1}{K_b}\) [\si{\radian\per\second\per\volt}] is the motor gain constant and \(\tau = \frac{RJ}{K_t K_b}\) [\si{\second}] is the time constant (time taken get to \(1 - e^{-1} \approx\) \SI{63.212}{\percent} of the final value).
+
+
+\subsection{Non-linearity}
+Previous modelling techniques assumed linear time invariant systems (LTI).
+This means that a non-linear systems must be approximated in order to use frequency domain modelling.
+
+\begin{example}
+  Physical non-linearity include amplifier saturation, motor dead zone, backlash in gears\dots{}
+\end{example}
+
+
+\subsubsection{Lineartiy properties}
+The two properties of linearity are:
+\begin{description}
+  \item[Superposition]
+        \[
+          f(x_1 + x_2) = f(x_1) + f(x_2)
+        \]
+  \item[Homogeneity]
+        \[
+          f(kx) = kf(x)
+        \]
+\end{description}
+
+
+\subsubsection{Linearization}
+Linearization about a point \(x_0\) is done using the Taylor series approximation:
+\[
+  f(x) = \sum_{n = 0}^{\infty}{\frac{(x - x_0)^n}{n!} f^{(n)}(x_0)}
+\]
+which for the first-order approximation gives:
+\[
+  f(x) = f(x_0) + (x - x_0) f'(x_0)
+\]
+
+
+Method:
+\begin{enumerate}
+  \item Write the non-linear differential equation;
+  \item Find either the steady-state solution, the equilibrium point or the studied point of operation \(x_0\);
+  \item Linearize for small-signal inputs \(\delta x\) about \(x_0\) with a first-order Taylor series approximation.
+  \item Apply the Laplace transform;
+  \item Find the transfer function.
+\end{enumerate}
+
+
+\section{Time response}
+\subsection{Poles and zeros}
+\subsubsection{Poles}
+The poles of a transfer function are the values of \(s\) that causes the denominator to be 0 (cause the transfer function to become infinite).
+
+
+\subsubsection{Zeros}
+The zeros of a transfer function are the values of \(s\) that causes the numerator to be 0  (cause the transfer function to become zero).
+
+
+\subsubsection{Natural and forced response}
+The system response is the sum of the forced response and the natural response.
+
+\begin{description}
+  \item[Natural response:] the natural response (or homogeneous solution) describes how the system acquires or dissipates energy.
+        Its from depends on the system only and it does not depend on the input.
+  \item[Forced response:] the forced response (or steady-state response or particular solution) describes how the system reacts to a certain input.
+        It has typically the same form as the input and its derivative.
+\end{description}
+
+In the function output, the zeros influence the constants multiplying the functions of time (constants of the partial fraction expansion) and the poles influence the constant multiplying time itself.
+
+
+\subsection{First-order systems}
+\subsubsection{General description}
+A typical first-order system without zeros has one pole and the following transfer function \(G(s)\):
+\[
+  G(s) = \frac{a}{s + a}
+\]
+and the time response to the unit step input is:
+\[
+  c(t) = 1 - e^{-at}
+\]
+
+\begin{remark}
+  A first-order system without zeros never overshoot its steady-state value with a unit step input.
+\end{remark}
+
+
+\subsubsection{Time constant}
+The time constant \(\tau\) (also denoted \(T_c\)) is the time taken for a step response to rise to \(1 - e^{-1} \approx\) \SI{63.212}{\percent} of its final value.
+For a first-order system without zeros, the time constant is:
+\[
+  \tau = T_c = \frac{1}{a}
+\]
+
+\begin{remark}
+  The farther the pole from the imaginary axis, the faster the transient response.
+\end{remark}
+
+
+\subsubsection{Rising time}
+The rising time \(T_r\) is the time taken for the waveform to go from 0.1 to 0.9 of its final value.
+For a first-order system without zeros, the time constant is:
+\[
+  T_r = t_{0.9} - t_{0.1} = \ln(9)\tau \approx 2.1972\tau = 2.1972 T_c
+\]
+
+
+\subsubsection{Settling time}
+The settling time \(\) is the time taken for the response to reach, and stay within \SI{2}{\percent} (alternatively, \SI{5}{\percent} or \SI{1}{\percent}) of its final value.
+For a first-order system without zeros, the settling time is:
+\begin{align*}
+  \SI{5}{\percent}:\quad & T_s = -\ln(0.05)\tau \approx 2.9957 \tau = 2.9957 T_c \\
+  \SI{2}{\percent}:\quad & T_s = -\ln(0.02)\tau \approx 3.9120 \tau = 3.9120 T_c \\
+  \SI{1}{\percent}:\quad & T_s = -\ln(0.01)\tau \approx 4.6052 \tau = 4.6052 T_c
+\end{align*}
+
+
+\subsection{Second-order systems}
+\subsubsection{General description}
+The general transfer function for a second-order system with no zero has two poles is:
+\[
+  G(s) = \frac{b}{s^2 + as + b}
+\]
+
+There are four different types of responses to a unit step input:
+\begin{enumerate}
+  \item Overdamped;
+  \item Critically damped;
+  \item Underdamped;
+  \item Undamped.
+\end{enumerate}
+
+
+\subsubsection{Overdamped response}
+A second-order system with no zero is overdamped if it has two negative real poles.
+This physically appears when the damping is large enough to prevents overshooting and oscillating.
+
+The general form of the natural response is:
+\[
+  c_n(t) = K_1 e^{-\sigma_1 t} + K_2 e^{-\sigma_2 t}
+\]
+
+
+\subsubsection{Critically damped response}
+A second-order system with no zero is critically damped if it has repeated negative real poles.
+This physically appears when the damping is minimum and still prevent overshooting and oscillating.
+
+The general form of the natural response is:
+\[
+  c_n(t) = K_1 e^{-\sigma t} + K_2 t e^{-\sigma t}
+\]
+
+
+\subsubsection{Underdamped response}
+A second-order system with no zero is underdamped if it has two complex poles with a negative real part.
+This physically appears when the damping is not enough to prevent overshooting and oscillating.
+
+The general form of the natural response is:
+\[
+  c_n(t) = e^{-\sigma t} \left( K_1 \cos{\omega t}  + K_2 \sin{\omega t} \right) = A e^{-\sigma t} \cos(\omega t - \phi)
+\]
+where \(A = \sqrt{{K_1}^2 + {K_2}^2}\) represents the amplitude and \(\phi = \arctan\frac{K_2}{K_1}\) represents the phase angle.
+
+
+\subsubsection{Undamped response}
+A second-order system with no zero is undamped if it has two purely complex poles.
+This physically appears when there is no damping.
+
+The general form of the natural response is:
+\[
+  c_n(t) = A \cos(\omega t)
+\]
+
+
+\subsection{General second-order system}
+\subsubsection{Natural frequency}
+The natural frequency \(\omega_n\) [\si{\radian\per\second}] of a second-order system is the frequency of oscillation of the system without any driving force or damping.
+
+For the transfer function \(G(s) = \frac{b}{s^2 + as + b}\), then the natural frequency is:
+\[
+  \omega_n = \sqrt{b}
+\]
+
+
+\subsubsection{Damping ratio}
+The damping ration \(\zeta\) is the ratio of exponential decay frequency to natural frequency \(\omega_n\).
+
+It is a quantitative description of the damped oscillation regardless of the time scale.
+
+For the transfer function \(G(s) = \frac{b}{s^2 + as + b}\), then the damping ratio is:
+\[
+  \zeta = \frac{a}{2\omega_n}
+\]
+
+
+\subsubsection{General second-order transfer function}
+Using the natural frequency \(\omega_n\) and the damping ratio \(\zeta\), the general second-order transfer function \(G(s)\) becomes:
+\[
+  G(s) = \frac{b}{s^2 + as + b} = \frac{{\omega_n}^2}{s^2 + 2\zeta\omega_n s + {\omega_n}^2}
+\]
+and the poles are \(s_{1,2} = -\zeta\omega_n \pm \omega_n \sqrt{\zeta^2 - 1}\).
+
+
+\subsubsection{Step response as a function of the damping ratio}
+\begin{description}
+  \item[\(\zeta = 0\):] undamped
+  \item[\(0 < \zeta < 1\):] underdamped
+  \item[\(\zeta = 1\):] critically damped
+  \item[\(\zeta > 1\):] overdamped
+\end{description}
+
+\begin{example}
+  For a mass-spring-damper system, the natural frequency \(\omega_n\) and the damping ratio \(\zeta\) are:
+  \begin{align*}
+    \omega_n & = \sqrt{\frac{k}{m}}         \\
+    \zeta    & = \frac{\omega}{2 \sqrt{mk}}
+  \end{align*}
+  \[
+    \begin{array}{|l}
+      \omega_n [\si{\radian\per\second}] \text{: natural frequency}         \\
+      \zeta \text{: damping ratio}                                          \\
+      k [\si{\newton\per\metre}] \text{: spring stiffness, spring constant} \\
+      \omega [\si{\newton\second\per\metre}] \text{: damping factor}        \\
+      m [\si{\kilogram}] \text{: mass}
+    \end{array}
+  \]
+\end{example}
+
+
+\subsection{Underdamped second-order systems}
+\subsubsection{Time response to unit step input}
+The output \(c(t)\) to a unit step input for an underdamped second-order system is:
+\begin{align*}
+  c(t)              & = 1 - \frac{e^{-\zeta\omega_n t}}{\sqrt{1 - \zeta^2}} \cos \left( t \omega_n \sqrt{1 - \zeta^2} - \phi \right) \\
+  \text{with } \phi & = \arctan\left( \frac{\zeta}{\sqrt{1 - \zeta^2}} \right)
+\end{align*}
+
+
+\subsubsection{Peak time}
+The peak time is the time required to reach the first peak.
+It is obtained from differentiating \(c(t)\) and finding the first zero crossing after \(t =\) \SI{0}{\second}:
+\[
+  T_p = \frac{\pi}{\omega_n \sqrt{1 - \zeta^2}}
+\]
+
+
+\subsubsection{Settling time}
+The settling time \(T_s\) is the time taken for the response to reach and stay withing \SI{2}{\percent} of its final value.
+\[
+  T_s = \frac{-\ln\left( 0.02 \sqrt{1 - \zeta^2} \right)}{\zeta\omega_n} \approx \frac{4}{\zeta\omega_n}
+\]
+
+\begin{remark}
+  Alternatively, \SI{5}{\percent} can also be used \(T_s = \frac{-\ln\left( 0.05 \sqrt{1 - \zeta^2} \right)}{\zeta\omega_n}\)
+\end{remark}
+
+
+\subsubsection{Percentage overshoot}
+The peak overshoot is expressed as a percentage of the steady-state value:
+\[
+  OS = \frac{c_\mathrm{max}}{c_\mathrm{final}} - 1 = e^{-\frac{\zeta \pi}{\sqrt{1 - \zeta^2}}} \approx e^{-4\frac{T_p}{T_s}}
+\]
+
+The damping ratio can be obtained from the percentage overshoot:
+\[
+  \zeta = \sqrt{\frac{\ln(OS)^2}{\pi^2 + \ln(OS)^2}}
+\]
+
+
+\subsubsection{Rising time}
+The rising time \(T_r\) is the time taken for the waveform to go from \SIrange{10}{90}{\percent} of its final value.
+
+\begin{remark}
+  For an underdamped second-order system, there is no precise analytical relationship.
+  Using computation, \prettyref{tab:rising-time} is found.
+
+  % 1cm = 10mm = 28pt = 1/2.54in
+  \sisetup{scientific-notation = false}
+  \begin{table}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+    \caption{Rising time}
+    \label{tab:rising-time}
+    \centering % Horizontal alignment of the table
+    \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers) = number of column
+        S S
+      }
+      % Visible row border: \hline (needed for each row)
+      % Visible column border: | next to tabular declaration (needed for each column)
+      % Column separation: &, row separation: \\
+
+      \toprule % Header
+      {\(\zeta\)} & {\(T_r \omega_n\)} \\
+      \midrule % Content
+      0.1         & 1.104              \\
+      0.2         & 1.203              \\
+      0.3         & 1.321              \\
+      0.4         & 1.463              \\
+      0.5         & 1.638              \\
+      0.6         & 1.854              \\
+      0.7         & 2.126              \\
+      0.8         & 2.467              \\
+      0.9         & 2.883              \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \sisetup{scientific-notation = engineering}
+\end{remark}
+
+
+
+\subsubsection{Time response vs. pole location}
+By observations several characteristics of a system can be found using the \(s\)-plane:
+\begin{itemize}
+  \item The distance from the origin to the pole is the natural frequency \(\omega_n\);
+  \item The cosine of the angle between the real axis and the pole is \(\cos\theta = \zeta\).
+\end{itemize}
+
+Let the real part of the poles be \(\sigma_d = - \zeta \omega_n\) and the imaginary part \(\omega_d = \omega_n \sqrt{1 - \zeta^2}\).
+The the peak time \(T_p\) and the settling time \(T_s\) can be expressed as functions of the pole parameters \(\sigma_d\) and \(\omega_d\):
+\begin{itemize}
+  \item The peak time \(T_p\) depends on the pole's imaginary part:
+        \[
+          T_p = \frac{\pi}{\omega_n \sqrt{1 - \zeta^2}} = \frac{\pi}{\omega_d}
+        \]
+  \item The settling time \(T_s\) depends mostly on the pole's real part:
+        \[
+          T_s \approx \frac{4}{\zeta\omega_n} = -\frac{4}{\sigma_d}
+        \]
+  \item Since the damping ratio \(\zeta\) and the overshoot \(OS\) depend on one another and that \(\cos\theta = \zeta\), it implies that the damping ratio \(\zeta\) and the overshoot \(OS\) are constant along the poles radial lines.
+\end{itemize}
+
+Graphically in the \(s\)-plane, the following can be observed:
+\begin{itemize}
+  \item Moving the poles vertically away from the real axis results in increasing the frequency of oscillations \(\omega_n\), but not changing the exponential decay;
+  \item Moving the poles horizontally away from the imaginary axis results in increasing the exponential decay, but not changing the frequency of oscillation \(\omega_n\);
+  \item Moving the poles radially away form the origin of the place results in increasing the frequency of oscillation \(\omega_n\) and the exponential decay, but not changing the damping ratio \(\zeta\) and the overshoot \(OS\).
+\end{itemize}
+
+
+\section{Reduction of multiple subsystems}
+Reduction of multiple subsystems is useful to analyze complex systems represented by the interconnection of many subsystems.
+
+
+\subsection{Block diagrams}
+The main components of block diagrams are the signals, the system (input, transfer function, output), the summing junction (sum of signals) and the pick-off point (parallel configuration).
+
+
+\subsubsection{Cascade form}
+When the blocks are in series, the equivalent transfer function is the product of the subsystem's transfer functions.
+Hence for \(n\) transfer functions \(G_1(s)\), \(G_2(s)\),\dots{}, \(G_n(s)\), the equivalent transfer function \(G(s)\) will be:
+\[
+  G(s) = \frac{C(s)}{R(s)} = G_1(s) G_2(s) \cdots G_n(s)
+\]
+
+
+\subsubsection{Parallel form}
+When the blocks are in parallel and joined by a summing junction transfer function is the sum of the subsystem's transfer functions.
+Thus for \(n\) transfer functions, the equivalent transfer function after the summing junction is:
+\[
+  G(s) = \frac{C(s)}{R(s)} = G_1(s) \pm G_2(s) \pm \cdots \pm G_n(s)
+\]
+
+\begin{remark}
+  The symbol \(\pm\) is there because the summing junction can either add or subtract the transfer function.
+\end{remark}
+
+
+\subsubsection{Feedback form}
+The feedback control (or closed-loop system) uses a feedback signal from the output with a summing junction to create the error \(E(s)\).
+For a feedback transfer function \(H(s)\), the equivalent transfer function between the input \(R(s)\) and the output \(C(s)\), which are linked by the transfer function \(G(s)\), is:
+\[
+  \frac{C(s)}{R(s)} = \frac{G(s)}{1 \mp G(s)H(s)}
+\]
+where \(G(s)H(s)\) is called the open-loop transfer function, or loop gain and determining the sign of \(\mp\) is negative for positive feedback and positive for negative feedback.
+
+
+% \subsubsection{Block diagram algebra}
+\subsection{Analysis and design of feedback systems}
+The reduction of block diagram can be applied in the analysis and design of feedback systems that reduce to second-order systems.
+Using the equivalent transfer function \(T(s)\) the characteristics of the response can be determined (percentage overshoot \(OS\), peak time \(T_p\), settling time \(T_s\)\dots{}).
+
+
+\section{Stability}
+\subsection{Introduction}
+\subsubsection{Stability definition}
+Based on the natural response, a system can have three states of stability:
+\begin{description}
+  \item[Stable:] a linear time-invariant system is stable if the natural response approaches zero as time approaches infinity.
+  \item[Unstable:] a linear time-invariant system is unstable if the natural response approaches infinity as time approaches infinity.
+  \item[Marginally stable:] a linear time-invariant system is marginally stable if the natural response neither decay nor grows but remains constant or oscillate as time approaches infinity.
+\end{description}
+
+However, this definition does not take into account the forced response.
+In the case of a marginally stable system which has a forced response of the same frequency as the natural response, the system becomes unstable (resonance).
+Hence the need for a definition based on the total response of a system which is the bounded-input bounded-output (BIBO) definition of stability:
+\begin{description}
+  \item[Stable:] A system is stable if \emph{every} bounded input yields a bounded output.
+  \item[Unstable:] A system is unstable if \emph{any} bounded input yields an unbounded output.
+\end{description}
+
+\begin{remark}
+  Marginally stable systems by the natural response definition are included as unstable systems under the BIBO definition.
+\end{remark}
+
+
+\subsubsection{\(s\)-plane}
+The stability of a system can be determined using the location of the poles in the \(s\)-plane:
+\begin{description}
+  \item[Stable:] if the closed-loop equivalent transfer function has poles only in the left half plane.
+  \item[Unstable:] if the closed-loop equivalent transfer function has at least 1 pole in the right half plane and/or poles of multiplicity greater than 1 on the imaginary axis.
+  \item[Marginally stable:] if the closed-loop equivalent transfer function has at least 1 pole of multiplicity 1 on the imaginary axis.
+\end{description}
+
+
+\subsection{Routh-Hurwitz criterion}
+The Routh-Hurwitz criterion is a method to assess the stability without having to solve for the roots of the denominator.
+It also gives the number of system poles that are in the left half plane, in the right hal plane, and on the imaginary axis.
+
+For a polynomial \(P(s) = a_4 s^4 + a_3 s^3 + a_2 s^2 + a_1 s + a_0\), the Routh table is
+\[
+  \begin{array}{c|c|c|c}
+    s^4 & a_4                                            & a_2                                            & a_0                                          \rule{0pt}{2.6ex} \rule[-0.9ex]{0pt}{0pt} \\ \hline
+    s^3 & a_3                                            & a_1                                            & 0                                            \rule{0pt}{2.6ex} \rule[-0.9ex]{0pt}{0pt} \\ \hline
+    s^2 & \frac{- \begin{vmatrix}
+        a_4 & a_2 \\
+        a_3 & a_1
+      \end{vmatrix}}{a_3} = b_1 & \frac{- \begin{vmatrix}
+        a_4 & a_0 \\
+        a_3 & 0
+      \end{vmatrix}}{a_3} = b_2 & \frac{- \begin{vmatrix}
+        a_4 & 0 \\
+        a_3 & 0
+      \end{vmatrix}}{a_3} = 0 \rule{0pt}{8ex} \rule[-2ex]{0pt}{0pt}     \\ \hline
+    s^1 & \frac{- \begin{vmatrix}
+        a_3 & a_1 \\
+        a_1 & b_2
+      \end{vmatrix}}{b_1} = c_1 & \frac{- \begin{vmatrix}
+        a_3 & 0 \\
+        b_1 & 0
+      \end{vmatrix}}{b_1} = 0   & \frac{- \begin{vmatrix}
+        a_3 & 0 \\
+        b_1 & 0
+      \end{vmatrix}}{b_1} = 0 \rule{0pt}{8ex} \rule[-2ex]{0pt}{0pt}     \\ \hline
+    s^0 & \frac{- \begin{vmatrix}
+        b_1 & b_2 \\
+        c_1 & 0
+      \end{vmatrix}}{c_1} = d_1 & \frac{- \begin{vmatrix}
+        b_1 & 0 \\
+        c_1 & 0
+      \end{vmatrix}}{c_1} = 0   & \frac{- \begin{vmatrix}
+        b_1 & 0 \\
+        c_1 & 0
+      \end{vmatrix}}{c_1} = 0 \rule{0pt}{8ex} \rule[-2ex]{0pt}{0pt}
+  \end{array}
+\]
+
+The Routh table is interpreted as the following: the number of poles in the right half plane is given by the number of sign change in the first column.
+Consequently, a system is stable if there is no sign change and no zero in the first column, and marginally stable if there is still no sign change but at least 1 zero in the first column.
+
+
+\subsection{Routh-Hurwitz criterion: special cases}
+\subsubsection{Zero in the first column}
+In the case of a zero in the first column, two method can be used: the epsilon \(\epsilon\) method and the reciprocal polynomial method (also called reverse coefficients).
+
+\paragraph{Epsilon \(\epsilon\) method}
+\begin{enumerate}
+  \item \(\epsilon\) is assigned to replace the zero in the first column (\(\epsilon\) representing a very small number)
+  \item Do the rest of the table using \(\epsilon\).
+  \item Study the number of sign changes for \(\epsilon \to 0^-\) and \(\epsilon \to 0^+\) (they should give the same number).
+\end{enumerate}
+
+
+\paragraph{Reciprocal polynomial method}
+Since the roots of polynomial are located in the same half plane as the roots of the reciprocal polynomial, the reciprocal polynomial can be studied:
+\begin{enumerate}
+  \item Do the Routh table once again using the reciprocal polynomial (the coefficients are reversed).
+  \item Study the number of sign changes.
+\end{enumerate}
+
+
+\subsubsection{Entire row of zeros}
+An entire row of zeros means that the original polynomial has a purely even polynomial factor.
+Thus, the method is:
+\begin{enumerate}
+  \item Start the analysis of the entire polynomial;
+  \item Build the auxiliary polynomial using the row above the full row of zeros;
+  \item Differentiate the auxiliary polynomial with respect to \(s\);
+  \item Replace the row of zero with the newly obtained coefficients;
+  \item Finish the table;
+  \item Analyze the auxiliary polynomial and the remaining polynomial.
+\end{enumerate}
+
+From the row of zero down to \(s^0\), the auxiliary polynomial is studied.
+For the auxiliary polynomial, there is two possibilities due to the property that the even polynomial poles are symmetrical about the origin:
+\begin{description}
+  \item[No sign change:] no pole in the right half plane meaning all poles of the auxiliary polynomial must be on the imaginary (symmetry about the origin).
+  \item[At least one sign change:] the same number of poles are in the right and left half plane.
+\end{description}
+
+The remaining locations of the poles are determined from the first row down to the row of zero using the number of sign change.
+From the order \(n\) of the original polynomial, there is \(n\) poles and thus the remaining number of poles in the left half plane can be determined for the remaining polynomial.
+
+
+\section{Steady-state errors}
+\subsection{Introduction}
+The steady-state error is the difference between the input and the output of a system after the natural response has decayed to zero.
+The major test inputs are the impulse (not discussed in this class), the step, the ramp and the parabola inputs.
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Test inputs}
+  \label{tab:test-inputs}
+  \centering % Horizontal alignment of the table
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers, L: left-aligned math, D: centered math) = number of column
+      l D D
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule % Header
+    \textbf{Name} & \textbf{Time function}           & \textbf{Laplace transform} \\
+    \midrule % Content
+    Impulse       & r(t) = \diracdelta{}{t} = \infty & 1                          \\
+    Step          & r(t) = 1                         & \frac{1}{s}                \\
+    Ramp          & r(t) = t                         & \frac{1}{s^2}              \\
+    Parabola      & r(t) = \frac{1}{2} t^2           & \frac{1}{s^3}              \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{remark}
+  The steady-state error is not defined for an unstable system, meaning the stability must be evaluated before the starting the analysis of the steady-state error.
+\end{remark}
+
+
+\subsection{Steady-state error for unity-feedback systems}
+The error \(E(s)\) is the difference between the input \(R(s)\) and the output \(C(s)\).
+
+
+\subsubsection{Steady-state error in terms of the equivalent transfert function \(T(s)\)}
+The error \(E(s)\) is found to be \(E(s) = R(s)[1 \pm T(s)]\) where the positive sign is for a positive feedback and the negative sign for a negative feedback.
+Using the final value theorem, the steady-state error \(e(t)\) in the time domain is defined as
+\[
+  \limit{t}{\infty}{e(t)} = \limit{s}{0}{sE(s)} \iff e(\infty) = \limit{s}{0}{sR(s)[1 \pm T(s)]}
+\]
+
+
+\subsubsection{Steady-state error in terms of the transfert function \(G(s)\)}
+The error \(E(s)\) is found to be \(E(s) = \frac{R(s)}{1 \mp G(s)}\) where the negative sign is for a positive feedback and the positive sign for a negative feedback.
+Using the final value theorem, the steady-state error \(e(t)\) in the time domain is defined as
+\[
+  \limit{t}{\infty}{e(t)} = \limit{s}{0}{sE(s)}  \iff e(\infty) = \limit{s}{0}{s\frac{R(s)}{1 \mp G(s)}}
+\]
+
+
+\subsubsection{Step input}
+The steady-state error \(e_\mathrm{step}\) for a step input \(R(s) = \frac{1}{s}\) is
+\[
+  e_\mathrm{step}(\infty) = \frac{1}{1 + K_p}
+\]
+where \(K_p = \limit{s}{0}{G(s)}\) is the static error position constant.
+
+If the closed-loop transfer function \(G(s)\) is of the form
+\[
+  G(s) = \frac{(s + z_1)(s + z_2)\cdots}{s^n (s + p_1) (s + p_2) \cdots}
+\]
+where \(z_i\) is a zero, \(p_i\) is a pole and \(n \geqslant 1\), then the steady-state error \(e_\mathrm{step}(\infty) = 0\).
+
+
+
+\subsubsection{Ramp input}
+The steady-state error \(e_\mathrm{ramp}\) for a ramp input \(R(s) = \frac{1}{s^2}\) is
+\[
+  e_\mathrm{ramp}(\infty) = \frac{1}{K_v}
+\]
+where \(K_v = \limit{s}{0}{sG(s)}\) is the static error velocity constant.
+
+If the closed-loop transfer function \(G(s)\) is of the form
+\[
+  G(s) = \frac{(s + z_1)(s + z_2)\cdots}{s^n (s + p_1) (s + p_2) \cdots}
+\]
+where \(z_i\) is a zero, \(p_i\) is a pole and \(n \geqslant 2\), then the steady-state error \(e_\mathrm{ramp}(\infty) = 0\).
+
+
+\subsubsection{Parabolic input}
+The steady-state error \(e_\mathrm{parabolic}\) for a parabolic input \(R(s) = \frac{1}{s^2}\) is
+\[
+  e_\mathrm{parabolic}(\infty) = \frac{1}{K_a}
+\]
+where \(K_a = \limit{s}{0}{s^2G(s)}\) is the static error acceleration constant.
+
+If the closed-loop transfer function \(G(s)\) is of the form
+\[
+  G(s) = \frac{(s + z_1)(s + z_2)\cdots}{s^n (s + p_1) (s + p_2) \cdots}
+\]
+where \(z_i\) is a zero, \(p_i\) is a pole and \(n \geqslant 3\), then the steady-state error \(e_\mathrm{parabolic}(\infty) = 0\).
+
+
+\subsection{Relationships between input, system type, static error constants and steady-state errors}
+\vref{tab:system-type-static-error} presents the relationships between input, system type, static error constants and steady-state errors, where the system type number is defined by the value of \(n\) in the pure pole \(s^n\) of the transfer function \(G(s)\).
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table*}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Relationships between input, system type, static error constants and steady-state errors}
+  \label{tab:system-type-static-error}
+  \centering % Horizontal alignment of the table
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers, L: left-aligned math, D: centered math) = number of column
+      l D | L D | L D
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule % Header
+    \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Input}}} & \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Steady-state error}}} & \multicolumn{2}{c|}{\textbf{Type 0}} & \multicolumn{2}{c}{\textbf{Type 1}}                                                          \\
+                                                        &                                                                   & \text{Static error constant}         & \text{Error } e(\infty)             & \text{Static error constant} & \text{Error } e(\infty) \\
+    \midrule % Content
+    Step                                                & \frac{1}{1 + K_p}                                                 & K_p = \constant                      & \frac{1}{1 + K_p}                   & K_p = \infty                 & 0                       \\
+    Ramp                                                & \frac{1}{K_v}                                                     & K_v = 0                              & \infty                              & K_v = \constant              & \frac{1}{K_v}           \\
+    Parabolic                                           & \frac{1}{K_a}                                                     & K_a = 0                              & \infty                              & K_a = 0                      & \infty                  \\
+    \bottomrule
+  \end{tabular}
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers, L: left-aligned math, D: centered math) = number of column
+      l D | L D | L D
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule % Header
+    \multicolumn{1}{c}{\multirow{2}{*}{\textbf{Input}}} & \multicolumn{1}{c|}{\multirow{2}{*}{\textbf{Steady-state error}}} & \multicolumn{2}{c|}{\textbf{Type 2}} & \multicolumn{2}{c}{\textbf{Type 3}}                                                          \\
+                                                        &                                                                   & \text{Static error constant}         & \text{Error } e(\infty)             & \text{Static error constant} & \text{Error } e(\infty) \\
+    \midrule % Content
+    Step                                                & \frac{1}{1 + K_p}                                                 & K_p = \infty                         & 0                                   & K_p = \infty                 & 0                       \\
+    Ramp                                                & \frac{1}{K_v}                                                     & K_v = \infty                         & 0                                   & K_v = \infty                 & 0                       \\
+    Parabolic                                           & \frac{1}{K_a}                                                     & K_a = \constant                      & \frac{1}{K_a}                       & K_a = \infty                 & 0                       \\
+    \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+    \item The static error constants are obtained using \(K_p = \limit{s}{0}{G(s)}\), \(K_v = \limit{s}{0}{sG(s)}\) and \(K_a = \limit{s}{0}{s^2G(s)}\).
+  \end{tablenotes}
+\end{table*}
+
+
+
+\subsection{Steady-state error for disturbances}
+The steady-state error \(E(s)\) in a closed-loop unity feedback system in which a disturbance \(D(s)\) is introduced between a controller transfer function \(G_1(s)\) and a plant transfer function \(G_2(s)\) is
+\[
+  E(s) = \frac{1}{1 + G_1(s)G_2(s)} R(s) - \frac{G_2(s)}{1 + G_1(s)G_2(s)} D(s)
+\]
+
+The steady-state error \(e(t)\) in the time domain is determined once again use the final value theorem and can be seen as the sum of the steady-state errors generated by the input \(R(s)\) and the disturbance \(D(s)\)
+\[
+  e(\infty) = \limit{s}{0}{sE(s)} = e_R(\infty) + e_D(\infty)
+\]
+where
+\begin{align*}
+  e_R(\infty) & = \limit{s}{0}{sR(s) \frac{1}{1 + G_1(s)G_2(s)}}       \\
+  e_D(\infty) & = -\limit{s}{0}{sD(s) \frac{G_2(s)}{1 + G_1(s)G_2(s)}}
+\end{align*}
+
+
+\subsection{Steady-state error for nonunity-feedback systems}
+For a system with transfer function \(G(s)\) and a nonunity-feedback transfer function \(H(s)\), the equivalent transfer function \(G_e(s)\) with a unity feedback can be formed:
+\[
+  G_e(s) = \frac{G(s)}{1 + G(s)(H(s) - 1)}
+\]
+This equivalent system allows to use the previous formulae which only applied to unity-feedback systems.
+
+
+\subsubsection{Effect of disturbances}
+The steady-state error \(E(s)\) in a closed-loop nonunity feedback system in which a disturbance \(D(s)\) is introduced between a controller transfer function \(G_1(s)\) and a plant transfer function \(G_2(s)\) is
+\begin{multline*}
+  E(s) = \left( 1 - \frac{G_1(s)G_2(s)}{1 + G_1(s)G_2(s)H(s)} \right) R(s) \\
+  - \frac{G_2(s)}{1 + G_1(s)G_2(s)H(s)} D(s)
+\end{multline*}
+\begin{multline*}
+  \iff E(s) = \frac{1 + G_1(s)G_2(s)(H(s) - 1)}{1 + G_1(s)G_2(s)H(s)} R(s) \\
+  - \frac{G_2(s)}{1 + G_1(s)G_2(s)H(s)} D(s)
+\end{multline*}
+
+The steady-state error \(e(t)\) in the time domain is determined once again use the final value theorem and can be seen as the sum of the steady-state errors generated by the input \(R(s)\) and the disturbance \(D(s)\)
+\[
+  e(\infty) = \limit{s}{0}{sE(s)} = e_R(\infty) + e_D(\infty)
+\]
+where
+\begin{align*}
+  e_R(\infty) & = \limit{s}{0}{sR(s) \left( 1 - \frac{G_1(s)G_2(s)}{1 + G_1(s)G_2(s)H(s)} \right)} \\
+              & = \limit{s}{0}{sR(s) \frac{1 + G_1(s)G_2(s)(H(s) - 1)}{1 + G_1(s)G_2(s)H(s)}}      \\
+  e_D(\infty) & = -\limit{s}{0}{sD(s) \frac{G_2(s)}{1 + G_1(s)G_2(s)H(s)}}
+\end{align*}
+
+
+\subsection{Sensitivity}
+Sensitivity is defined as the ratio of the fractional change in the function \(F\) to the fractional change in the parameter \(P\) as this change approaches zero.
+This is mathematically interpreted as the normalized derivative of the function \(F\) with respect to the parameter \(P\):
+\[
+  S_{F/P} = \frac{P}{F} \partialderivative{F}{P}
+\]
+
+It seen as the change in a system characteristic for a change in a system parameter.
+
+
+\subsubsection{Sensitivity of a transfer function}
+The sensitivity of a transfer function \(G(s)\) with respect to a parameter \(a\) is
+\[
+  S_{G/a} = \frac{a}{G(s)} \partialderivative{G(s)}{a}
+\]
+
+
+\subsubsection{Sensitivity of a steady-state error}
+The sensitivity of the steady-state error \(e(\infty)\) with respect to a parameter \(a\) is
+\[
+  S_{e/a} = \frac{a}{e(\infty)} \partialderivative{e(\infty)}{a}
+\]
+
+
+\section{Root locus}
+The root locus is the path in the \(s\)-plane taken by the poles of the closed-loop transfer function \(T(s)\) as the controller gain \(K\) increases in the open-loop form of the system.
+
+\subsection{Basic rules for sketching the root locus}
+\begin{enumerate}
+  \item Number of branches: the number of branches of the root locus equals the number of closed-loop poles, meaning number of poles of the closed-loop transfer function \(T(s)\).
+  \item Symmetry: the root locus is symmetrical about the real-axis.
+  \item Real-axis segment: on the real-axis, for \(K > 0\), the root locus exists to the left of an odd number of real-axis, finite open-loop poles and/or finite open-loop zeros.
+  \item Starting and ending points: the root locus beings at the finite and infinite poles of \(G(s)H(s)\) and ends at the finite and infinite zeros of \(G(s)H(s)\).
+  \item Behavior at infinity: the root locus approaches straight lines as asymptotes as the locus approaches infinity.
+        Furthermore, the equations of the asymptotes are given by the real-axis intercept \(\sigma_a\) and angle \(\theta_a\) as follows:
+        \begin{align*}
+          \sigma_a = \frac{\sum{P_\mathrm{finite}} - \sum{Z_\mathrm{finite}}}{\#P_\mathrm{finite} - \#Z_\mathrm{finite}}, \quad \theta_a = \frac{(2k + 1) 180}{\#P_\mathrm{finite} - \#Z_\mathrm{finite}}
+        \end{align*}
+        \[
+          \begin{array}{|l}
+            \sigma_a \text{: asymptotes real-axis intercept}    \\
+            P_\mathrm{finite} \text{: finite poles values}      \\
+            Z_\mathrm{finite} \text{: finite zeros values}      \\
+            \#P_\mathrm{finite} \text{: number of finite poles} \\
+            \#Z_\mathrm{finite} \text{: number of finite zeros} \\
+            \sigma_a [\si{\degree}] \text{: asymptotes angles}  \\
+            k \in \set{Z}{}{}
+          \end{array}
+        \]
+\end{enumerate}
+
+
+\subsection{Additional rules for refining the sketch}
+\begin{enumerate}
+  \item Real-axis breakaway and break-in points: the root locus breaks away from the real-axis at a point where the gain is maximum and breaks into the real axis at a point where the gain is minimum.
+  \item Calculation of imaginary-axis intercepts: the root locus crosses the imaginary-axis at the points where \(\angle G(s)H(s) = (2k + 1)180\).
+        Routh-Hurwitz or a search of the imaginary-axis for \((2k + 1)180\) can be used to find the imaginary-axis intercepts.
+  \item Angles of departure and arrival: the root locus departs form complex, open-loop poles and arrives at complex, open-loop zeros at angles that can be calculated as follows:
+        \begin{oldenumerate}
+          \item Assume the studied complex pole or zero.
+          \item Add all angles drawn from all open-loop poles and zeros to this point and equal it to \((2k + 1)180\).
+          The only unknown angle is the departure/arrival angle of the studied point.
+          \item Solve for the unknown angle.
+        \end{oldenumerate}
+  \item Plotting and calibrating the root locus: all points on the root locus satisfy the relationship  \(\angle G(s)H(s) = (2k + 1)180\).
+        The gain \(K\) at any point on the root locus is given by
+        \[
+          K = \frac{1}{\abs{G(s)H(s)}} = \frac{1}{M} = \frac{\prod{\abs{P_\mathrm{finite}}}}{\prod{\abs{Z_\mathrm{finite}}}}
+        \]
+        \[
+          \begin{array}{|l}
+            \abs{P_\mathrm{finite}} \text{: finite pole lengths} \\
+            \abs{Z_\mathrm{finite}} \text{: finite zero lengths}
+          \end{array}
+        \]
+\end{enumerate}
+
+
+\subsection{General method for sketching the root locus}
+\begin{enumerate}
+  \item Find the poles and zeros of \(KG(s)H(s)\) and place them in the \(s\)-plane.
+  \item UserReal-axis segments rule: on the real-axis, for \(K > 0\), the root locus exists to the left of an odd number of real-axis, finite open-loop poles and/or finite open-loop zeros.
+  \item Find the behavior at infinity: the root locus approaches straight lines as asymptotes as the locus approaches infinity.
+        Furthermore, the equations of the asymptotes are given by the real-axis intercept \(\sigma_a\) and angle \(\theta_a\) as follows:
+        \begin{align*}
+          \sigma_a = \frac{\sum{P_i} - \sum{Z_i}}{\#P - \#Z}, \quad \theta_a = \frac{(2k + 1) 180}{\#P - \#Z}
+        \end{align*}
+        \[
+          \begin{array}{|l}
+            \sigma_a \text{: asymptotes real-axis intercept}   \\
+            P_i \text{: finite poles values}                   \\
+            Z_i \text{: finite zeros values}                   \\
+            \#P \text{: number of finite poles}                \\
+            \#Z \text{: number of finite zeros}                \\
+            \sigma_a [\si{\degree}] \text{: asymptotes angles} \\
+            k \in \set{Z}{}{}
+          \end{array}
+        \]
+  \item Find the breakaway and break-in points:
+        \begin{olditemize}
+          \item Using differentiation: the breakaway and break-in points are the real value \(\sigma\) such that
+          \[
+            \derivative{K}{\sigma} = - \frac{1}{\left( G(\sigma)H(\sigma) \right)^2} \derivative{}{\sigma}\left[ G(\sigma)H(\sigma) \right]
+          \]
+          \item Transition method: the breakaway and break-in points satisfy the relationship:
+          \[
+            \sum{\frac{1}{\sigma + Z_i}} = \sum{\frac{1}{\sigma + P_i}}
+          \]
+        \end{olditemize}
+  \item Find the imaginary-axis intercepts using a Routh table and finding \(K\) such that there is a row of zeros.
+  \item Obtain the angles of departure and arrival: the root locus departs form complex, open-loop poles and arrives at complex, open-loop zeros at angles that can be calculated as follows:
+        \begin{oldenumerate}
+          \item Assume the studied complex pole or zero.
+          \item Add all angles drawn from all open-loop poles and zeros to this point and equal it to \((2k + 1)180\).
+          The only unknown angle is the departure/arrival angle of the studied point.
+          \item Solve for the unknown angle.
+        \end{oldenumerate}
+  \item Plotting and calibrating the root locus: all points on the root locus satisfy the relationship  \(\angle G(s)H(s) = (2k + 1)180\).
+        The gain \(K\) at any point on the root locus is given by
+        \[
+          K = \frac{1}{\abs{G(s)H(s)}} = \frac{1}{M} = \frac{\prod{\abs{P_\mathrm{finite}}}}{\prod{\abs{Z_\mathrm{finite}}}}
+        \]
+        \[
+          \begin{array}{|l}
+            \abs{P_\mathrm{finite}} \text{: finite pole lengths} \\
+            \abs{Z_\mathrm{finite}} \text{: finite zero lengths}
+          \end{array}
+        \]
+\end{enumerate}
+
+\subsection{Second-order approximation}
+The formulas describing the overshoot \(OS\), settling time \(T_s\), and peak time \(T_p\) are derived only for a second-order system with two closed-loop poles and no closed-loop zeros.
+
+However, in some cases, a system not complying with those criteria can be approximated as a second-order system based on the following conditions:
+\begin{description}
+  \item[Higher-order closed-loop poles:] higher-order poles are much farther to the left-half of the \(s\)-plane than the dominant second-order pair of poles (rule of thumb: 5 times further), since the pole effect decay more quickly the further it is.
+  \item[Closed-loop zeros:] closed-loop zeros are canceled by the proximity of a higher-order closed-loop pole; or closed-loop zeros poles are much farther to the left-half of the \(s\)-plane than the dominant second-order pair of poles (rule of thumb: 5 times further), since the zero effect decay more quickly the further it is.
+\end{description}
+
+
+
+\section{Frequency response}
+\subsection{Bode plots}
+The bode plot is the combination of the magnitude and the phase response plots.
+
+Consider the general transfer function \(G(s)\):
+\[
+  G(s) = K\frac{(s + z_1) (s + z_2) \cdots (s + z_k)}{s^m (s + p_1) (s + p_2) \cdots (s + p_n)}
+\]
+The magnitude frequency response is:
+\[
+  M = \abs{G(\omega i)} = \abs{K}\frac{\abs{\omega i + z_1} \abs{\omega i + z_2}\cdots \abs{\omega i + z_k}}{\abs{(\omega i)^m} \abs{\omega i + p_1} \abs{\omega i + p_2} \cdots \abs{\omega i + p_n}}
+\]
+Working with logarithm simplifies the process as it allows to work with sum instead of products.
+Converting the magnitude frequency response into \si{\deci\bel}:
+\begin{multline*}
+  20\log{M} = 20\log{\abs{G(\omega i)}} = 20\log{\abs{K}} \\
+  + \sum{20\log{\abs{\omega i + z_k}}} - \sum{20\log{\abs{\omega i + p_n}}}
+\end{multline*}
+and the phase frequency response is:
+\begin{multline*}
+  \phi = \arg{G(\omega i)} = \arg(K) + \sum{\arg(\omega i + z_k)} \\
+  - \arg([\omega i]^m) - \sum{\arg(\omega i + p_n)}
+\end{multline*}
+
+For a second order open-loop transfer function, the actual magnitude and phase frequency response are:
+\begin{align*}
+  M    & = \sqrt{({\omega_n}^2 - \omega^2)^2 + (2\zeta \omega_n\omega)^2} \\
+  \phi & = \arctan\frac{2\zeta \omega_n\omega}{{\omega_n}^2 - \omega^2}
+\end{align*}
+
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table*}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Asymptotic approximations cases for Bode plot}
+  \label{tab:cases-bode-plot}
+  \small
+  \centering % Horizontal alignment of the table
+  % Table generated by Excel2LaTeX from sheet 'Sheet2'
+  % Table generated by Excel2LaTeX from sheet 'Sheet2'
+  \begin{tabular}{
+      p{5.5em} | p{6.8em} c | c c p{7.5em} | c c
+    }
+    \toprule
+                                                               & Frequency                                                                                       & \(G(\omega i)\)            & \(\frac{M}{\omega_b}\)      & \(20\log{\frac{M}{\omega_b}}\)       & Magnitude slope                                                & \(\phi\) [\si{\degree}] & Phase slope                               \\ \midrule
+    \(G(s) = s\)                                               & Any frequency                                                                                   & \(\omega i\)               & \(\omega\)                  & \(20\log\omega\)                     & \SI{20}{\deci\bel}/decade\newline{}\SI{6}{\deci\bel}/octave    & 90                      & \SI{45}{\degree}/decade                   \\ \midrule
+    \(G(s) = \frac{1}{s}\)                                     & Any frequency                                                                                   & \(-\frac{1}{\omega} i\)    & \(\omega\)                  & \(-20\log\omega\)                    & \SI{-20}{\deci\bel}/decade\newline{}\SI{-6}{\deci\bel}/octave  & -90                     & \SI{-45}{\degree}/decade                  \\ \midrule
+    \multirow{2}{*}{\(G(s) = s + a\)}                          & Low-frequency\newline{}\(M: \omega < a\)\newline{}\(\phi: \omega < \frac{a}{10}\)               & \(a\)                      & 1                           & 0                                    & 0                                                              & 0                       & \multirow{2}{*}{\SI{45}{\degree}/decade}  \\
+                                                               & High-frequency\newline{}\(M: \omega > a\)\newline{}\(\phi: \omega > 10a\)                       & \(\omega i\)               & \(\frac{\omega}{a}\)        & \(20\log{\frac{\omega}{a}}\)         & \SI{20}{\deci\bel}/decade\newline{}\SI{6}{\deci\bel}/octave    & 90                      &                                           \\ \midrule
+    \multirow{2}{*}{\(G(s) = \frac{1}{s + a}\)}                & Low-frequency\newline{}\(M: \omega < a\)\newline{}\(\phi: \omega < \frac{a}{10}\)               & \(\frac{1}{a}\)            & 1                           & 0                                    & 0                                                              & 0                       & \multirow{2}{*}{\SI{-45}{\degree}/decade} \\
+                                                               & High-frequency\newline{}\(M: \omega > a\)\newline{}\(\phi: \omega > 10a\)                       & \(-\frac{1}{\omega} i\)    & \(\frac{\omega}{a}\)        & \(-20\log{\frac{\omega}{a}}\)        & \SI{-20}{\deci\bel}/decade\newline{}\SI{-6}{\deci\bel}/octave  & -90                     &                                           \\ \midrule
+    \(G(s) = s^2 + 2\zeta\omega_n s + {\omega_n}^2\)           & Low-frequency\newline{}\(M: \omega < \omega_n\)\newline{}\(\phi: \omega < \frac{\omega_n}{10}\) & \({\omega_n}^2\)           & 1                           & 0                                    & 0                                                              & 0                       & \multirow{2}{*}{\SI{90}{\degree}/decade}  \\
+    Correction is \(20\log{2\zeta}\)                           & High-frequency\newline{}\(M: \omega > \omega_n\)\newline{}\(\phi: \omega > 10\omega_n\)         & \(-\omega^2\)              & \(\frac{\omega}{\omega_n}\) & \(40\log{\frac{\omega}{\omega_n}}\)  & \SI{40}{\deci\bel}/decade\newline{}\SI{12}{\deci\bel}/octave   & 180                     &                                           \\ \midrule
+    \(G(s) = \frac{1}{s^2 + 2\zeta\omega_n s + {\omega_n}^2}\) & Low-frequency\newline{}\(M: \omega < \omega_n\)\newline{}\(\phi: \omega < \frac{\omega_n}{10}\) & \(\frac{1}{{\omega_n}^2}\) & 1                           & 0                                    & 0                                                              & 0                       & \multirow{2}{*}{\SI{-90}{\degree}/decade} \\
+    Correction is \(-20\log{2\zeta}\)                          & High-frequency\newline{}\(M: \omega > \omega_n\)\newline{}\(\phi: \omega > 10\omega_n\)         & \(-\frac{1}{\omega^2}\)    & \(\frac{\omega}{\omega_n}\) & \(-40\log{\frac{\omega}{\omega_n}}\) & \SI{-40}{\deci\bel}/decade\newline{}\SI{-12}{\deci\bel}/octave & -180                    &                                           \\ \bottomrule
+  \end{tabular}
+\end{table*}
+
+
+\subsubsection{Stability, gain and phase margin}
+The gain margin \(G_M\) is the change in open-loop gain expressed in \si{\deci\bel} required to make the closed-loop system unstable.
+The phase margin \(\Phi_M\) is the change in open-loop phase shift required at the unity gain to make the closed-loop system unstable.
+
+To find the gain and phase margin:
+\begin{enumerate}
+  \item Plot the Bode diagrams for \(K = 1\).
+  \item Find the gain margin:
+        \begin{oldenumerate}
+          \item Find the frequency \(\omega_{G_M}\) by searching the phase plot for the frequency at a phase angle of \(\pm\)\SI{180}{\degree}.
+          \item Find the gain margin magnitude \(G_M\) for the frequency \(\omega_{G_M}\) on the magnitude plot.
+          \item Find \(K\) using \(20\log{K_{G_M}} = G_M \iff K_{G_M} = 10^{\frac{G_M}{20}}\).
+        \end{oldenumerate}
+  \item Find the phase margin:
+        \begin{oldenumerate}
+          \item Find the frequency \(\omega_{\Phi_M}\) by searching the magnitude plot for the frequency at a magnitude of \SI{0}{\deci\bel}.
+          \item Find the phase margin \(\Phi_M\) for the frequency \(\omega_{\Phi_M}\) on the phase plot.
+        \end{oldenumerate}
+\end{enumerate}
+
+
+\subsection{Nyquist plot}
+The Nyquist criterion relates the closed-loop system's stability to the open-loop frequency response and open-loop pole locations.
+It is an alternate approach to the root locus method.
+
+It allows to analyze the stability of a system and also determine the gain and phase margin for which the system stays stable.
+
+\subsubsection{General sketching steps of the \(GH\)-plane}
+\begin{enumerate}
+  \item Obtain open-loop transfer function \(G(s)\) and feedback transfer function \(H(s)\).
+  \item Set \(K = -1\) (if applicable).
+  \item Substitute \(s = \omega i\) in \(G(s)H(s)\) and simplify.
+  \item Find the points of interests:
+        \begin{oldenumerate}
+          \item Starting point: set \(\omega = 0\) and find \(G(0)\).
+          \item Ending point: set \(\omega = \infty\) and find \(G(\infty)\).
+          \item Intersection with the imaginary-axis: set the real part \(\Re = 0\) of \(G(\omega i)\) and find \(\omega\).
+          \item Intersection with the real-axis: set the imaginary part \(\Im = 0\) of \(G(\omega i)\) and find \(\omega_0\).
+          \item For open-loop poles lying on the imaginary-axis in the \(s\)-plane: take a point \(s_\epsilon\) at the same imaginary value, and a real value of \(\epsilon\) (very very close to 0) and compute \(G(s_\epsilon)H(s_\epsilon)\).
+        \end{oldenumerate}
+  \item Compute \(G(\omega_0 i)\).
+  \item The system is stable if
+        \[
+          Z = P - N = 0
+        \]
+        \[
+          \begin{array}{|l}
+            % formulaexplanation
+            Z \text{: number of closed-loop poles in the right half-plane}           \\
+            P \text{: number of open-loop poles in the right half-plane}             \\
+            N \text{: number of counterclockwise revolutions around } \frac{-1}{K_0} \\
+          \end{array}
+        \]
+        and the maximum value of gain \(K\) for stability is \(K_0 = \frac{1}{G(\omega_0 i)}\)
+\end{enumerate}
+
+
+\subsubsection{Gain and phase margin}
+The gain margin \(G_M\) is the change in open-loop gain expressed in \si{\deci\bel} required to make the closed-loop system unstable:
+\[
+  G_M = 20\log{K_0} = -20\log{G(\omega_0 i)}
+\]
+The phase margin \(\Phi_M\) is the change in open-loop phase shift required at the unity gain to make the closed-loop system unstable:
+\[
+  \Phi_M = \arg{G(\omega_{\Phi_M}i)} + 180
+\]
+where \(\omega_{\Phi_M}\) is the frequency which satisfies \(\abs{G(\omega_{\Phi_M}i)} = 1\).
+
+
+
+
+
+
+\end{document}

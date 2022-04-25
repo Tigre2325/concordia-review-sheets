@@ -1,0 +1,663 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{ENGR 311: Transform Calculus and Partial Differential Equations}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+% \renewcommand{\abstractname}{} % Change the abstract title
+\section{Laplace transform}
+\subsection{Definition of the Laplace transform}
+If \(f(t)\) is defined for \(t \geqslant 0\), then the improper integral \(\int_0^\infty{K(s, t) f(t) \diffint{t}}\), is defined as a limit:
+\[
+  \int_0^\infty{K(s, t) f(t) \diffint{t}} = \limit{b}{\infty}{\int_0^b{K(s, t) f(t) \diffint{t}}}
+\]
+
+If the limit exists, the integral is said to exist or to be convergent; if the limit does not exist the integral does not exist and is said to be divergent.
+The limit will generally exist for only certain values of the variable \(s\).
+The choice \(K(s, t) = e^{-st}\) gives us an especially important integral transform called Laplace transform and written
+\[
+  \Laplace{f(t)} = F(s) = \int_0^\infty{e^{-st} f(t) \diffint{t}}
+\]
+where \(t\) is in the time domain defined for \(\set{R}{+}{}\) and \(s\) in the frequency domain.
+The \(s\)-plane is not a real plane, but a complex plane.
+
+The formula for integration by parts used in this class is:
+\begin{multline*}
+  \int{f_1(t) f_2(t) \diffint{t}} = f_1(t) \int{f_2(t) \diffint{t}} - \\
+  \int{ \left( \derivative{}{t} [f_1(t)] \int{f_2(t) \diffint{t}} \right) \diffint{t}}
+\end{multline*}
+
+
+\subsubsection{Laplace transforms of some basic functions}
+\begin{align*}
+  \Laplace{1}         & = \frac{1}{s}                               \\
+  \Laplace{t^n}       & = \frac{n!}{s^{n + 1}}, n \in \set{N}{+}{*} \\
+  \Laplace{e^{at}}    & = \frac{1}{s - a}, a \in \set{R}{}{}        \\
+  \Laplace{\sin{kt}}  & = \frac{k}{s^2 + k^2}                       \\
+  \Laplace{\cos{kt}}  & = \frac{s}{s^2 + k^2}                       \\
+  \Laplace{\sinh{kt}} & = \frac{k}{s^2 - k^2}                       \\
+  \Laplace{\cosh{kt}} & = \frac{s}{s^2 - k^2}                       \\
+\end{align*}
+
+
+\subsubsection{Sufficient conditions for existence}
+A function \(f\) is said to be of exponential order if there exist constants \(c > 0\), \(M > 0\), and \(T > 0\) such that \(\abs{f(t)} \leqslant Me^{ct}\) for all \(t > T\) (meaning for \(t\) big enough, the graph of \(f(t)\) does not grow faster than the graph of \(Me^{ct}\)).
+If \(f(t)\) is piecewise continuous on the interval \(\set{R}{+}{} \) and of exponential order, then \(\Laplace{f(t)}\) exists for \(s > c\).
+
+
+\subsubsection{Linearity of Laplace transform}
+Linear transform:
+\[
+  \Laplace{\alpha f(t) + \beta g(t)} = \alpha \Laplace{f(t)} + \beta \Laplace{g(t)}
+\]
+
+
+\subsection{The inverse transform and transforms of derivatives}
+If \(F(s)\) represents the Laplace transform of a function \(f(t)\), then \(f(t)\) is the inverse Laplace transform of \(F(s)\):
+\[
+  f(t) = \invLaplace{F(s)}
+\]
+
+Inverse linear transform:
+\[
+  \invLaplace{\alpha F(s) + \beta G(s)} = \alpha \invLaplace{F(s)} + \beta \invLaplace{G(s)}
+\]
+
+
+\subsubsection{Inverse Laplace transforms of some basic functions}
+\begin{align*}
+  \invLaplace{\frac{1}{s}}          & = 1                         \\
+  \invLaplace{\frac{n!}{s^{n + 1}}} & = t^n, n \in \set{N}{+}{*}  \\
+  \invLaplace{\frac{1}{s - a}}      & = e^{at}, a \in \set{R}{}{} \\
+  \invLaplace{\frac{k}{s^2 + k^2}}  & = \sin{kt}                  \\
+  \invLaplace{\frac{s}{s^2 + k^2}}  & = \cos{kt}                  \\
+  \invLaplace{\frac{k}{s^2 - k^2}}  & = \sinh{kt}                 \\
+  \invLaplace{\frac{s}{s^2 - k^2}}  & = \cosh{kt}                 \\
+\end{align*}
+
+
+\subsubsection{Transforms of derivatives}
+If \(f\), \(f'\),\dots{},\(f^{(n - 1)}\) are continuous on \(\set{R}{+}{}\) and are of exponential order and if \(f^{(n)}(t)\) is piecewise continuous on \(\set{R}{+}{}\), then
+\begin{multline*}
+  \Laplace{f^{(n)}(t)} = s^n F(s) - s^{n - 1} f(0) - \\
+  s^{n - 2} f'(0) - \cdots - f^{(n - 1)}(0)
+\end{multline*}
+where \(F(s) = \Laplace{f(t)}\).
+
+\begin{remark}
+  The Laplace transform of a linear differential equation with constant coefficients becomes an algebraic equation in \(Y(s)\), which will be used to solve differential equations.
+\end{remark}
+
+
+\subsubsection{The unit step function}
+The unit step function \(\unitstep{t - a}\) is defined to be
+\[
+  \unitstep{t - a} =
+  \begin{cases}
+    0, & 0 \leqslant t < a \\
+    1, & t \geqslant a     \\
+  \end{cases}
+\]
+
+The unit step function is used to write a piecewise-defined function in a compact form:
+\begin{align*}
+  f(t)      & =
+  \begin{cases}
+    g(t), & 0 \leqslant t < a \\
+    h(t), & a \leqslant t < b \\
+    i(t), & t \geqslant b
+  \end{cases}                                                 \\
+  \iff f(t) & = g(t)\left[ \unitstep{t - 0} - \unitstep{t - a} \right]      \\
+            & + h(t)\left[ \unitstep{t - a} - \unitstep{t - b} \right]      \\
+            & + i(t)\left[ \unitstep{t - b} - \unitstep{t - \infty} \right] \\
+            & + i(t)\left[ \unitstep{t - b}\right]                          \\
+  \iff f(t) & = g(t) + \unitstep{t - a}\left[ h(t) - g(t) \right]           \\
+            & + \unitstep{t - b}\left[ i(t) - h(t) \right]
+\end{align*}
+
+
+\subsection{Translation theorems}
+\subsubsection{Frequency shift theorem}
+If \(\Laplace{f(t)} = F(s)\) and \(a \in \set{R}{}{}\), then
+\[
+  \Laplace{e^{at}f(t)} = F(s - a)
+\]
+
+
+\subsubsection{Time shift theorem}
+If \(\Laplace{f(t)} = F(s)\) and \(a > 0\), then
+\[
+  \Laplace{f(t - a) \unitstep{t - a}} = e^{-as}F(s)
+\]
+This leads to the Laplace transform of the unit step function being:
+\[
+  \Laplace{\unitstep{t - a}} = \frac{e^{-as}}{s}
+\]
+
+An alternative form of the time shift theorem is
+\[
+  \Laplace{g(t) \unitstep{t - a}} = e^{-as}\Laplace{g(t + a)}
+\]
+
+
+\subsection{Additional operational properties}
+\subsubsection{Derivatives of transforms}
+If the function \(f\) is piecewise continuous on \(\set{R}{+}{}\), of exponential order, and \(\Laplace{f(t)} = F(s)\), then for \(n \in \set{N}{}{*}\) and \(s > c\)
+\[
+  \Laplace{t^n f(t)} = (-1)^n \nderivative{n}{F(s)}{s}
+\]
+
+
+\subsubsection{Convolution}
+If functions \(f\) and \(g\) are piecewise continuous on \(\set{R}{+}{}\), then the convolution of \(f\) and \(g\), denoted by the symbol \(f * g\), is a function defined by the integral
+\[
+  f * g = \int_0^t{f(\tau) g(t - \tau) \diffint{\tau}}
+\]
+
+\paragraph{Convolution theorem}
+If the functions \(f\) and \(g\) are piecewise continuous on \(\set{R}{+}{}\), of exponential order and \(\Laplace{f(t)} = F(s)\) and \(\Laplace{g(t)} = G(s)\), then for \(s > c\):
+\[
+  \Laplace{f * g} = \Laplace{f(t)} \Laplace{g(t)} = F(s) G(s)
+\]
+
+
+\subsubsection{Transform of an integral}
+Using the convolution theorem with \(g(t) = 1\), the Laplace transform of the integral of \(f\) is
+\[
+  \Laplace{\int_0^\tau{f(\tau) \diffint{\tau}}} = \frac{F(s)}{s}
+\]
+
+
+\subsubsection{Periodic function}
+If a periodic function \(f\) has a period \(T \in \set{R}{+}{*}\), then \(f(t + T) = f(t)\).
+
+If \(f(t)\) is piecewise continuous on \(\set{R}{+}{}\), of exponential order, and periodic with period \(T\), then
+\[
+  \Laplace{f(t)} = \frac{1}{1 - e^{-sT}} \int_0^T{e^-st f(t) \diffint{t}}
+\]
+
+
+\subsection{The dirac delta function}
+\subsubsection{The unit impulse function}
+The unit impulse function is defined as:
+\[
+  \diracdelta{a}{t - t_0} = \begin{cases}
+    0,             & 0 \leqslant t < t_0 - a       \\
+    \dfrac{1}{2a}, & t_0 - a \leqslant t < t_0 + a \\
+    0,             & t \geqslant t_0 + a
+  \end{cases}
+\]
+
+
+\subsubsection{The dirac delta function}
+The dirac delta function is defined as:
+\[
+  \diracdelta{}{t - t_0} = \limit{a}{0}{\diracdelta{a}{t - t_0}} =
+  \begin{cases}
+    \infty, & t = t_0    \\
+    0,      & t \neq t_0
+  \end{cases}
+\]
+
+\begin{remark}
+  The integral of the dirac delta function is:
+  \[
+    \int_0^\infty{\diracdelta{}{t - t_0} \diffint{t}} = 1
+  \]
+\end{remark}
+
+The Laplace transform of the dirac delta function is:
+\[
+  \Laplace{\diracdelta{}{t - t_0}} = e^{-st_0}
+\]
+
+
+\subsection{Systems of linear differential equations}
+When initial conditions are specified, the Laplace transform reduces a system of linear differential equations to a set of simultaneous algebraic equations in the transformed functions.
+
+This is applicable to coupled springs, electrical networks, double pendulums\dots{}
+
+
+\section{Orthogonal functions and fourier series}
+\subsection{Orthogonal functions}
+\subsubsection{The inner product}
+The inner product, also called dot product, of vectors \(\vec{u} = (u_1,u_2,u_3)\) and \(\vec{v} = (v_1,v_2,v_3)\) is a scalar defined as
+\[
+  \left( \vec{u}, \vec{v} \right) = u_1 v_1 + u_2 v_2 + u_3 v_3 = \vec{u} \bullet \vec{v}
+\]
+
+Properties of the inner product:
+\begin{align}
+  \left( \vec{u}, \vec{v} \right)           & = \left( \vec{v}, \vec{u} \right)                                   \\
+  \left( k\vec{u}, \vec{v} \right)          & = k \left( \vec{v}, \vec{u} \right), k \in \set{R}{}{}              \\
+  \left( \vec{u}, \vec{u} \right)           & = 0 \iff \vec{u} = \vec{0}                                          \\
+  \left( \vec{u} + \vec{v}, \vec{w} \right) & = \left( \vec{u}, \vec{w} \right) + \left( \vec{v}, \vec{w} \right)
+\end{align}
+
+
+The inner product of functions on the interval \([a,b]\) is defined as
+\[
+  (f_1, f_2) = \int_a^b{f_1(x)f_2(x) \diffint{x}}
+\]
+
+
+\subsubsection{Orthogonality}
+Two vectors or functions are said to be orthogonal if their inner product is zero.
+A set of real-valued functions \(\{\phi_0(x), \phi_1(x), \phi_2(x), \dots\}\) is said to be orthogonal on \([a,b]\) if
+\[
+  (\phi_m, \phi_n) = \int_a^b{\phi_m(x)\phi_n(x) \diffint{x}} = 0, m \neq n, \{m,n\} \in \set{N}{}{}
+\]
+
+The norm \(\normvec{u}\) of a vector \(u\) can be expressed using the inner product:
+\[
+  \normvec{u} = \sqrt{\left( \vec{u}, \vec{u} \right)}
+\]
+
+Similarly, the norm of a function \(\phi_n\) in an orthogonal set \(\{\phi_n(x)\}\), \(n \in \set{N}{}{}\), is
+\[
+  \norm{\phi_n(x)} = \sqrt{\int_a^b{{\phi_n(x)^2} \diffint{x}}}
+\]
+
+If \(\{\phi_n(x)\}\) is an orthogonal set of functions on the interval \([a,b]\) with the property that \(\norm{\phi_n(x)} = 1\) for all \(n \in \set{N}{}{}\), then \(\{\phi_n(x)\}\) is said to be an orthonormal set on the interval.
+
+An orthogonal set is said to be a complete set if the only continuous function orthogonal to each member of the set is the zero function \(f(x) = 0\).
+
+A set of real-valued functions \(\{\phi_n(x)\}\), \(n \in \set{N}{}{}\) is said to be orthogonal with respect to a weight function \(w(x)\) on \([a,b]\) if
+\[
+  \int_a^b{w(x) \phi_m(x)\phi_n(x) \diffint{x}} = 0, m \neq n, \{m,n\} \in \set{N}{}{}
+\]
+
+A real valued function \(f(x)\) is said to be periodic with \(T \neq 0\) if \(f(x + T) = f(x)\) for all \(x\) in the domain of \(x\).
+The smallest value of \(T\) which satisfies this property is the fundamental period.
+
+
+\subsubsection{Gram-Schmidt orthogonalization process}
+For a linearly independent set of real-valued functions that are continuous on an interval \([a,b]\), an orthogonal can be made from this set using the Gram-Schmidt process.
+The Gram-Schmidt process for turning the set of linearly independent real-valued functions \({f_n(x)}\) \(n \in \set{N}{}{}\) into the orthogonal set \({\phi_n(x)}\) \(n \in \set{N}{}{}\) is
+\begin{align*}
+  \phi_0(x) & = f_0(x)                                                                                                       \\
+  \phi_1(x) & = f_1(x) - \frac{(f_1,\phi_0)}{\norm{\phi_0(x)}^2}\phi_0(x)                                                    \\
+  \phi_2(x) & = f_2(x) - \frac{(f_2,\phi_0)}{\norm{\phi_0(x)}^2}\phi_0(x) - \frac{(f_2,\phi_1)}{\norm{\phi_1(x)}^2}\phi_1(x) \\
+  \phi_n(x) & = f_n(x) - \sum_{k = 0}^{n - 1}{\frac{(f_n,\phi_k)}{\norm{\phi_k(x)}^2}\phi_k(x)}                              \\
+\end{align*}
+
+
+\subsubsection{Orthogonal series expansion}
+An orthogonal series expansion of \(f\) or a generalized Fourier series is
+\[
+  f(x) = \sum_{n = 0}^\infty{\frac{\int_a^b{f(x)\phi_n(x) \diffint{x}}}{\norm{\phi_n(x)}^2}\phi_n(x)} = \sum_{n = 0}^\infty{\frac{(f,\phi_n)}{\norm{\phi_n(x)}^2}\phi_n(x)}
+\]
+
+
+\subsection{Fourier series}
+The Fourier series of a function \(f\) defined on the interval \((-p,p)\)is given by
+\[
+  f(x) = \frac{a_0}{2} + \sum_{n = 1}^\infty \left( a_n \cos{\frac{n \pi}{p}x} + b_n \sin{\frac{n \pi}{p} x} \right)
+\]
+where
+\begin{align*}
+  a_0 & = \frac{1}{p} \int_{-p}^p{f(x) \diffint{x}}                         \\
+  a_n & = \frac{1}{p} \int_{-p}^p{f(x) \cos{\frac{n \pi}{p}x} \diffint{x}}  \\
+  b_n & = \frac{1}{p} \int_{-p}^p{f(x) \sin{\frac{n \pi}{p} x} \diffint{x}}
+\end{align*}
+
+Conditions of convergence where \(f(x)\) and \(f'(x)\)are piecewise continuous on the interval \((-p,p)\):
+\begin{itemize}
+  \item At a point of continuity: the Fourier series converges to \(f(x)\).
+  \item At a point of discontinuity: the Fourier series converges to \(\frac{f(x^-) + f(x^+)}{2}\), where \(f(x^-) = \llimit{a}{x}{f(a)}\) and \(f(x^+) = \rlimit{a}{x}{f(a)}\).
+\end{itemize}
+
+
+\subsection{Fourier cosine and sine series}
+\subsubsection{Odd and even functions}
+\begin{description}
+  \item[Odd:] a function is said to be an odd function of \(x\) if \(f(-x) = -f(x)\) (symmetry about the origin);
+  \item[Even:] a function is said to be an even function of \(x\) if \(f(-x) = f(x)\) (symmetry about the \(y\)-axis).
+\end{description}
+
+Properties of even and odd functions:
+\begin{itemize}
+  \item The product of two even functions is even.
+  \item The product of two odd functions is even.
+  \item The product of an even function and an odd function is odd.
+  \item The sum (difference) of two even functions is even.
+  \item The sum (difference) of two odd functions is odd.
+  \item If \(f\) is even, then
+        \[
+          \int_{-a}^a{f(x) \diffint{x}} = 2 \int_0^a{f(x) \diffint{x}}
+        \]
+  \item If \(f\) is odd, then
+        \[
+          \int_{-a}^a{f(x) \diffint{x}} = 0
+        \]
+\end{itemize}
+
+Special Fourier series:
+\begin{description}
+  \item[Even function:] The Fourier series of an even function \((-p, p)\) is the cosine series (\(b_n = 0\)):
+        \[
+          f(x) = \frac{a_0}{2} + \sum_{n = 1}^\infty{a_n \cos{\frac{n \pi}{p}x}}
+        \]
+        where
+        \[
+          a_0 = \frac{2}{p} \int_0 ^p{f(x) \diffint{x}}
+          \qquad a_n = \frac{2}{p} \int_0 ^p{f(x) \cos{\frac{n \pi}{p}x} \diffint{x}}
+        \]
+  \item[Odd function:] The Fourier series of an odd function \((-p, p)\) is the sine series (\(a_0 = a_n = 0\)):
+        \[
+          f(x) = \sum_{n = 1}^\infty {b_n \sin{\frac{n \pi}{p} x}}
+        \]
+        where
+        \[
+          b_n = \frac{2}{p} \int_0 ^p{f(x) \sin{\frac{n \pi}{p} x} \diffint{x}}
+        \]
+\end{description}
+
+
+\subsubsection{Half-range expansion}
+If the range of a function is given on \((0, L)\) rather than \((-p,p)\), an arbitrary definition of \(f\) on \((-L, 0)\) can be made:
+\begin{enumerate}
+  \item Reflect the graph of the function about the \(y\)-axis onto \((-L, 0)\) so the function is even on \((-L, L)\).
+        This results in doing the half-range cosine expansion of \(f\) by taking \(p = L\) and using the cosine series.
+  \item Reflect the graph of the function about the origin onto \((-L, L)\) so the function is odd on \((-L, L)\).
+        This results in doing the half-range sine expansion of \(f\) by taking \(p = L\) and using the sine series.
+  \item Define \(f\) on \((-L, L)\) by identity reflection (translation), \(f(x) = f(x + L)\).
+        By taking \(p = \frac{L}{2}\) and using the classic Fourier series, this results in doing the periodic extension of \(f\) .
+\end{enumerate}
+
+
+\section{Boundary-value problems in rectangular coordinates}
+\subsection{Separable partial differential equations (PDEs)}
+The general form of a linear second-order partial differential equation is
+\[
+  A\npartialderivative{2}{u}{x} + B \partialderivative{^2 u}{x \partial y} + C \npartialderivative{2}{u}{y} + D \partialderivative{u}{x} + E \partialderivative{u}{y} + F u = G
+\]
+where \(A\), \(B\), \(C\), \(D\), \(E\), \(F\) and \(G\) are constants in \(\set{R}{}{}\) or functions of \(x\) and \(y\)
+
+\begin{remark}
+  If \(G = 0\), the equation is called a homogeneous equation; otherwise, it is nonhomogeneous .
+\end{remark}
+
+A solution of a linear PDE is a function of the two independent variables possessing all partial derivatives occurring in the equation and satisfying the equation in some region of the \(xy\)-plane.
+
+
+\subsubsection{Separation of variables}
+The method of separation of variables can be used to find a particular solution \(u\) of the form of a product of function of \(x\) and \(y\), where
+\begin{gather*}
+  u(x,y) = X(x) Y(y) \\
+  \implies \partialderivative{u}{x} = X'Y \qquad \partialderivative{u}{y} = XY' \\
+  \implies \npartialderivative{2}{u}{x} = X''Y \qquad \npartialderivative{2}{u}{y} = XY'' \qquad \partialderivative{^2 u}{x \partial y} = X'Y'
+\end{gather*}
+With this assumption, is is sometimes possible to reduce a linear PDE in two variables to two ODEs.
+
+Separation of variables is not a general method for finding particular solutions as some linear partial differential equations are simply not separable.
+
+
+\subsubsection{Superposition principle}
+If \(u_1\), \(u_2\), \dots{}, \(u_k\) are solutions of a homogeneous linear partial differential equation, then the linear combination
+\[
+  u = c_1 u_1 + c_2 u_2 + \cdots + c_k u_k = \sum_{i = 1}^k{c_i u_i}
+\]
+where \(c_i\), \(i = 1, 2, \dots, k\) are constants in \(\set{R}{}{}\), is also a solution.
+
+
+\subsubsection{Classification of equations}
+The general linear second-order partial differential equation
+\[
+  A\npartialderivative{2}{u}{x} + B \partialderivative{^2 u}{x \partial y} + C \npartialderivative{2}{u}{y} + D \partialderivative{u}{x} + E \partialderivative{u}{y} + F u = G
+\]
+where \(A\), \(B\), \(C\), \(D\), \(E\), \(F\) and \(G\) are constants in \(\set{R}{}{}\), is said to be
+\begin{align*}
+   & \textbf{hyperbolic} \text{ if} & B^2 - 4AC & > 0 \\
+   & \textbf{parabolic} \text{ if}  & B^2 - 4AC & = 0 \\
+   & \textbf{elliptic} \text{ if}   & B^2 - 4AC & < 0
+\end{align*}
+
+
+\subsection{Classical PDEs and boundary-value problems}
+The classical second-order partial differential equations which have important applications and mathematical physics are:
+\begin{description}
+  \item[The one-dimensional heat equation:]
+        \[
+          k \npartialderivative{2}{u}{x} = \partialderivative{u}{t}, \quad k \in\set{R}{+}{*}
+        \]
+  \item[The one-dimensional wave equation:]
+        \[
+          a^2 \npartialderivative{2}{u}{x} = \npartialderivative{2}{u}{t}
+        \]
+  \item[The two-dimensional Laplace's equation:]
+        \[
+          \npartialderivative{2}{u}{x} + \npartialderivative{2}{u}{y} = 0
+        \]
+\end{description}
+
+Since the heat and wave equations depend on \(t\), there exists initial conditions at \(t = 0\). \newline
+Moreover, one of the following boundary conditions can be used to define the behavior at boundaries:
+\begin{description}
+  \item[Dirichlet condition:] \(u\).
+  \item[Neumann condition:] \(\partialderivative{u}{x}\).
+  \item[Robin condition:] \(\partialderivative{u}{x} + hu\).
+\end{description}
+
+
+\subsubsection{Solving the classical PDEs and boundary-value problems}
+\paragraph{Sturm-Liouville problem types}
+Sturm-Liouville \Romannumeral{1}:
+\[
+  u''(x) + \lambda u(x) = 0, \quad u(0) = 0 \text{ and } u(L) = 0
+\]
+Non-trivial solution exists only for \(\lambda = \alpha^2 > 0\): the non-trivial solution is \(u_n(x) = \sin\alpha x = \sin\frac{n \pi}{L}x\).
+
+Sturm-Liouville \Romannumeral{2}:
+\[
+  u''(x) + \lambda u(x) = 0, \quad u'(0) = 0 \text{ and } u'(L) = 0
+\]
+Non-trivial solutions exist for
+\begin{description}
+  \item[\(\lambda = 0\):] the non-trivial solution is \(u_0(x) = 1\).
+  \item[\(\lambda = \alpha^2 > 0\):] the non-trivial solution is \(u_n(x) = \cos\frac{n \pi}{L}x\).
+\end{description}
+
+Sturm-Liouville \Romannumeral{3}:
+\[
+  u''(x) + \lambda u(x) = 0, \quad u(0) = 0 \text{ and } u'(L) = 0
+\]
+Non-trivial solution exists only for \(\lambda = \alpha^2 > 0\): the non-trivial solution is \(u_n(x) = \sin\alpha x = \sin\frac{(2n - 1) \pi}{2L}x\).
+
+Sturm-Liouville \Romannumeral{4}:
+\[
+  u''(x) + \lambda u(x) = 0, \quad u'(0) = 0 \text{ and } u(L) = 0
+\]
+Non-trivial solution exists only for \(\lambda = \alpha^2 > 0\): the non-trivial solution is \(u_n(x) = \cos\alpha x = \cos\frac{(2n - 1) \pi}{2L}x\).
+
+
+
+
+\paragraph{General method steps} \label{sec:general-method}
+\begin{enumerate}
+  \item Apply the change of variable \(u(x,y) = X(x)Y(y)\).
+  \item Substitute the partial derivatives by the product of derivatives of \(X(x)\) and \(Y(y)\).
+  \item Write the equation in fraction form with all \(X(x)\) and its derivatives on one side and all \(Y(y)\) and its derivatives one the other side.
+  \item Equal those fractions to the separation variable \(-\lambda\).
+  \item Write the ordinary differential equations using \(-\lambda\).
+  \item Solve for \(X(x)\) and \(Y(y)\) using their ordinary differential equation and \(-\lambda\)
+        \begin{olditemize}
+          \item In the case of a first-order linear ordinary differential equation of the form \(X'(x) + P(x)X = f(x)\), the solution is:
+          \begin{equation*}
+            \begin{split}
+              & X(x) = e^{-\int{P(x) \diffint{x}}} \int{e^{\int{P(x) \diffint{x}}}f(x) \diffint{x}} \\
+              & f(x) = 0 \implies X(x) = Ce^{-\int{P(x) \diffint{x}}}, \quad C \in \set{R}{}{*}
+            \end{split}
+          \end{equation*}
+          \item In the case of a second-order linear ordinary differential equation of the form \(X'' + P(\lambda) X = 0\), it must be solved for non-trivial solutions (\(X(x) \neq 0\)) with 3 cases in which the constants \(C_i\) are solved the homogeneous boundary conditions (or use Sturm-Liouville problem types):
+          \begin{olddescription}
+            \item[\(P(\lambda) = 0\):] \(X(x) = C_1 x + C_2, \quad \{C_1,C_2\} \in \set{R}{}{}\)
+            \item[\(P(\lambda) = -\alpha^2 < 0\):] \(X(x) = C_3 \cosh\alpha x + C_4 \sinh\alpha x, \quad \{C_3,C_4\} \in \set{R}{}{}\)
+            \item[\(P(\lambda) = \alpha^2< 0\):] \(X(x) = C_5 \cos\alpha x + C_6 \sin\alpha x, \quad \{C_5,C_6\} \in \set{R}{}{}\) (Do not forget that \(\sin n\pi = 0\) and \(\cos (2n + 1) \frac{\pi}{2} = 0\), \(n \in \set{N}{}{}\))
+          \end{olddescription}
+          \item In the case of another form of second-order ordinary differential equation, use other methods such as the auxiliary equation method.
+        \end{olditemize}
+  \item Form the product solution \(u_n(x,t) = X(x)Y(y)\).
+  \item Combine the constants \(C_i\) as \(A_0\), \(A_n\) and \(B_n\) (functions of \(n\)).
+  \item Apply the superposition principle \(u(x,y) = \sum_{n = 1}^\infty{u_n(x,y)}\).
+  \item Use initial and boundary conditions and Fourier series expansion to solve for \(A_0\), \(A_n\) and \(B_n\).
+  \item Obtain the complete solution \(u(x,t) = X(x)Y(y)\) by substituting \(A_0\), \(A_n\) and \(B_n\) into the solution.
+\end{enumerate}
+
+
+\subsection{Heat equation}
+Suppose a rod of length \(L\) has a circular cross-sectional area \(A\) and coincides with the \(x\)-acis on the interval \([0, L]\).
+The following assumption are made:
+\begin{itemize}
+  \item The flow of heat within the rod takes place only in the \(x\)-direction.
+  \item The lateral, or curved, surface of the rod is insulated, meaning no heat escapes from this surface.
+  \item Not heat is being generated withing the rod.
+  \item The rod is homogeneous, meaning its density \(\rho\) is constant.
+  \item The specific heat \(\gamma\) and thermal conductivity \(K\) of the material of the rod are constants.
+\end{itemize}
+
+The governing equation for this problem is:
+\[
+  k \npartialderivative{2}{u}{x} = \partialderivative{u}{t}, \quad k > 0, 0 \leqslant x \leqslant L, t \geqslant 0
+\]
+which is subjected to the following conditions:
+\begin{description}
+  \item[Boundary conditions:] \(u(0,t) = 0\), \(u(L,t) = 0\), \(t \geqslant 0\).
+  \item[Initial conditions:] \(u(x,0) = f(x)\), \(0 \leqslant x \leqslant L\).
+\end{description}
+
+Using the general method steps for this problem, the complete solution of the one-dimensional heat equation is:
+\[
+  u(x,t) = \sum_{n = 1}^\infty \left( \frac{2}{L} \int_0^L{f(x) \sin\frac{n \pi}{L} x \diffint{x}} \right) e^{-k t \left( \frac{n\pi}{L} \right)^2} \sin\frac{n \pi}{L} x \\
+\]
+
+
+\subsection{Wave equation}
+Consider a string of length \(L\) stretched taut between two point on the \(x\)-axis at \(x = 0\) and \(x = L\).
+The following assumptions are made:
+\begin{itemize}
+  \item The string is perfectly flexible.
+  \item The string is homogeneous, meaning its density \(\rho\) is constant.
+  \item The displacement \(u\) are small compared to the length of the string.
+  \item The slope of the curve is small at all points.
+  \item The tension \(\vec{T}\) acts tangent to the string, and its magnitude \(T\) is the same at all points.
+  \item The tension is large compared with the force of gravity.
+  \item No other external forces act on the string.
+\end{itemize}
+
+The governing equation for this problem is:
+\[
+  a^2 \npartialderivative{2}{u}{x} = \npartialderivative{2}{u}{t}, \quad 0 \leqslant x \leqslant L, t \geqslant 0
+\]
+which is subjected to the following conditions:
+\begin{description}
+  \item[Boundary conditions:] \(u(0,t) = 0\), \(u(L,t) = 0\), \(t \geqslant 0\).
+  \item[Initial conditions:] \(u(x,0) = f(x)\), \(\left. \partialderivative{u}{t} \right|_{t = 0} = g(x)\), \(0 \leqslant x \leqslant L\)
+\end{description}
+
+Using the general method steps for this problem, the complete solution of the one-dimensional wave equation is:
+\begin{multline*}
+  u(x,t) = \sum_{n = 1}^\infty \left[ \left( \frac{2}{L} \int_0^L{f(x) \sin\frac{n \pi}{L} x \diffint{x}} \right) \cos\frac{n \pi a}{L}t \right. \\
+  \left.+ \left( \frac{2}{n \pi a} \int_0^L{g(x) \sin\frac{n \pi}{L} x \diffint{x}} \right) \sin\frac{n \pi a}{L}t \right] \sin\frac{n \pi}{L} x
+\end{multline*}
+
+
+\subsection{Laplace's equation}
+Laplace's equation in two and three dimensions occurs in time-independent problems involving potentials such as electrostatic, gravitational and velocity in fluid mechanics.
+A solution of Laplace's equation can also be interpreted as a steady-state temperature distribution.
+
+Suppose we wish to find the steady-state temperature \(u(x,y)\) in a rectangular plate whose vertical edges are insulated and whose lower and upper edges are maintained at temperatures 0 and \(f(x)\)
+
+The governing equation for this problem is:
+\[
+  \npartialderivative{2}{u}{x} + \npartialderivative{2}{u}{y} = 0, \quad 0 \leqslant x \leqslant a, 0 \leqslant y \leqslant b
+\]
+which is subjected to the following conditions:
+\begin{description}
+  \item[Boundary conditions:] \(\left. \partialderivative{u}{x} \right|_{x = 0} = 0\), \(\left. \partialderivative{u}{x} \right|_{x = a} = 0\), \(0 \leqslant y \leqslant b\).
+  \item[Initial conditions:] \(u(x,0) = 0\), \(u(x,b) = f(X)\), \(0 \leqslant x \leqslant a\)
+\end{description}
+
+Using the general method steps for this problem, the complete solution of the two-dimensional Laplace's equation is:
+\begin{multline*}
+  u(x,y) = \frac{y}{ab} \int_0^a{f(x) \diffint{x}} \\
+  + \frac{2}{a} \sum_{n = 1}^\infty{\frac{1}{\sinh\frac{n \pi b}{a}} \int_0^a{f(x) \cos\frac{n \pi}{a} \diffint{x}}} \sinh\frac{n \pi}{a}y \cos\frac{n \pi}{a}x
+\end{multline*}
+
+
+\subsubsection{Dirichlet problem}
+A Dirichlet problem is a boundary-value problem in which a solution to an elliptic partial differential equation within a region \(R\) is seek, such that all boundary conditions are Dirichlet conditions.
+
+A Dirichlet problem for a rectangle can be solved by separation of variables when homogeneous boundary conditions are specified on two parallel boundaries.
+If the boundary conditions are nonhomogeneous on at least two perpendicular sides, the boundary-value problem is split into two problems, each of which has a homogeneous boundary conditions on parallel boundaries.
+
+
+\subsection{Nonhomogeneous boundary-value problems}
+A boundary-value problem is said to be nonhomogeneous if either the partial differential equation or the boundary conditions are nonhomogeneous.
+
+The method of separation of variable does not always work.
+
+
+\subsubsection{Time-independent}
+A change of the dependent variable is employed
+\[
+  u(x,t) = v(x,t) + \psi(x)
+\]
+This transforms a nonhomogeneous partial differential equation boundary value problem into one involving an ordinary differential equation and the another involving a homogeneous partial differential equation, solvable by separation of variables.
+
+
+\paragraph{General method steps}
+\begin{enumerate}
+  \item Obtain the governing equation, and the boundary and initial conditions from the problem statement.
+  \item Apply the change of dependent variable \(u(x,t) = v(x,t) + \psi(x)\).
+  \item Substitute the change of dependent variable into the governing equation, and the boundary and initial conditions.
+  \item Separate the problem into 2 sub-problems (set the boundary conditions in terms of \(v(x,t)\) at 0 and express the ones of \(\psi(x)\) accordingly).
+  \item Solve the ordinary differential equation for \(\psi(x)\) using the boundary conditions.
+  \item Solve the partial differential equation for \(v(x,t)\) using the general method (\vref{sec:general-method}).
+  \item Obtain the complete solution using \(u(x,t) = v(x,t) + \psi(x)\).
+\end{enumerate}
+
+
+\subsubsection{Time-dependent}
+A change of the dependent variable is employed
+\begin{align*}
+  u(x,t)                    & = v(x,t) + \psi(x,t)                                  \\
+  \text{ where: } \psi(x,t) & = u(0,t) + \frac{x}{a} \left[ u(a,t) - u(0,t) \right]
+\end{align*}
+This transforms a nonhomogeneous partial differential equation boundary value problem into a nonhomogeneous partial differential equation with homogeneous boundary and initial conditions.
+
+
+\paragraph{General method steps}
+\begin{enumerate}
+  \item Obtain the governing equation, and the boundary and initial conditions from the problem statement.
+  \item Apply the change of variable \(u(x,t) = v(x,t) + \psi(x,t)\).
+  \item Find \(\psi(x,t) = u(0,t) + \frac{x}{a} \left[ u(a,t) - u(0,t) \right]\).
+  \item Substitute the change of dependent variable into the governing equation, and the boundary and initial conditions.
+  \item Write \(v\) terms on the left and \(\psi\) terms on the right.
+  \item Solve for \(v(x,t)\) (since \(\psi(x,t)\) is already known) by assuming \(v(x,t)\) and the \(\psi\) term can be written as Fourier sine or cosine series for a fixed \(t\) (the coefficients are in terms of \(t\) and \(n\) only inside the infinite sums as \(x\) appears in the sine/cosine term).
+  \item Solve for the coefficient \(\psi_n(t)\) of the \(\psi\) term.
+  \item Find the partial derivatives of \(v(x,t)\) in their Fourier sine/cosine expansion form.
+  \item Substitute those sine/cosine expansions into the governing equation as well as the one of the \(\psi\) term.
+  \item Equate the coefficients \(v_n(t)\) and \(\psi_n(t)\) of the \(\psi\) term, providing that the sine/cosine terms are the same.
+  \item Solve for \(v_n(t)\) (solve constants using boundary and initial conditions).
+  \item Obtain the complete solution using \(u(x,t) = v(x,t) + \psi(x,t)\).
+\end{enumerate}
+\end{document}

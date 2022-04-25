@@ -1,0 +1,963 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{ENGR 233: Applied advanced calculus}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% New document specific commands
+% \renewcommand{\contentsname}{Table of contents} % Change the table of contents title
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Theorems and proofs
+\makeatletter
+\g@addto@macro\th@remark{\thm@headpunct{:}}
+\makeatother
+\theoremstyle{remark}
+\newtheorem*{example}{Example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+% \renewcommand{\abstractname}{} % Change the abstract title
+
+\setcounter{section}{6}
+\section{Vectors}
+\subsection{Vectors in 2-space}
+A vector is described by a magnitude, a line of action and a direction.
+
+Vector properties:
+\begin{itemize}
+  \item \(\vec{a} + \vec{b} = \vec{b} + \vec{a}\)
+  \item \(\vec{a} + (\vec{b} + \vec{c}) = (\vec{a} + \vec{b}) + \vec{c}\)
+  \item \(\vec{a} + \vec{0} = \vec{a}\)
+  \item \(\vec{a} + (-\vec{a}) = \vec{0}\)
+  \item \(k(\vec{a} + \vec{b}) = k\vec{a} + k\vec{b}\)
+  \item \((k_1 + k_2 )\vec{a} = k_1 \vec{a} + k_2 \vec{a}\)
+  \item \(k_1 (k_2 \vec{a}) = (k_1 k_2 )\vec{a}\)
+  \item \(1\vec{a} = \vec{a}\)
+  \item \(0\vec{a} = \vec{0}\)
+\end{itemize}
+
+A 2-space vector \(\vec{a}\) have two components: \(\vec{a} = (a_1 , a_2 )\).
+Vector operation with components:
+\begin{description}
+  \item[Equality] \(\vec{a} = \vec{b} \iff a_1 = b_1 \text{ and } a_2 = b_2 \)
+  \item[Addition] \(\vec{a} + \vec{b} = (a_1 + b_1 , a_2 + b_2 )\)
+  \item[Scalar multiplication] \(k\vec{a} = (ka_1 , ka_2 )\)
+  \item[Magnitude] \(\normvec{a} = \sqrt{a_1 ^2 + a_2 ^2 }\)
+  \item[Unit vector] \(\hat{a} = \frac{\vec{a}}{\normvec{a}}\)
+  \item[Linear combination] \(\vec{u} = c_1 \vec{a} + c_2 \vec{b}\)
+\end{description}
+
+The elementary vectors in \(\set{R}{2}{}\) are \(\ivec = (1, 0)\) and \(\jvec = (0, 1)\).
+Every vectors \(\vec{a}\) in \(\set{R}{2}{}\) can be represented as a linear combination of \(\ivec\) and \(\jvec\)
+\[
+  \vec{a} = a_1 \ivec + a_2 \jvec
+\]
+
+\subsection{Vectors in 3-space}
+A 3-space vector \(\vec{a}\) have three components: \(\vec{a} = (a_1 , a_2 , a_3 )\).
+
+The distance between two points \(A = (x_A , y_A , z_A )\) and \(B = (x_B , y_B , z_B )\) in \(\set{R}{3}{}\) is
+\[
+  AB = \Normvec{AB} = \sqrt{(x_B - x_A )^2 + (y_B - y_A )^2 + (z_B - z_A )^2 }
+\]
+
+The midpoint between two points \(A = (x_A , y_A , z_A )\) and \(B = (x_B , y_B , z_B )\) in \(\set{R}{3}{}\) is
+\[
+  I = \left( \frac{x_A + x_B }{2}, \frac{y_A + y_B }{2}, \frac{z_A + z_B }{2} \right)
+\]
+
+The elementary vectors in \(\set{R}{3}{}\) are \(\ivec = (1, 0, 0)\), \(\jvec = (0, 1, 0)\) and \(\kvec = (0, 0, 1)\).
+Every vectors \(\vec{a}\) in \(\set{R}{3}{}\) can be represented as a linear combination of \(\ivec\), \(\jvec\) and \(\kvec\)
+\[
+  \vec{a} = a_1 \ivec + a_2 \jvec + a_3 \kvec
+\]
+
+\subsection{Dot product}
+The dot product of two vectors \(\vec{a}\) and \(\vec{b}\) is a scalar and is defined by:
+\begin{align*}
+  \vec{a} \bullet \vec{b} & = a_1 b_1 + a_2 b_2 + a_3 b_3    \\
+                          & = \normvec{a}\normvec{b}\cos\theta
+\end{align*}
+
+Properties of the dot product:
+\begin{itemize}
+  \item \(\vec{a} \bullet \vec{b} = 0 \iff \vec{a} = \vec{0} \text{ or } \vec{b} = \vec{0} \text{ or } \theta = \frac{\pi}{2} \modulus{\pi}\)
+  \item \(\vec{a} \bullet \vec{b} = \vec{b} \bullet \vec{a}\)
+  \item \(\vec{a} \bullet (\vec{b} + \vec{c}) = \vec{a} \bullet \vec{b} + \vec{a} \bullet \vec{c}\)
+  \item \(\vec{a} \bullet (k\vec{b}) = (k\vec{a}) \bullet \vec{b} = k(\vec{a} \bullet \vec{b})\)
+  \item \(\vec{a} \bullet \vec{a} = \normvec{a}^2 \geqslant 0\)
+\end{itemize}
+
+We can use these properties to determine the perpendicularity between two vectors: two non zero vectors \(\vec{a}\) and \(\vec{b}\) are perpendicular if and only if \(\vec{a} \bullet \vec{b} = 0\).
+
+\subsubsection*{Direction angles}
+The dot product is useful to determine the direction angles of a vector \(\vec{a}\), which is the angle between the vector and the axis:
+\begin{align*}
+   & x\text{-axis:} \cos\alpha = \frac{a_1 }{\normvec{a}} \\
+   & y\text{-axis:} \cos\beta = \frac{a_2 }{\normvec{a}}  \\
+   & z\text{-axis:} \cos\gamma = \frac{a_3 }{\normvec{a}}
+\end{align*}
+These formulas implies that
+\[
+  \hat{a} = (\cos\alpha, \cos\beta, \cos\gamma)
+\]
+\subsubsection*{Component and projection}
+The component of a vector \(\vec{a}\) along a vector \(\vec{b}\) is \(\comp{a}{b} = \normvec{a}\cos\theta = \frac{\vec{a} \bullet \vec{b}}{\normvec{b}}\).
+The projection of a vector \(\vec{a}\) along a vector \(\vec{b}\) is \(\proj{a}{b} = (\comp{a}{b})\hat{b} = \frac{\vec{a} \bullet \vec{b}}{\normvec{b}^2 }\vec{b}\).
+
+\subsection{Cross product}
+The cross product between two vectors \(\vec{a}\) and \(\vec{b}\) is
+\begin{align*}
+  \vec{a} \times \vec{b} & =
+  \begin{vmatrix}
+    \ivec & \jvec & \kvec \\
+    a_1   & a_2   & a_3   \\
+    b_1   & b_2   & b_3
+  \end{vmatrix}                                                                                       \\
+                         & = (a_2 b_3 - b_2 a_3 )\ivec + (a_3 b_1 - b_3 a_1 )\jvec + (a_1 b_2 - b_1 a_2 )\kvec \\
+                         & = \left( \normvec{a}\normvec{b}\sin\theta \right)\hat{n}
+\end{align*}
+where \(\hat{n}\) is a unit vector orthogonal to the plane of \(\vec{a}\) and \(\vec{b}\).
+
+Properties of the dot product:
+\begin{itemize}
+  \item \(\vec{a} \times \vec{b} = 0 \iff \vec{a} = \vec{0} \text{ or } \vec{b} = \vec{0} \text{ or } \theta = 0 \modulus{\pi}\)
+  \item \(\vec{a} \times \vec{b} = -\vec{b} \times \vec{a}\)
+  \item \(\vec{a} \times (\vec{b} + \vec{c}) = \vec{a} \times \vec{b} + \vec{a} \times \vec{c}\)
+  \item \((\vec{a} + \vec{b}) \times \vec{c} = \vec{a} \times \vec{c} + \vec{b} \times \vec{c}\)
+  \item \(\vec{a} \times (k\vec{b}) = (k\vec{a}) \times \vec{b} = k(\vec{a} \times \vec{b})\)
+  \item \(\vec{a} \times \vec{a} = 0\)
+  \item \(\vec{a} \bullet (\vec{a} \times \vec{b}) = 0\)
+  \item \(\vec{b} \bullet (\vec{a} \times \vec{b}) = 0\)
+\end{itemize}
+
+We can use these properties to determine the parallelism between two vectors: two non zero vectors \(\vec{a}\) and \(\vec{b}\) are parallel if and only if \(\vec{a} \times \vec{b} = \vec{0}\).
+
+\subsubsection*{Special products}
+Scalar triple product:
+\[
+  \vec{a} \bullet (\vec{b} \times \vec{c}) = ( \vec{a} \times \vec{b}) \bullet \vec{c} =
+  \begin{vmatrix}
+    a_1 & a_2 & a_3 \\
+    b_1 & b_2 & b_3 \\
+    c_1 & c_2 & c_3
+  \end{vmatrix}
+\]
+
+Vector triple product:
+\[
+  \vec{a} \times (\vec{b} \times \vec{c}) = (\vec{a} \bullet \vec{c})\vec{b} - (\vec{a} \bullet \vec{b})\vec{c}
+\]
+
+\subsubsection*{Applications}
+Area of a parallelogram: \(A = \norm{\vec{a} \times \vec{b}}\)
+
+Area of a triangle: \(A = \frac{1}{2}\norm{\vec{a} \times \vec{b}}\)
+
+Volume of a parallelepiped: \(V = \abs{\vec{a} \bullet \left( \vec{b} \times \vec{c} \right)}\)
+
+Coplanar vectors: \(\vec{a}\), \(\vec{b}\) and \(\vec{c}\) are coplanar if and only if \(\vec{a} \bullet (\vec{b} \times \vec{c}) = 0\).
+
+
+\subsection{Lines and planes in space}
+\subsubsection*{Vector equations of a line}
+The parametric equation of a line is of the form
+\[
+  \vec{r} = \vec{a}t + \vec{r}_0
+\]
+where \(\vec{r} = (x, y, z)\) are the coordinates in \(\set{R}{3}{}\), \(\vec{a} = (a_1 , a_2 , a_3 )\) is the direction vector of the line, \(\vec{r}_0 = (x_0 , y_0 , z_0 )\) is any point on the line and \(t\) is a scalar variable.
+This equation can also be written as a system:
+\[
+  \begin{cases}
+    x = a_1 t + x_0 \\
+    y = a_2 t + y_0 \\
+    z = a_3 t + z_0
+  \end{cases}
+\]
+
+From those equation, the symmetric equation can be found:
+\[
+  t = \frac{x - x_0 }{a_1 } = \frac{y - y_0 }{a_2 } = \frac{z - z_0 }{a_3 }
+\]
+If any components of \(\vec{a}\) is equal to 0, then, the dependent variable is set to its corresponding component of \(\vec{r}_0 \).
+\begin{example}
+  If \(\vec{a} = (0, a_2 , a_3 )\), then we have \(x = x_0 \) and \(\frac{y - y_0 }{a_2 } = \frac{z - z_0 }{a_3 }\)
+\end{example}
+
+\subsubsection*{Vector equations of a plane}
+The cartesian equation of a plane is of the form
+\[
+  \vec{n} \bullet \left( \vec{r} - \vec{r}_0 \right) = 0
+\]
+where \(\vec{n} = (a, b, c)\) is the normal vector of the plane, \(\vec{r} = (x, y, z)\) are the coordinates in \(\set{R}{3}{}\) and \(\vec{r}_0 = (x_0 , y_0 , z_0 )\) is any point on the plane.
+This equation can be expanded in the form
+\[
+  ax + by + cz = d \text{, where } d = ax_0 + by_0 + cz_0
+\]
+
+Method to find the equation of the plane containing three points \(A\), \(B\) and \(C\):
+\begin{enumerate}
+  \item Build 3 vectors \(\Vec{AB}\), \(\Vec{CB}\) and \(\Vec{CX}\), where \(X = (x, y, z)\)
+  \item Compute the scalar triple product \((\Vec{AB} \times \Vec{CB}) \bullet \Vec{CX} = 0\)
+\end{enumerate}
+
+Method to find the line of intersection between to planes:
+\begin{enumerate}
+  \item Let either \(x\), \(y\) or \(z\) equal to \(t\)
+  \item Build the system where the other 2 variables depends on \(t\)
+  \item Solve to get \(x\), \(y\), and \(z\) dependent on \(t\)
+\end{enumerate}
+
+\addtocounter{section}{1}
+\section{Vector calculus}
+\subsection{Vector functions}
+A vector function is a function such that at least one component of a vector \(\vec{r}\) is dependent on another variable:
+\[
+  \vec{r}(t) = \left( x(t), y(t), z(t) \right)
+\]
+\begin{example}
+  The vector function of a circular helix is of the form:
+  \[
+    \vec{r}(t) = \left( \alpha\cos\beta t, \alpha\sin\beta t, kt \right)
+  \]
+\end{example}
+
+\subsubsection*{Limit of a vector function}
+If \(\limit{a}{t}{x(t)}\), \(\limit{a}{t}{y(t)}\) and \(\limit{a}{t}{z(t)}\) exist, then
+\[
+  \limit{a}{t}{\vec{r}(t)} = \left( \limit{a}{t}{x(t)}, \limit{a}{t}{y(t)}, \limit{a}{t}{z(t)} \right)
+\]
+
+\paragraph*{Properties of limits}
+If \(\limit{a}{t}{\vec{r}_1 (t)} = \vec{L}_1 \) and \(\limit{a}{t}{\vec{r}_2 (t)} = \vec{L}_2 \), then:
+\begin{align*}
+   & \limit{a}{t}{k\vec{r}_1 (t)} = k\vec{L}_1                                        \\
+   & \limit{a}{t}{\vec{r}_1 (t) + \vec{r}_2 (t)} = \vec{L}_1 + \vec{L}_2             \\
+   & \limit{a}{t}{\vec{r}_1 (t) \bullet \vec{r}_2 (t)} = \vec{L}_1 \bullet \vec{L}_2
+\end{align*}
+
+A vector function \(\vec{r}\) is said to be continuous at \(t = a\) if:
+\begin{itemize}
+  \item \(\vec{r}(a)\) is defined
+  \item \(\limit{a}{t}{\vec{r}(t)}\) exists
+  \item \(\limit{a}{t}{\vec{r}(t)} = \vec{r}(a)\)
+\end{itemize}
+
+\subsubsection*{Derivative of a vector function}
+If \(\vec{r}(t) = \left( x(t), y(t), z(t) \right)\), where \(x\), \(y\) and \(z\) are differentiable, then
+\[
+  \derivative{}{t}\left[ \vec{r}(t) \right] = \left( \derivative{x}{t}, \derivative{y}{t}, \derivative{z}{t} \right)
+\]
+
+\paragraph*{Smooth curves}
+When the components functions of a vector function \(\vec{r}\) have continuous first derivatives and \(\vec{r}'(t) \neq 0\) for all \(t\) in the open interval \((a, b)\), then \(\vec{r}\) is said to be a smooth function and the curve \(\mathscr{C}\) traced by \(\vec{r}\) is called a smooth curve.
+
+Method to find parametric equation of the tangent line to a curve for \(t = k\):
+\begin{enumerate}
+  \item If not given, find the vector function \(\vec{r}\)
+  \item Find the point of tangency \(\vec{r}(k)\)
+  \item Compute \(\vec{r}'\)
+  \item Find the direction vector at the point of tangency \(\vec{r}'(k)\)
+  \item The parametric equation is \(\vec{T} = \vec{r}'(k)t + \vec{r}(k)\)
+\end{enumerate}
+
+\paragraph*{Properties of derivatives}
+Let \(\vec{r}_1 (t)\) and \(\vec{r}_2 (t)\) be differentiable vector functions and \(u(t)\) a differentiable scalar function:
+\begin{align*}
+   & \derivative{}{t}\left[ \vec{r}_1 (t) + \vec{r}_2 (t) \right] = \vec{r}_1 '(t) + \vec{r}_2 '(t)                                                   \\
+   & \derivative{}{t}\left[ u(t)\vec{r}_1 (t) \right] = u(t)\vec{r}_1 '(t) + u'(t)\vec{r}_1 (t)                                                       \\
+   & \derivative{}{t}\left[ \vec{r}_1 (t) \bullet \vec{r}_2 (t) \right] = \vec{r}_1 '(t) \bullet \vec{r}_2 (t) + \vec{r}_1 (t) \bullet \vec{r}_2 '(t) \\
+   & \derivative{}{t}\left[ \vec{r}_1 (t) \times \vec{r}_2 (t) \right] = \vec{r}_1 '(t) \times \vec{r}_2 (t) + \vec{r}_1 (t) \times \vec{r}_2 '(t)    \\
+\end{align*}
+
+\subsubsection*{Integrals of a vector function}
+If \(\vec{r}(t) = \left( x(t), y(t), z(t) \right)\), where \(x\), \(y\) and \(z\) are integrable, then
+\begin{align*}
+  \int{\vec{r}(t) \diffint{t}}       & = \left( \int{x(t) \diffint{t}}, \int{y(t) \diffint{t}}, \int{z(t) \diffint{t}} \right)                   \\
+  \int_a ^b {\vec{r}(t) \diffint{t}} & = \left( \int_a ^b {x(t) \diffint{t}}, \int_a ^b {y(t) \diffint{t}}, \int_a ^b {z(t) \diffint{t}} \right)
+\end{align*}
+
+\subsubsection*{Length of a space curve}
+If \(\vec{r}(t) = \left( x(t), y(t), z(t) \right)\) is a smooth function, then it can be shown that the length of the smooth curve traced by \(\vec{r}\) is given by
+\[
+  s = \int_a ^b {\norm{\vec{r}'(t)} \diffint{t}} = \int_a ^b {\sqrt{\left[ x'(t)^2 \right] + \left[ y'(t)^2 \right] + \left[ z'(t)^2 \right]} \diffint{t}}
+\]
+
+\subsection{Motion on a curve}
+Suppose a body or a particle moves along a curve \(\mathscr{C}\) so that its position at time \(t\) is given by the vector function
+\[
+  \vec{r}(t) = \left( x(t), y(t), z(t) \right)
+\]
+The velocity and acceleration of the particle are
+\begin{align*}
+  \vec{v}(t) = \vec{r}'(t)  & = \left( x'(t), y'(t), z'(t) \right)    \\
+  \vec{a}(t) = \vec{r}''(t) & = \left( x''(t), y''(t), z''(t) \right)
+\end{align*}
+The speed of the particle is the magnitude of the velocity:
+\[
+  v(t) = \norm{\vec{v}(t)} = \sqrt{x'(t)^2 + y'(t)^2 + z'(t)^2 }
+\]
+
+\subsubsection*{Centripetal motion}
+If \(\vec{r}(t) = (r_0 \cos\omega t, r_0 \sin\omega t)\), where \(r_0 \) and \(\omega\) are constants, then the acceleration is \(\vec{r}'' = -\omega^2 \vec{r}\) and the position and acceleration vectors are in opposite direction (this is the case for a circular motion).
+Also, \(\normvec{a} = \frac{\normvec{v}^2 }{\norm{\vec{r}_0 }}\).
+
+\subsubsection*{Trajectory of a projectile}
+Due to the gravity, we have \(\vec{a} = (0, -g)\).
+Let the initial velocity be \(\vec{v}_0 = (v_0 \cos\theta, v_0 \sin\theta)\) and the initial height be \(\vec{s}_0 = (0, s_0 )\).
+Then the velocity vector \(\vec{v}\) is \(\vec{v} = (v_0 \cos\theta, -gt + v_0 \sin\theta)\), and the position vector \(\vec{r}\) is \(\vec{r} = (v_0 t\cos\theta, -\frac{1}{2}gt^2 + v_0 t\sin\theta + s_0 )\).
+
+\subsection{Curvature and components of acceleration}
+\subsubsection*{Unit tangent vector}
+Let \(\vec{r}(t)\) be a vector function defining a smooth curve \(\mathscr{C}\) and let the unit tangent vector \(\hat{T}(t)\) be
+\[
+  \hat{T}(t) = \hat{r}'(t) = \frac{\vec{r}'(t)}{\norm{\vec{r}'(t)}}
+\]
+If \(s\) is the arc length parameter and  is the unit tangent vector, then the curvature of \(\mathscr{C}\) at a point is
+\[
+  \kappa = \norm{\derivative{\hat{T}}{s}} \text{ and } \kappa(t) = \frac{\norm{\vec{T}'(t)}}{\norm{\vec{r}'(t)}}
+\]
+
+Method to find the curvature of a curve defined by \(\vec{r}(t)\):
+\begin{enumerate}
+  \item Compute \(\vec{r}'(t)\) and \(\norm{\vec{r}'(t)}\)
+  \item Compute \(\hat{T}(t) = \hat{r}'(t) = \frac{\vec{r}'(t)}{\norm{\vec{r}'(t)}}\), \(\vec{T}'(t)\) and \(\norm{\vec{T}'(t)}\)
+  \item Compute \(\kappa(t) = \frac{\norm{\vec{T}'(t)}}{\norm{\vec{r}'(t)}}\)
+\end{enumerate}
+
+\subsubsection*{Principal normal}
+Then, from the unit tangent vector \(\hat{T}(t)\), we can find the principal normal which is defined as
+\[
+  \hat{N}(t) = \hat{T}'(t) = \frac{\vec{T}'(t)}{\norm{\vec{T}'(t)}}
+\]
+
+In the case of motion, the curvature \(\kappa(t)\) can be re-written as \(\kappa(t) = \frac{\norm{\vec{T}'(t)}}{\norm{\vec{v}(t)}}\) and velocity \(\vec{v}(t)\) will be \(\vec{v}(t) = \normvec{v}\hat{T}(t)\)
+Finally, using the unit tangent vector \(\hat{T}(t)\), the curvature \(\kappa(t)\) and the principal normal \(\hat{N}(t)\), the acceleration vector can be re-written as
+\begin{align*}
+  \vec{a}(t)        & = a_N \hat{N} + a_T \hat{T}                                          \\
+  \text{where } a_N & = \kappa \normvec{v}^2 \text{ is the normal acceleration}            \\
+  a_T               & = \derivative{\normvec{v}}{t} \text{ is the tangential acceleration}
+\end{align*}
+
+\subsubsection*{Binormal vector}
+The binormal vector is defined as \(\hat{B}(t) = \hat{T}(t) \times  \hat{N}(t)\).
+
+Now, three planes can be defined:
+\begin{description}
+  \item[Plane TN:] osculating plane
+  \item[Plane NB:] normal plane
+  \item[Plane TB:] rectifying plane
+\end{description}
+
+The vectors \(\hat{T}(t)\), \(\hat{N}(t)\) and \(\hat{B}(t)\) form a right-handed system referred to as trihedral system.
+
+Using all those formulas, we can find several formulas
+\begin{align*}
+  a_T       & = \derivative{v}{t} = \frac{\vec{v} \bullet \vec{a}}{\normvec{v}}          \\
+  a_N       & = \kappa \normvec{v}^2 = \frac{\norm{\vec{v} \times \vec{a}}}{\normvec{v}} \\
+  \kappa(t) & = \frac{\norm{\vec{v} \times \vec{a}}}{\normvec{v}^3 }
+\end{align*}
+
+Finally, the reciprocal \(\rho\) of curvature is called radius of curvature and is defined as
+\[
+  \rho = \frac{1}{\kappa}
+\]
+
+\subsection{Partial derivatives}
+Let \(z = f(x, y)\) denote a surface.
+The level curves are \(f(x, y) = c\) (same thing as lines of altitude on elevation maps).
+
+For a function of three variables, we have \(w = f(x, y, z)\)
+The level surfaces are \(f(x, y, z) = c\).
+
+For \(y = f(x)\), we had
+\[
+  \derivative{y}{x} = \limit{\Delta x}{0}{\frac{f(x + \Delta x) - f(x)}{\Delta x}}
+\]
+Now, in case of partial derivatives, for \(z = f(x, y)\) we have
+\begin{align*}
+  \partialderivative{z}{x} & = \limit{\Delta x}{0}{\frac{f(x + \Delta x, y) - f(x, y)}{\Delta x}} \\
+  \partialderivative{z}{y} & = \limit{\Delta y}{0}{\frac{f(x, y + \Delta y) - f(x, y)}{\Delta y}}
+\end{align*}
+
+To compute \(\partialderivative{z}{x}\), we use the laws of ordinary differentiation while treating \(y\) as a constant.
+The same applies for computing \(\partialderivative{z}{y}\).
+
+\subsubsection*{Notation of partial derivatives}
+Partial derivative representation are:
+\begin{itemize}
+  \item First-order:
+        \[
+          \partialderivative{z}{x} = \partialderivative{f}{x} = f_x
+        \]
+  \item Second-order:
+        \[
+          \npartialderivative{2}{z}{x} = f_{xx}
+        \]
+  \item Mixed second-order:
+        \[
+          \frac{\partial^2 z}{\partial x \partial y} = \partialderivative{}{y} \left( \partialderivative{z}{y} \right) = f_{yx}
+        \]
+        If a function \(f\) has continuous second partial derivatives, then the order in which a mixed second partial derivative is done is irrelevant, i.e. \(f_{yx} = f_{xy}\)
+\end{itemize}
+
+\subsubsection*{Chain rule}
+If \(z = f(u, v)\) is differentiable and \(u = g(x, y)\) and \(v = h(x, y)\) have continuous first-order partial derivatives, then
+\[
+  \partialderivative{z}{x} = \partialderivative{z}{u}\partialderivative{u}{x} + \partialderivative{z}{v}\partialderivative{v}{x}
+\]
+In order to simplify the calculations, we can use the tree method (can be expanded with more functions and more independent variables):
+\begin{enumerate}
+  \item Place the dependent variable \(z\) at the top
+  \item Place \(u\) and \(v\) under \(z\)
+  \item Place \(x\) and \(y\) under each \(u\) and \(v\)
+  \item The "roots" of the tree, are partial derivative of the top with respect of the bottom
+  \item To get \(\partialderivative{z}{x}\) multiply the partial derivatives from \(z\) until \(x\) and sum them up for each root.
+\end{enumerate}
+
+\subsection{Directional derivatives}
+\subsubsection*{Gradient}
+The gradient of a function is a vector which points in the direction of most increase and is defined as
+\begin{align*}
+  \grad{f(x, y)}    & = \left( \partialderivative{f}{x}, \partialderivative{f}{y} \right)                           \\
+  \grad{f(x, y, z)} & = \left( \partialderivative{f}{x}, \partialderivative{f}{y}, \partialderivative{f}{z} \right)
+\end{align*}
+
+
+\subsubsection*{Directional derivative}
+The directional derivative \(\direcderivative{u}{z}\) of \(z = f(x, y)\) in the direction of a unit vector \(\vec{u} = (\cos\theta, \sin\theta)\) is the generalization of partial differentiation of the function \(f\), and it is defined as:
+\[
+  \direcderivative{u}{f(x, y)} = \grad{f(x, y)} \bullet \vec{u} = \norm{\grad{f}}\cos\phi
+\]
+Therefore, we have \(-\norm{\grad{f}} \leqslant D_{\vec{u}}\,f \leqslant \norm{\grad{f}}\).
+This can also be interpreted as: the gradient vector \(\grad{f}\) points in the direction in which \(f\) increases most rapidly, whereas \(-\grad{f}\) points in the direction in which \(f\) decreases most rapidly.
+
+\subsection{Tangent planes and normal lines}
+\subsubsection*{Tangent planes}
+Suppose \(f(x, y) = c\) is the level curve of the differentiable function \(z = f(x, y)\) that passe through a specified point \(P(x_0 , y_0 )\), i.e. \(f(x_0 , y_0 ) = c\).
+Then, the following property can be shown: \(\grad{f(x_0 , y_0 )} \bullet \vec{r}'(t_0 ) = 0\) which means that \(\grad{f}\) is orthogonal to the level curve at \(P\).
+For a function of three variables, we have \(\grad{f(x_0 , y_0 , z_0 )} \bullet \vec{r}'(t_0 ) = 0\), i.e. \(\grad{f}\) is normal to the level surface at \(P\).
+
+The tangent plane at \(P\) is the plane normal to \(\grad{f}\) evaluated at P.
+If \(P(x, y, z)\) and \(P(x_0 , y_0 , z_0 )\) are points on the tangent plane and \(\vec{r}\) and \(\vec{r}_0 \) are their respective position vectors, then a vector equation of the tangent plane is
+\[
+  \grad{f(x_0 , y_0 , z_0 )} \bullet (\vec{r} - \vec{r}_0 ) = 0
+\]
+with the following expanded form:
+\begin{multline*}
+  f_x (x_0 , y_0 , z_0 )(x - x_0 ) \\ + f_y (x_0 , y_0 , z_0 )(y - y_0 ) \\ +  f_z (x_0 , y_0 , z_0 )(z - z_0 ) = 0
+\end{multline*}
+
+\subsubsection*{Normal line}
+The normal line to the surface at a point \(P(x_0 , y_0 , z_0 )\) is the line normal to the tangent plane of the surface at \(P\).
+The parametric equation of the normal line is
+\[
+  \frac{x - x_0 }{f_x (x_0 , y_0 , z_0 )} = \frac{y - y_0 }{f_y (x_0 , y_0 , z_0 )} = \frac{z - z_0 }{f_z (x_0 , y_0 , z_0 )}
+\]
+
+\subsection{Curl and divergence}
+\subsubsection*{Vector field}
+A vector field is made of a set of vector.
+It can be seen as a vector function in which the components can depend on several variables:
+\begin{align*}
+  \vec{v}(x, y)    & = \left( P(x, y), Q(x, y) \right)                   \\
+  \vec{v}(x, y, z) & = \left( P(x, y, z), Q(x, y, z), R(x, y, z) \right)
+\end{align*}
+
+\subsubsection*{Curl}
+The curl of a vector field \(\vec{v}\) is another vector field such that
+\[
+  \curl{v}= \grad{} \times \vec{v}
+\]
+
+\subsubsection*{Flux}
+The flux is the volume of the fluid flowing through an element of surface area \(\Delta S\) per unit of time.
+The flux can be obtained using
+\[
+  \text{flux } = \left( \comp{v}{n} \right){\Delta S}_{\mathrm{base}} = \left( \vec{v} \bullet \vec{n} \right){\Delta S}_{\mathrm{base}}
+\]
+
+The net flux of \(\vec{v}\) is defined as
+\[
+  \left( \partialderivative{P}{x} + \partialderivative{Q}{y} + \partialderivative{R}{z} \right)\Delta x \Delta y \Delta z
+\]
+and the outward flux of \(\vec{v}\) per unit volume is \(\partialderivative{P}{x} + \partialderivative{Q}{y} + \partialderivative{R}{z}\).
+
+\subsubsection*{Divergence}
+The divergence of a vector field \(\vec{F} = (P, Q, R)\) is the scalar function
+\[
+  \divergence{v} = \grad{} \bullet \vec{v} = \partialderivative{P}{x} + \partialderivative{Q}{y} + \partialderivative{R}{z}
+\]
+
+\subsubsection*{Physical interpretation}
+\begin{description}
+  \item[Curl] The curl of the velocity field \(\vec{v}\) is a measure of the tendency of the fluid to turn a device about its vertical axis.
+  \item[Divergence] The divergence is a measure of the fluid's compressibility
+        \begin{itemize}
+          \vspace{6pt}
+          \item If \(\divergence{v}(P) > 0\), then \(P\) is said to be a source for \(\vec{v}\).
+          \item If \(\divergence{v}(P) = 0\), then the fluid is said to be incompressible.
+          \item If \(\divergence{v}(P) < 0\), then \(P\) is said to be a sink for \(\vec{v}\).
+        \end{itemize}
+\end{description}
+
+If \(F\) is a vector field having continuous second partial derivatives, then \(\mathrm{div}(\curl{F}) = 0\).
+If \(f\) is a scalar function with continuous second partial derivatives, then \(\mathrm{curl}(\grad{f}) = \vec{0}\).
+
+\subsection{Line integrals}
+\subsubsection*{Terminology}
+Suppose \(\mathscr{C}\) is a curve parameterized by \(\vec{F} = \left( f(t), g(t) \right)\), \(a \leqslant t \leqslant b\), and \(A = \left( f(a), g(a) \right)\) and \(B = \left( f(b), g(b) \right)\)
+\begin{description}
+  \item[Smooth curve:] if \(f'\) and \(g'\) are continuous on the closed interval \([a, b]\) and not simultaneously 0 on the open interval \((a, b)\).
+  \item[Piecewise smooth:] if it consists of a finite number of smooth curves joined en to end.
+  \item[Closed curve:] is \(A = B\)
+  \item[Simple closed curve:] if \(A = B\) and the curve does not cross itself.
+\end{description}
+
+\subsubsection*{Line integrals definition}
+Let \(\vec{F} = \left( P(x, y), Q(x, y) \right)\) be a function of two variables \(x\) and \(y\) defined on a region of the place containing a smooth curve \(\mathscr{C}\).
+The line integral of \(\vec{F}\) along \(\mathscr{C}\) from \(A\) to \(B\) is
+\[
+  \int_{\mathscr{C}}{\vec{F} \bullet \diffint{\vec{r}}} = \int_{\mathscr{C}}{ P(x, y) \diffint{x} + Q(x, y) \diffint{y}}
+\]
+
+A line integral along a piecewise-smooth curve \(\mathscr{C}\) is defined as the sum of the integrals over the various smooth curves whose \(\mathscr{C}\) is made of.
+This also applies to contour integrals which might be made of piecewise-smooth curve.
+
+\subsubsection*{Physical interpretation}
+\begin{description}
+  \item[Work] If we have a force \(\vec{F} = \left( P(x, y, z), Q(x, y, z), R(x, y, z) \right)\) along a curve \(\mathscr{C}\), then the work done by this force is
+        \[
+          W_{\mathscr{C}} = \int_{\mathscr{C}}{\vec{F} \bullet \diffint{\vec{r}}} = \int_{\mathscr{C}}{\comp{F}{T} \diffint{s}}
+        \]
+        where \(\hat{T}\) is the unit tangent vector.
+        This means that the work done by a force \(\vec{F}\) along a curve \(\mathscr{C}\) is due entirely to the tangential component of \(\vec{F}\).
+  \item[Mass] If a wire corresponding to a curve \(\mathscr{C}\) has a variable density \(\rho(x, y)\) in mass per unit length, then the mass of the wire along the curve \(\mathscr{C}\) defined by \(\vec{r}(t)\) is
+        \[
+          m = \int_{\mathscr{C}}{\rho \diffint{s}} = \int_{\mathscr{C}}{\rho \norm{\vec{r}'} \diffint{t}}
+        \]
+  \item[Circulation] The circulation is defined as
+        \[
+          \mathrm{circulation} = \oint_{\mathscr{C}}{\vec{F} \bullet \diffint{\vec{r}}} = \oint_{\mathscr{C}}{\comp{F}{T} \diffint{s}}
+        \]
+\end{description}
+
+\subsection{Independent of the path}
+An integral is independent of the path if no matter what is the curve, the integral remains the same.
+
+A vector function \(\vec{F}\) is said to be conservative if \(\vec{F}\) can be written as the gradient of a scalar function \(\phi\).
+The function \(\phi\) is called a potential function of \(\vec{F}\).
+In other words, \(\vec{F}\) is conservative if there exists function \(\phi\) such that \(\vec{F} = \grad{\phi}\).
+A conservative vector field is also called a gradient vector field.
+
+\paragraph*{Fundamental theorem of the line integral}
+\[
+  \int_{\mathscr{C}}{\vec{F} \bullet \diffint{\vec{r}}} = \int_{\mathscr{C}}{\grad{\phi} \bullet \diffint{\vec{r}}} = \phi(B) - \phi(A)
+\]
+where \(A\) is the starting point and \(B\) is the end point.
+
+In an open connected region \(R\), the integral is independent of the path \(\mathscr{C}\) if and only if the vector field \(\vec{F}\) is conservative in \(R\) or if \(\oint_{\mathscr{C}}{\vec{F} \bullet \diffint{\vec{r}}} = 0\) for every closed path \(\mathscr{C}\) in \(R\).
+
+Therefore, we have:
+\begin{align*}
+  \vec{F} \text{ conservative} & \iff \text{path independence}                                   \\
+                               & \iff \oint_{\mathscr{C}}{\vec{F} \bullet \diffint{\vec{r}}} = 0
+\end{align*}
+\begin{itemize}
+  \item In \(\set{R}{2}{}\), \(\vec{F} = \left( P(x, y), Q(x, y) \right)\) is conservative if
+        \[
+          \partialderivative{P}{y} = \partialderivative{Q}{x}
+        \]
+  \item In \(\set{R}{3}{}\), \(\vec{F} = \left( P(x, y, z), Q(x, y, z), R(x, y, z) \right)\) is conservative if
+        \[
+          \partialderivative{P}{y} = \partialderivative{Q}{x} \text{ and } \partialderivative{P}{z} = \partialderivative{R}{x}  \text{ and }\partialderivative{Q}{z} = \partialderivative{R}{y}
+        \]
+        This is equivalent to \(\curl{F} = \vec{0}\).
+\end{itemize}
+
+
+Method for finding \(\phi(x, y)\) in \(\set{R}{2}{}\) (very similar to solving an exact differential equation):
+\begin{enumerate}
+  \item Check for \(\vec{F} = \left( P(x, y), Q(x, y) \right)\) being conservative
+  \item If \(\vec{F} = \left( P(x, y), Q(x, y) \right)\) is conservative, there exists a function \(\phi(x,y)\) such that:
+        \[
+          \partialderivative{\phi(x, y)}{x} = P(x,y) \text{ and } \partialderivative{\phi(x, y)}{y} = Q(x,y)
+        \]
+  \item Find \(\phi(x,y)\) by integrating \(P(x,y)\) with respect to \(x\), while holding \(y\) constant.
+        This gives:
+        \[
+          \phi(x,y) = \int{P(x,y)\diffint{x}} + g(y)
+        \]
+        where an arbitrary function \(g(y)\) is the "constant" of integration
+  \item Differentiate \(\phi(x,y)\) with respect to \(y\) and set it equals to \(Q(x,y)\):
+        \[
+          \partialderivative{\phi(x, y)}{y} = \partialderivative{}{y}\left[ \int{P(x,y)\diffint{x}} \right] + g'(y) = Q(x,y)
+        \]
+  \item This gives:
+        \[
+          g'(y) = Q(x,y) - \partialderivative{}{y}\left[ \int{P(x,y)\diffint{x}} \right]
+        \]
+  \item Integrate \(g'(y)\) with respect to \(y\)
+  \item Substitute the result in \(\phi(x,y) = \int{P(x,y)\diffint{x}} + g(y)\)
+\end{enumerate}
+
+Therefore, if \(\vec{F} = \left( P(x, y), Q(x, y) \right)\) is conservative, the full solution becomes:
+\begin{multline*}
+  \phi(x,y) = \int{P(x,y)\diffint{x}} \\
+  + \int{Q(x,y) - \partialderivative{}{y}\left[ \int{P(x,y)\diffint{x}} \right]\diffint{y}}
+\end{multline*}
+
+The method for finding \(\phi(x, y, z)\) in \(\set{R}{3}{}\) is very similar, but \(g(y)\) becomes \(g(y, z)\) and therefore, we will need to do another integral in order to find a third function \(h(z)\).
+
+\subsection{Double integrals}
+Let \(f\) be a function of two variables defined on a closed region \(R\) of \(\set{R}{2}{}\).
+Then the double integral of \(f\) over \(R\) is given by
+\[
+  \iint_R {f(x, y) \diffint{A}} = \iint_R {f(x, y) \diffint{x} \diffint{y}}
+\]
+
+\subsubsection*{Properties}
+Let \(f\) and \(g\) be functions of two variables that are integrable over a region \(R\), then:
+\begin{itemize}
+  \item \(\iint_R {kf(x, y) \diffint{A}} = k\iint_R {f(x, y) \diffint{A}}\), where \(k \in \set{R}{}{}\).
+  \item \(\iint_R {\left[ f(x, y) \pm g(x, y) \right] \diffint{A}} = \iint_R {f(x, y) \diffint{A}} \pm \iint_R {g(x, y) \diffint{A}}\)
+  \item \(\iint_R {f(x, y) \diffint{A}} = \iint_{R_1 }{f(x, y) \diffint{A}} + \iint_{R_1 }{f(x, y) \diffint{A}}\), where \(R_1 \) and \(R_2 \) are subregions of \(R\) that not overlap and \(R = R_1 \cup R_2 \)
+\end{itemize}
+
+\subsubsection*{Computation}
+For region of Type \Romannumeral{1}:
+\[
+  \int_a ^b {\int_{g_1 (x)}^{g_2 (x)}{f(x, y) \diffint{y}}\diffint{x}} = \int_a ^b {\left[ \int_{g_1 (x)}^{g_2 (x)}{f(x, y) \diffint{y}} \right]\diffint{x}}
+\]
+For region of Type \Romannumeral{2}:
+\[
+  \int_c ^d {\int_{h_1 (x)}^{h_2 (x)}{f(x, y) \diffint{x}}\diffint{y}} = \int_c ^d {\left[ \int_{h_1 (x)}^{h_2 (x)}{f(x, y) \diffint{x}} \right]\diffint{y}}
+\]
+
+\paragraph*{Fubini's theorem}
+Let \(f\) be continuous on a region \(R\).
+If \(R\) is of Type \Romannumeral{1}, then
+\[
+  \iint_R {f(x, y) \diffint{A}} = \int_a ^b {\int_{g_1 (x)}^{g_2 (x)}{f(x, y) \diffint{y}}\diffint{x}}
+\]
+If \(R\) is of Type \Romannumeral{2}, then
+\[
+  \iint_R {f(x, y) \diffint{A}} = \int_c ^d {\int_{h_1 (x)}^{h_2 (x)}{f(x, y) \diffint{x}}\diffint{y}}
+\]
+
+\subsubsection*{Mass}
+If a lamina corresponding to a region \(R\) has a variable density \(\rho(x, y)\) continuous on \(R\), then
+\[
+  m = \iint_R {\rho(x, y) \diffint{A}}
+\]
+
+The coordinates of the center of mass of the lamina are:
+\begin{align*}
+  x & = \frac{M_y }{m} = \frac{1}{m} \iint_R {x\rho(x, y) \diffint{A}} \\
+  y & = \frac{M_x }{m} = \frac{1}{m} \iint_R {y\rho(x, y) \diffint{A}}
+\end{align*}
+The moments of inertia of the lamina are:
+\begin{align*}
+  I_x & = \iint_R {y^2 \rho(x, y) \diffint{A}} \\
+  I_y & = \iint_R {x^2 \rho(x, y) \diffint{A}}
+\end{align*}
+
+The radius of gyration \(K\) of a lamina of mass \(m\) is defined by \(K = \sqrt{\frac{I}{m}}\).
+
+\subsection{Double integrals in polar coordinates}
+The double integral of a function \(f(r, \theta)\) with respect to an area in polar coordinates is
+\begin{align*}
+  \iint_R {f(r, \theta) \diffint{A}} & = \int_{\alpha}^{\beta}{\int_{g_1 (\theta)}^{g_2 (\theta)}{f(r, \theta)r \diffint{r}}\diffint{\theta}} \\
+                                     & = \int_a ^b {\int_{h_1 (r)}^{h_2 (r)}{f(r, \theta)r \diffint{\theta}}\diffint{r}}
+\end{align*}
+
+A standard double integral function of \(x\) and \(y\) can be written as a double integral using polar coordinates:
+\[
+  \iint_R {f(x, y) \diffint{A}} = \int_{\alpha}^{\beta}{\int_{g_1 (\theta)}^{g_2 (\theta)}{f(r\cos\theta, r\sin\theta)r \diffint{r}}\diffint{\theta}}
+\]
+which is particularly useful when \(f\) contains the expression \(x^2 + y^2 \) since \(x^2 + y^2 = r^2 \).
+
+\subsection{Green's theorem}
+For Green's theorem, we introduce the concept of direction in the contour integrals: \(\varointctrclockwise\) is in the positive direction and \(\ointclockwise\) is in the negative direction.
+
+Suppose that \(\mathscr{C}\) is a piecewise-smooth simple closed curve bounding a simply connected region \(R\).
+If \(P\), \(Q\), \(\partialderivative{P}{y}\) and \(\partialderivative{Q}{x}\) are continuous on \(R\), then
+\[
+  \varointctrclockwise_{\mathscr{C}}{\vec{F} \bullet \diffint{\vec{r}}} = \varointctrclockwise_{\mathscr{C}}{P \diffint{x} + Q \diffint{y}} = \iint_R {\partialderivative{Q}{x} - \partialderivative{P}{y} \diffint{A}}
+\]
+
+If \(\partialderivative{P}{y} = \partialderivative{Q}{x}\), then the contour integral can be taken on a curve that is more convenient, as long as this curve is fully enclosed in the region bounded by the previous curve.
+
+\subsection{Surface integrals}
+\subsubsection*{Surface area}
+Let \(f\) be a function for which the first partial derivatives \(f_x \) and \(f_y \) are continuous on a closed region \(R\).
+Then the area of the surface over \(R\) is given by
+\[
+  S = \iint_R {\sqrt{1 + f_x (x, y)^2 + f_y (x, y)^2 }\diffint{A}}
+\]
+The surface area of a parameterized vector function \(\vec{F}(x, y)\) over \(R\) is
+\[
+  S = \iint_R {\norm{\partialderivative{\vec{F}}{x} \times \partialderivative{\vec{F}}{y}}\diffint{x}\diffint{y}}
+\]
+
+The differential of the surface area is the function function
+\[
+  \diff{}{S} = \sqrt{1 + f_x (x, y)^2 + f_y (x, y)^2 }\diffint{A}
+\]
+
+\subsubsection*{Surface integral}
+Let \(G\) be a function of three variables defined over a region of \(\set{R}{3}{}\) containing the surface \(S\).
+Then the surface integral of \(G\) over \(S\) is given by
+\[
+  \iint_S {G(x, y, z)\diffint{S}}
+\]
+
+In order to evaluate this surface integral, we project it along a planes:
+\begin{description}
+  \item[\(xy\)-plane:]
+        \begin{multline*}
+          \iint_S {G(x, y, z)\diffint{S}} = \\
+          \iint_R {G(x, y, f(x, y))\sqrt{1 + f_x (x, y)^2 + f_y (x, y)^2 }\diffint{A}}
+        \end{multline*}
+  \item[\(xz\)-plane:]
+        \begin{multline*}
+          \iint_S {G(x, y, z)\diffint{S}} = \\
+          \iint_R {G(x, g(x, z), z)\sqrt{1 + g_x (x, z)^2 + g_z (x, z)^2 }\diffint{A}}
+        \end{multline*}
+  \item[\(yz\)-plane:]
+        \begin{multline*}
+          \iint_S {G(x, y, z)\diffint{S}} = \\
+          \iint_R {G(h(y, z), y, z)\sqrt{1 + h_y (y, z)^2 + h_z (y, z)^2 }\diffint{A}}
+        \end{multline*}
+\end{description}
+
+The mass \(m\) of a surface represented by \(\rho(x, y, z)\) as the density of this shape at any point is given by
+\[
+  m = \iint_S {\rho(x, y, z)\diffint{S}}
+\]
+
+\subsubsection*{Orientable surface}
+A surface \(S\) defined as \(g(x, y, z) = 0\) can be an oriented surface.
+The orientation of \(S\) can be found using the normal vector function \(\hat{n}(x, y, z)\), where
+\[
+  \hat{n} = \frac{\grad{g}}{\norm{\grad{g}}}
+\]
+If \(S\) is defined by \(z = f(x, y)\), then we define \(g(x, y, z) = z - f(z, y) = 0\) or \(g(x, y, z) = f(z, y) - z = 0\) depending on the orientation of \(S\).
+
+A two-sided surface \(S\) defined by \(z = f(x, y)\) has an upward orientation when the unit normals are directed upward (positive \(\kvec\) components), and it has a downward orientation when the unit normals are direct downward (negative \(\kvec\) components).
+
+\subsubsection*{Integrals of vector fields}
+If \(\vec{v} = (P(x, y, z), Q(x, y, z), R(x, y, z))\) is the velocity field of a fluid, then the total of a fluid passing through \(S\) per unit of time is called the flux of \(\vec{v}\) through \(S\) and is given by
+\[
+  \text{flux } = \iint_S {\vec{v} \bullet \hat{n}\diffint{S}}
+\]
+In the case of a closed surface \(S\):
+\begin{itemize}
+  \item If \(\hat{n}\) is the outer normal, the surface integral gives the volume of fluid flowing out through \(S\) per unit of time
+  \item If \(\hat{n}\) is the inner normal, the surface integral gives the volume of fluid flowing in through \(S\) per unit of time
+\end{itemize}
+
+\subsection{Stokes' theorem}
+Let \(S\) be a piecewise-smooth orientable surface bounded by a piecewise-smooth simple closed curve \(\mathscr{C}\).
+Let \(\vec{F} = (P(x, y, z), Q(x, y, z), R(x, y, z))\) be a vector field for which \(P\), \(Q\) and \(R\) are continuous and have continuous first partial derivatives in a region of \(\set{R}{3}{}\) containing \(S\).
+If \(\mathscr{C}\) is traversed in the positive direction, then
+\begin{align*}
+  \ointclockwise_{\mathscr{C}}{\vec{F} \bullet \diffint{\vec{r}}} & = \ointclockwise_{\mathscr{C}}{\vec{F} \bullet \hat{T}\diffint{S}} \\
+                                                                  & = \iint_S {\left( \curl{F} \right) \bullet \hat{n}\diffint{S}}
+\end{align*}
+where \(\hat{n}\) is a unit normal to \(S\) in the direction of the orientation of \(S\).
+
+\subsubsection*{Curl interpretation}
+The curl of \(\vec{F}\) is the circulation of \(\vec{F}\) per unit of area:
+\[
+  \left( \curl{F} \bullet \hat{n} \right) = \limit{r}{0}{\frac{1}{A_r }\ointclockwise_{\mathscr{C}_r }{\vec{F} \bullet \diffint{\vec{r}}}}
+\]
+
+\subsection{Triple integral}
+Let \(F\) be a function of three variables defined on a closed region \(R\) of \(\set{R}{3}{}\).
+Then the triple integral of \(F\) over \(R\) is given by
+\[
+  \iiint_D {F(x, y, z) \diffint{V}} = \iiint_D {F(x, y, z) \diffint{x} \diffint{y} \diffint{z}}
+\]
+
+\subsubsection*{Computation}
+If the region \(D\) is bounded above by the graph of \(z = f_1 (x, y)\) and bounded below by the graph of \(z = f_2 (x, y)\), then it can be shown that the triple integral can be expressed as a double integral of a partial integral:
+\begin{multline*}
+  \iiint_D {F(x, y, z) \diffint{V}} = \iint_R \left[ \int_{f_1 (x, y)}^{f_2 (x, y)}{F(x, y, z) \diffint{z}} \right] \diffint{A}                            \\
+  = \int_a ^b {\int_{g_1 (x)}^{g_2 (x)}{\int_{f_1 (x, y)}^{f_2 (x, y)}{F(x, y, z) \diffint{z}}\diffint{y}}\diffint{x}}
+\end{multline*}
+
+\subsubsection*{Applications}
+\paragraph*{Volume}
+If \(F(x, y, z) = 1\), then the volume of the solid \(D\) is
+\[
+  V = \iiint_D {\diffint{V}}
+\]
+
+\paragraph*{Mass}
+If \(\rho(x, y, z)\) is density, then the mass of the solid \(D\) is given by
+\[
+  m = \iiint_D {\rho(x, y, z) \diffint{V}}
+\]
+
+\paragraph*{First moments}
+The first moments of the solid about the coordinate planes indicated by the subscripts are given by
+\begin{align*}
+  M_{xy} & = \iiint_D {z\rho(x, y, z) \diffint{V}} \\
+  M_{xz} & = \iiint_D {y\rho(x, y, z) \diffint{V}} \\
+  M_{yz} & = \iiint_D {x\rho(x, y, z) \diffint{V}}
+\end{align*}
+
+\paragraph*{Center of mass}
+The coordinates of the center of mass of \(D\) are given by
+\begin{align*}
+  \bar{x} = \frac{M_{yz}}{m} &  & \bar{y} = \frac{M_{xz}}{m} &  & \bar{z} = \frac{M_{xy}}{m}
+\end{align*}
+
+\paragraph*{Moments of inertia}
+The moments of inertia of \(D\) about the coordinate axes indicated by the subscripts are given by
+\begin{align*}
+  I_x & = \iiint_D {(y^2 + z^2 )\rho(x, y, z) \diffint{V}} \\
+  I_y & = \iiint_D {(x^2 + z^2 )\rho(x, y, z) \diffint{V}} \\
+  I_z & = \iiint_D {(x^2 + y^2 )\rho(x, y, z) \diffint{V}}
+\end{align*}
+
+\paragraph*{Radius of gyration}
+If \(I\) is a moment of inertia of the solid about a given axis, then the radius of gyration is
+\[
+  R_g = \sqrt{\frac{I}{m}}
+\]
+
+\subsubsection*{Cylindrical coordinates}
+The cylindrical coordinate system combines the polar description of a point in the plane with cartesian description of the \(z\)-component of a point in space.
+To transform the point \(P = (x, y, z)\) in cartesian coordinates from its cylindrical coordinates \(P = (r, \theta, z)\), we use
+\begin{align*}
+  x = r\cos\theta &  & y = r\sin\theta &  & z = z
+\end{align*}
+Conversely, to get the cartesian coordinates from cylindrical coordinates, we use
+\begin{align*}
+  r = \sqrt{x^2 + y^2 } &  & \theta = \arctan{\frac{y}{x}} &  & z = z
+\end{align*}
+
+In order to obtain the triple integral using cylindrical coordinates, we use \(\diff{}{A} = r\diffint{r}\diffint{\theta}\):
+\begin{multline*}
+  \iiint_D {F(r, \theta, z) \diffint{V}} = \iint_R \left[ \int_{f_1 (r, \theta)}^{f_2 (r, \theta)}{F(r, \theta, z) \diffint{z}} \right] \diffint{A} \\
+  = \int_{\alpha}^{\beta}{\int_{g_1 (\theta)}^{g_2 (\theta)}{\int_{f_1 (r, \theta)}^{f_2 (r, \theta)}{F(r, \theta, z) r \diffint{z}}\diffint{r}}\diffint{\theta}}
+\end{multline*}
+
+\subsubsection*{Spherical coordinates}
+The spherical coordinates of a point \(P\) are given by the ordered triple \((\rho, \phi, \theta)\), where \(\rho\) is the distance from the origin to \(P\), \(\phi\) is the angle between the positive \(z\)-axis and the vector \(\Vec{OP}\), and \(\theta\) is the angle measured from the positive \(x\)-axis to the vector \(\Vec{OP}\) projected onto the \(xy\)-plane.
+To transform \(P = (x, y, z)\) in cartesian coordinates from spherical coordinates \(P = (\rho, \phi, \theta)\) are
+\begin{align*}
+  x = \rho \sin\phi \cos\theta &  & y = \rho \sin\phi \sin\theta &  & z = \rho \cos\phi
+\end{align*}
+Conversely, to get the cartesian coordinates from spherical coordinates, we use
+\begin{align*}
+  r = \sqrt{x^2 + y^2 + z^2 } &  & \theta = \arctan{\frac{y}{x}} &  & \phi = \arccos{\frac{z}{\rho}}
+\end{align*}
+Finally, to transform from spherical coordinates \((\rho, \phi, \theta)\) to cylindrical coordinates \((r, \theta, z)\), we use:
+\begin{align*}
+  r = \rho \sin\phi &  & \theta = \theta &  & z = \rho \cos\phi
+\end{align*}
+
+In order to obtain the triple integral using spherical coordinates, we use \(\diff{}{V} = \rho^2 \sin\phi \diffint{\rho}\diffint{\phi}\diffint{\theta}\):
+\begin{multline*}
+  \iiint_D {F(\rho, \phi, \theta) \diffint{V}} = \\
+  \int_{\alpha}^{\beta}{\int_{g_1 (\theta)}^{g_2 (\theta)}{\int_{f_1 (\phi, \theta)}^{f_2 (\phi, \theta)}{F(\rho, \phi, \theta) \rho^2 \sin\phi  \diffint{\rho}}\diffint{\phi}}\diffint{\theta}}
+\end{multline*}
+
+\subsection{Divergence theorem}
+Let \(\vec{F}(x, y) = (P(x, y), Q(x, y))\) be a \(\set{R}{2}{}\) vector field.
+Then, another vector form of Green's theorem is
+\[
+  \varointctrclockwise_{\mathscr{C}}{\vec{F} \bullet \hat{n} \diffint{s}} = \iint_R {\divergence{F} \diffint{A}}
+\]
+
+The generalization of this to \(\set{R}{3}{}\), where  \(\vec{F}(x, y, z) = (P(x, y, z), Q(x, y, z), R(x, y, z))\) is a vector field, then
+\[
+  \iint_S {\vec{F} \bullet \hat{n} \diffint{S}} = \iiint_D {\divergence{F} \diffint{A}}
+\]
+
+For the surface between two spheres, we have
+\[
+  \iint_{S_a}{\vec{F} \bullet \hat{n} \diffint{S}} + \iint_{S_b}{\vec{F} \bullet \hat{n} \diffint{S}} = \iiint_D {\divergence{F} \diffint{A}}
+\]
+where \(\hat{n}\) points outward from \(D\), i.e. \(\hat{n}\) points away from the origin on \(S_a\) and \(\hat{n}\) points toward the origin on \(S_b\).
+
+\subsubsection*{Physical interpretation of divergence}
+The divergence can be interpreted as the flux per unit of volume at a specific point:
+\[
+  \divergence{F}(P_0) = \limit{r}{0}{\frac{1}{V_r}\iint_{S_r}{\vec{F} \bullet \hat{n} \diffint{S}}}
+\]
+
+\subsubsection*{Continuity equation}
+Using the divergence theorem, we can find the equation of continuity for fluid flow:
+\[
+  \partialderivative{\rho}{t} + \mathrm{div\,}\left( \rho\vec{F} \right) = 0
+\]
+
+
+\subsection{Change of variables in multiple integrals}
+For simple integrals, the change of variable is as follow: let \(x = g(u)\), then
+\[
+  \int_a ^b {f(x) \diffint{x}} = \int_c ^d {f(g(u)) g'(u) \diffint{u}}
+\]
+where \(a = g(c)\) and \(b = g(d)\).
+In multivariable calculus, we use the Jacobian \(J(u)\) instead of \(g'(u)\).
+
+Let \(x = f(u, v)\) and \(y = g(u, v)\), then the change of variable in a double integral is of the form
+\[
+  \iint_R {F(x, y) \diffint{A}} = \iint_S {F(f(u, v), g(u, v)) J(u, v) \diffint{A}}
+\]
+
+Method for change of variable from \((x, y)\) to \((u, v) = (f(x, y),g(x, y))\):
+\begin{enumerate}
+  \item Find the region image \(S\) in terms of \((u, v)\) based on the region \(R\), which include functions and boundary points
+  \item Compute the non-zero Jacobian \(J(u, v)\), which is defined as
+        \[
+          \partialderivative{(x, y)}{(u, v)} =
+          \begin{vmatrix}
+            \partialderivative{x}{u} & \partialderivative{x}{v} \\
+            \partialderivative{y}{u} & \partialderivative{y}{v}
+          \end{vmatrix}
+          = \partialderivative{x}{u} \partialderivative{y}{v}  - \partialderivative{y}{u} \partialderivative{x}{v}
+        \]
+  \item If \(F\) is continuous on \(R\), then
+        \[
+          \iint_R {F(x, y) \diffint{A}} = \iint_S {F(f(u, v), g(u, v)) \abs{\partialderivative{(x, y)}{(u, v)}} \diffint{A}}
+        \]
+\end{enumerate}
+
+For triple integrals, let \(x = f(u, v, w)\), \(y = g(u, v, w)\) and \(z = h(u, v, w)\), then
+\begin{multline*}
+  \iiint_D {F(x, y, z) \diffint{V}} = \\
+  \iiint_E {F(f(u, v, w), g(u, v, w), h(u, v, w)) \abs{\partialderivative{(x, y, z)}{(u, v, w)}} \diffint{V}}
+\end{multline*}
+where
+\[
+  \partialderivative{(x, y, z)}{(u, v, w)} =
+  \begin{vmatrix}
+    \partialderivative{x}{u} & \partialderivative{x}{v} & \partialderivative{x}{w} \\
+    \partialderivative{y}{u} & \partialderivative{y}{v} & \partialderivative{y}{w} \\
+    \partialderivative{z}{u} & \partialderivative{z}{v} & \partialderivative{z}{w}
+  \end{vmatrix}
+\]
+\end{document}

@@ -1,0 +1,628 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{AERO 201: Introduction to Flight and Aerospace Systems}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+% \renewcommand{\abstractname}{} % Change the abstract title
+
+\section{Formulas}
+\paragraph{Bernoulli equation}
+Any increase in fluid velocity corresponds to a decrease in pressure (Venturi effect)
+\begin{align*}
+  \diff{}{P}                            & = - \rho v \diff{}{v}                    \\
+  \iff P_1 + \frac{1}{2} \rho_1 {v_1}^2 & = P_2 + \frac{1}{2} \rho_2 {v_2}^2 = P_0
+\end{align*}
+\[
+  \begin{array}{|l}
+    P [\si{\pascal}] \text{: flow pressure}           \\
+    v [\si{\metre\per\second}] \text{: flow velocity} \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: flow density}
+  \end{array}
+\]
+
+\paragraph{Continuity equation}
+Mass can neither be created nor destroyed, thus
+\begin{align*}
+  \dot{m}_1           & = \dot{m}_2      \\
+  \iff A_1 v_1 \rho_1 & = A_2 v_2 \rho_2
+\end{align*}
+\[
+  \begin{array}{|l}
+    \dot{m} [\si{\kilogram\per\second}] \text{: mass flow} \\
+    A [\si{\metre\squared}] \text{: flow area}             \\
+    v [\si{\metre\per\second}] \text{: flow velocity}      \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: flow density}
+  \end{array}
+\]
+
+\paragraph{Excess power}
+\[
+  P_\mathrm{excess} = v(T - D) = W v_\mathrm{climb}
+\]
+\[
+  \begin{array}{|l}
+    P_\mathrm{excess} [\si{\watt}] \text{: excess power}  \\
+    v [\si{\meter\per\second}] \text{: aircraft velocity} \\
+    T [\si{\newton}] \text{: thrust}                      \\
+    D [\si{\newton}] \text{: drag}                        \\
+    W [\si{\newton}] \text{: aircraft weight}             \\
+    v_\mathrm{climb} [\si{\metre\per\second}] \text{: rate of climb}
+  \end{array}
+\]
+
+\paragraph{Density in non-isothermal region}
+\[
+  \rho = \rho_\mathrm{ref} \left( \frac{T}{T_\mathrm{ref}} \right)^{-\frac{g}{aR_\mathrm{air}} + 1}
+\]
+\[
+  \begin{array}{|l}
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: density at the given temperature} \\
+    \rho_\mathrm{ref} [\si{\kilogram\per\metre\cubed}] \text{: reference density}   \\
+    T [\si{\kelvin}] \text{: given temperature}                                     \\
+    T_\mathrm{ref} [\si{\kelvin}] \text{: reference temperature}                    \\
+    g = \SI{9.81}{\metre\per\second\squared}                                        \\
+    a [\si{\kelvin\per\metre}] \text{: temperature gradient}                        \\
+    R_\mathrm{air} = \SI[scientific-notation = false]{287}{\joule\per\kilogram\per\kelvin} \text{: specific gas constant}
+  \end{array}
+\]
+
+\paragraph{Density in isothermal region}
+\[
+  \rho = \rho_\mathrm{ref} e^{-\frac{g}{R_\mathrm{air}T} \left( h - h_\mathrm{ref} \right)}
+\]
+\[
+  \begin{array}{|l}
+    \rho [\si{\pascal}] \text{: density at the given height}                                                              \\
+    \rho_\mathrm{ref} [\si{\pascal}] \text{: reference density}                                                           \\
+    g = \SI{9.81}{\metre\per\second\squared}                                                                              \\
+    R_\mathrm{air} = \SI[scientific-notation = false]{287}{\joule\per\kilogram\per\kelvin} \text{: specific gas constant} \\
+    T [\si{\kelvin}] \text{: temperature}                                                                                 \\
+    h [\si{\metre}] \text{: altitude}                                                                                     \\
+    h_\mathrm{ref} [\si{\metre}] \text{: reference altitude}                                                              \\
+  \end{array}
+\]
+
+\paragraph{Drag}
+\[
+  D = \frac{1}{2} \rho v^2 S_\mathrm{ref} c_D
+\]
+\[
+  \begin{array}{|l}
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: air density at the given altitude} \\
+    v [\si{\metre\per\second}] \text{: speed of the body relative to air}            \\
+    S_\mathrm{ref} [\si{\metre\squared}] \text{: wing area}                          \\
+    c_D \text{: drag coefficient}
+  \end{array}
+\]
+
+\paragraph{Drag polar}
+The aerodynamic data for an aircraft is presented in from of a drag polar
+\[
+  c_D = c_{D,0} + \frac{{c_L}^2}{\pi e \mathrm{AR}}
+\]
+\[
+  \begin{array}{|l}
+    c_D \text{: drag coefficient}                                                \\
+    c_{D,0} \text{: parasitic (form and friction) drag coefficient at zero lift} \\
+    c_L \text{: lift coefficient}                                                \\
+    e \text{: Oswald efficiency factor}                                          \\
+    \mathrm{AR} \text{: aspect ratio}
+  \end{array}
+\]
+
+\paragraph{Dynamic pressure}
+Dynamic pressure is the pressure developed bu the forward motion of a body.
+\[
+  P = \frac{1}{2} \rho v^2
+\]
+\[
+  \begin{array}{|l}
+    P [\si{\pascal}] \text{: dynamic pressure}                                       \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: air density at the given altitude} \\
+    v [\si{\metre\per\second}] \text{: speed of the body relative to air}
+  \end{array}
+\]
+
+\paragraph{Equivalent air speed}
+Equivalent speed on sea level
+\[
+  v_e = v \sqrt{\frac{\rho}{\rho_0}}
+\]
+\[
+  \begin{array}{|l}
+    v_e [\si{\metre\per\second}] \text{: equivalent air speed}                       \\
+    v [\si{\metre\per\second}] \text{: speed of the body relative to air}            \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: air density at the given altitude} \\
+    \rho_0 [\si{\kilogram\per\metre\cubed}] \text{: air density at sea level}
+  \end{array}
+\]
+
+\paragraph{Flow}
+Flow of a fluid in a pump
+\[
+  Q = \omega V
+\]
+\[
+  \begin{array}{|l}
+    Q [\si{\metre\cubed\per\second}] \text{: flow}        \\
+    \omega [\si{\radian\per\second}] \text{: shaft speed} \\
+    V [\si{\metre\cubed}] \text{: volume of fluid displaced}
+  \end{array}
+\]
+
+\paragraph{Lift}
+\[
+  L = \frac{1}{2} \rho v^2 S_\mathrm{ref} c_L
+\]
+\[
+  \begin{array}{|l}
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: air density at the given altitude} \\
+    v [\si{\metre\per\second}] \text{: speed of the body relative to air}            \\
+    S_\mathrm{ref} [\si{\metre\squared}] \text{: wing area}                          \\
+    c_L \text{: lift coefficient}
+  \end{array}
+\]
+
+
+\paragraph{Mach number}
+The mach number is used to identify different aerodynamic flow regimes (subsonic, sonic and supersonic)
+\[
+  M = \frac{v}{a} = \frac{v}{\sqrt{\gamma R T}}
+\]
+\[
+  \begin{array}{|l}
+    v [\si{\metre\per\second}] \text{: true air speed}                                                                    \\
+    a [\si{\metre\per\second}] \text{: speed of sound}                                                                    \\
+    \gamma \text{: isentropic coefficient, } \gamma = 1.4 \text{ at } T = \SI[scientific-notation = false]{300}{\kelvin}  \\
+    R_\mathrm{air} = \SI[scientific-notation = false]{287}{\joule\per\kilogram\per\kelvin} \text{: specific gas constant} \\
+    T [\si{\kelvin}] \text{: air temperature}
+  \end{array}
+\]
+
+\paragraph{Orbit equation}
+The minimal orbit velocity is \(v_\mathrm{orbit} \approx \SI{7.9}{\kilo\metre\per\second}\) and the escape velocity is \(v_\mathrm{escape} \approx \SI{11.2}{\kilo\metre\per\second}\)
+\[
+  \begin{split}
+    r & = \frac{p}{1 + e \cos(\theta - C)} \\
+    & = \frac{\frac{(r^2 \dot{\theta})^2}{GM}}{1 + A\left( \frac{(r^2 \dot{\theta})^2}{GM} \right) \cos(\theta - C)}
+  \end{split}
+\]
+\[
+  \begin{array}{|l}
+    e = 0 \text{: path is a circle}   \\
+    e < 1 \text{: path is an ellipse} \\
+    e = 1 \text{: path is a parabola} \\
+    e >1 \text{: path is a hyperbola}
+  \end{array}
+\]
+
+
+\paragraph{Power required}
+Power required from the thrust required and the velocity of the aircraft (level, constant speed flight):
+\[
+  P = Tv = \sqrt{\frac{2W^3 {c_D}^2}{\rho S_\mathrm{ref} {c_L}^3}}
+\]
+\[
+  \begin{array}{|l}
+    P [\si{\watt}] \text{: power required}                           \\
+    T [\si{\newton}] \text{: thrust required}                        \\
+    v [\si{\meter\per\second}] \text{: velocity relative to the air} \\
+    W [\si{\newton}] \text{: aircraft weight}                        \\
+    c_D \text{: drag coefficient}                                    \\
+    \rho [\si{\kilogram\per\meter\cubed}] \text{: air density}       \\
+    S_\mathrm{ref} [\si{\metre\squared}] \text{: wing area}          \\
+    c_L \text{: lift coefficient}
+  \end{array}
+\]
+
+\paragraph{Pressure in non-isothermal region}
+\[
+  P = P_\mathrm{ref} \left( \frac{T}{T_\mathrm{ref}} \right)^{-\frac{g}{aR_\mathrm{air}}}
+\]
+\[
+  \begin{array}{|l}
+    P [\si{\pascal}] \text{: pressure at the given temperature}  \\
+    P_\mathrm{ref} [\si{\pascal}] \text{: reference pressure}    \\
+    T [\si{\kelvin}] \text{: given temperature}                  \\
+    T_\mathrm{ref} [\si{\kelvin}] \text{: reference temperature} \\
+    g = \SI{9.81}{\metre\per\second\squared}                     \\
+    a [\si{\kelvin\per\metre}] \text{: temperature gradient}     \\
+    R_\mathrm{air} = \SI[scientific-notation = false]{287}{\joule\per\kilogram\per\kelvin} \text{: specific gas constant}
+  \end{array}
+\]
+
+\paragraph{Pressure in isothermal region}
+\[
+  P = P_\mathrm{ref} e^{-\frac{g}{R_\mathrm{air}T} \left( h - h_\mathrm{ref} \right)}
+\]
+\[
+  \begin{array}{|l}
+    P [\si{\pascal}] \text{: pressure at the given height}                                                                \\
+    P_\mathrm{ref} [\si{\pascal}] \text{: reference pressure}                                                             \\
+    g = \SI{9.81}{\metre\per\second\squared}                                                                              \\
+    R_\mathrm{air} = \SI[scientific-notation = false]{287}{\joule\per\kilogram\per\kelvin} \text{: specific gas constant} \\
+    T [\si{\kelvin}] \text{: temperature}                                                                                 \\
+    h [\si{\metre}] \text{: altitude}                                                                                     \\
+    h_\mathrm{ref} [\si{\metre}] \text{: reference altitude}                                                              \\
+  \end{array}
+\]
+
+\paragraph{Range}
+Range is the max distance the aircraft can make with a given amount of fuel:
+\[
+  R = \frac{v}{C} \frac{L}{D} \ln\left( \frac{W_\mathrm{cruise,start}}{W_\mathrm{cruise,end}} \right)
+\]
+\[
+  \begin{array}{|l}
+    R [\si{\metre}] \text{: range}                          \\
+    v [\si{\metre\per\second}] \text{: aircraft velocity}   \\
+    C [\si{\per\second}] \text{: specific fuel consumption} \\
+    L [\si{\newton}] \text{: lift}                          \\
+    D [\si{\newton}] \text{: drag}                          \\
+    W [\si{\newton}] \text{: weight}
+  \end{array}
+\]
+
+\paragraph{Reynolds number}
+Reynolds number is used to characterize the flow (laminar, transient, turbulent)
+\[
+  \mathrm{Re}_x = \frac{\rho v x}{\mu}
+\]
+\[
+  \begin{array}{|l}
+    \mathrm{Re}_x \text{: Reynolds number}                             \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: free stream density} \\
+    v [\si{\metre\per\second}] \text{: free stream velocity}           \\
+    x [\si{\metre}] \text{: characteristic length}                     \\
+    \mu [\si{\kilogram\per\meter\per\second}] \text{: free stream viscosity}
+  \end{array}
+\]
+
+\paragraph{Rocket equation}
+The rocket equation relates the burnout velocity \(v_b\) of a rocket vehicle to the specific impulse \(I_\mathrm{sp}\) associated with teh engine and teh mass ration of the initial mass \(m_i\) and the final mass \(m_f\):
+\begin{align*}
+  \frac{m_i}{m_f} & = \exp \left( \frac{v_b}{g I_\mathrm{sp}} \right)   \\
+  \iff v_b        & = g I_\mathrm{sp} \ln\left( \frac{m_i}{m_f} \right)
+\end{align*}
+
+\paragraph{Take-off length}
+\[
+  L_\mathrm{TO} = \frac{m v^2}{2T} \approx \frac{1.44 W^2}{g \rho S c_{L,\mathrm{max}}T}
+\]
+\[
+  \begin{array}{|l}
+    L_\mathrm{TO} [\si{\meter}] \text{: take-off length}        \\
+    m [\si{\kilogram}] \text{: aircraft mass}                   \\
+    v [\si{\meter\per\second}] \text{: aircraft take-off speed} \\
+    T [\si{\newton}] \text{: thrust}                            \\
+    W [\si{\newton}] \text{: aircraft weight}                   \\
+    \rho [\si{\kilogram\per\meter\cubed}] \text{: air density}  \\
+    S [\si{\meter\squared}] \text{: wing area}                  \\
+    c_{L,\mathrm{max}} \text{: max lift coefficient}
+  \end{array}
+\]
+
+\paragraph{Thrust}
+Thrust equation for generic propulsive device
+\[
+  T = (\dot{m}_\mathrm{air} + \dot{m}_\mathrm{fuel})v_\mathrm{out} + P_\mathrm{out}A_\mathrm{out} - \dot{m}_\mathrm{air}v_\mathrm{in} - P_\mathrm{in}A_\mathrm{in}
+\]
+\[
+  \begin{array}{|l}
+    T [\si{\newton}] \text{: thrust generated}             \\
+    \dot{m} [\si{\kilogram\per\second}] \text{: mass flow} \\
+    v [\si{\metre\per\second}] \text{: flow velocity}      \\
+    P [\si{\pascal}] \text{: flow pressure}                \\
+    A [\si{\metre\squared}] \text{: flow area}
+  \end{array}
+\]
+
+\paragraph{Thrust required}
+Thrust required for a given aircraft at a given altitude caries with its velocity (level, constant speed flight)
+\[
+  T = W\frac{c_D}{c_L}
+\]
+
+
+\paragraph{Weight}
+\[
+  W_\mathrm{TO} = W_\mathrm{empty} + W_\mathrm{fixed} + W_\mathrm{fuel}
+\]
+\[
+  \begin{array}{|l}
+    W_\mathrm{TO} [\si{\newton}] \text{: take-off gross weight, MTOW} \\
+    W_\mathrm{empty} [\si{\newton}] \text{: empty weight, OWE}        \\
+    W_\mathrm{fixed} [\si{\newton}] \text{: fixed weight, payload}    \\
+    W_\mathrm{fuel} [\si{\newton}] \text{: fuel weight}
+  \end{array}
+\]
+
+
+\section{Unit conversion}
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Unit conversion EES, SI and others}
+  % \label{tab:unit-conversion}
+  \begin{center}
+    \centering % Horizontal alignment of the table
+    \begin{tabular}{ % Number of letter (l: left, c: center, r: right) = number of column
+        l|l|l
+      }
+      % Visible row border: \hline (needed for each row)
+      % Visible column border: | next to tabular declaration (needed for each column)
+      % Column separation: &, row separation: \\
+
+               & EES                                                                                & SI                                                                   \\ \hline\hline
+      \(m\)    & 1 slug                                                                             & 14.5939 kg                                                           \\ \hline
+      \(F\)    & 1 lb                                                                               & 4.44822 N                                                            \\ \hline
+      \(l\)    & 1 ft                                                                               & 0.3048 m                                                             \\ \hline
+      \(P\)    & 1 \(\mathrm{lb} \cdot \mathrm{ft}^{-2}\)                                           & 47.8803 Pa                                                           \\ \hline
+      \(T\)    & 1 °R                                                                               & 5/9\(\cdot\)R K                                                      \\ \hline
+      \(\rho\) & 1 \(\mathrm{slugs} \cdot \mathrm{ft}^{-3}\)                                        & 515.378 \(\mathrm{kg} \cdot \mathrm{m}^{-3}\)                        \\ \hline
+      \(v\)    & 1 \(\mathrm{ft} \cdot \mathrm{s}^{-1}\)                                            & 0.3048 \(\si{\metre\per\second}\)                                    \\ \hline
+      \(R\)    & 1 \(\mathrm{ft} \cdot \mathrm{lb} \cdot \mathrm{slugs}^{-1} \cdot \text{°R}^{-1}\) & 0.167226 \(\mathrm{J} \cdot \mathrm{kg}^{-1} \cdot \mathrm{K}^{-1}\) \\
+    \end{tabular}
+    \begin{tabular}{l|l}
+               & Others                                                        \\ \hline\hline
+      \(m\)    & 32.1740 lb                                                    \\ \hline
+      \(l\)    & 12 in, 1/5280 mi, 1/6076 nmi                                  \\ \hline
+      \(P\)    & 1/144 psi                                                     \\ \hline
+      \(T\)    & 5/9\(\cdot\)R - 273.15 °C, R - 459.67 °F                      \\ \hline
+      \(\rho\) & 32.1740 \(\mathrm{lb} \cdot \mathrm{ft}^{-3}\)                \\ \hline
+      \(v\)    & 3600/5280 \(\mathrm{mi} \cdot \mathrm{h}^{-1}\), 3600/6076 kn \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+
+\section{International standard atmosphere}
+Atmosphere model (oxygen supply at 12 500 ft or more for more than 30 min):
+
+
+ISA temperature (\(T\) [K], \(h\) [km]):
+\begin{description}
+  \item[0 - 11 km:] \(T = -6.5 h + 288.16\)
+  \item[11 - 25 km:] \(T = 216.66\)
+  \item[25 - 47 km:] \(T = 3 (h - 25) + 216.66\)
+  \item[47 - 53 km:] \(T = 282.66\)
+  \item[53 - 79 km:] \(T = -4.5 (h - 53) + 282.66\)
+  \item[79 - 90 km:] \(T = 165.66\)
+  \item[90 - 105 km:] \(T = 4 (h - 90) + 165.66\)
+\end{description}
+
+\section{Common acronyms}
+\begin{description}
+  \item[AFDS:] aircraft flight direction system
+  \item[AC:] advisory circulars, example of acceptable means, but not the only means, of demonstrating compliance with regulations and standards
+  \item[AD:] airworthiness directives, legally enforceable regulation to correct unsafe conditions in a product
+  \item[AFDX:] aviation full duplex
+  \item[AGB:] accessory gear box
+  \item[AR:] aspect ratio
+        \[
+          AR = \frac{b^2}{S_\mathrm{ref}}
+        \]
+        \[
+          \begin{array}{|l}
+            AR \text{: aspect ratio}           \\
+            b [\si{\metre}] \text{: wing span} \\
+            S_\mathrm{ref} [\si{\metre\squared}] \text{: wing area}
+          \end{array}
+        \]
+  \item[ARINC:] aeronautical radio incorporated
+  \item[ARP:] aircraft recommended practice
+  \item[ASI:] air speed indicator
+  \item[ATA:] Air Transport Association
+  \item[ATC:] air traffic control
+  \item[BPR:] bypass ratio
+        \[
+          BPR = \frac{\dot{m}_\mathrm{fan}}{\dot{m}_\mathrm{core}}
+        \]
+        \begin{description}
+          \item[BPR < 2:] Low
+          \item[2 < BPR < 4:] Medium
+          \item[BPR > 4:] High  
+          \item[BPR = 12:] Ultra-high
+        \end{description}
+  \item[EASA:] European Aviation Safety Agency
+  \item[CAR:] Canadian Aviation Regulations
+  \item[EBHA:] electrical backup hydraulic actuator
+  \item[EDP:] engine driven pump
+  \item[EHA:] electro-hydraulic actuator
+  \item[EHSA:] electro-hydraulic servo actuator
+  \item[EICAS:] engine indicating and crew alerting system
+  \item[EMA:] electro-mechanical actuator
+  \item[EMC:] electro-magnetic compatibility
+  \item[EMI:] electro-magnetic interference
+  \item[EMP:] electrical motor pump
+  \item[FAA:] Federal Aviation Administration
+  \item[FAR:] Federal Aviation Regulations
+  \item[FADEC:] full authority digital engine control system
+  \item[FBW:] fly-by-wire
+  \item[FCU:] fuel control unit, controls thrust generated by the engine
+  \item[FCU:] flight control unit
+  \item[FMS:] flight management system
+  \item[HF:] high frequency
+  \item[HMA:] hydro-mechanical actuator
+  \item[IATA:] International Air Transport Association
+  \item[IEEE:] Institute of Electrical and Electronics Engineers
+  \item[IDG:] integrated drive generator
+  \item[IMA:] integrated modular architecture
+  \item[ISA:] International Standard Atmosphere
+  \item[ITT:] inter turbine temperature
+  \item[JAR:] Joint Aviation Regulations
+  \item[LCC:] life-cycle cost
+  \item[LRU:] line replaceable units
+  \item[LRM:] line replaceable modules
+  \item[MCDU:] multipurpose control and display unit
+  \item[MLG:] main landing gear
+  \item[MTOW:] maximum takeoff weight
+  \item[NLG:] nose landing gear
+  \item[NACA:] National Advisory Committee for Aeronautics
+  \item[NH:] rotation speed of the engine high pressure shaft
+  \item[NF:] rotation speed of the engine free turbine shaft
+  \item[OAT:] outside air temperature
+  \item[OBOGS:] on-board oxygen generation system
+  \item[OEM:] original equipment manufacturer
+  \item[OWE:] operational weight empty (structure propulsion, systems, instruments, avionics)
+  \item[Payload:] crew, equipment, passengers, baggage, food, drinks, cargo, missiles bombs, ammunition
+  \item[PSR:] primary surveillance radar
+  \item[PTU:] power transfer unit (transfer power from a hydraulic system to another one)
+  \item[RAT:] ram air turbine
+  \item[RNP:] required navigation performance
+  \item[SELCAL:] selective call
+  \item[SFC:] specific fuel consumption
+        \[
+          \frac{m_\text{fuel consumed}}{\dot{W}_\text{brake horse}t}
+        \]
+        \[
+          \begin{array}{|l}
+            m_\text{fuel consumed} \text{: mass of fuel consumed}                     \\
+            \dot{W}_\text{brake horse} \text{: for propeller engines, power provided} \\
+            \text{to the propeller}                                                   \\
+            t [\si{\hour}] \text{: duration of the fuel consumption}
+          \end{array}
+        \]
+  \item[SSR:] secondary surveillance radar
+  \item[TCCA:] Transport Canada's Civil Aviation
+  \item[TGT:] turbine gas temperature
+  \item[TRL:] technology readiness level
+  \item[TRU:] transformer rectifier unit
+  \item[TSFC:] thrust specific fuel consumption
+        \[
+          \frac{m_\text{fuel consumed}}{F_\text{thrust generated}t}
+        \]
+        \[
+          \begin{array}{|l}
+            m_\text{fuel consumed} [\si{\kilogram}] \text{: mass of fuel consumed}          \\
+            F_\text{thrust generated} [\si{\newton}] \text{: force generated by the thrust} \\
+            t [\si{\hour}] \text{: duration of the fuel consumption}
+          \end{array}
+        \]
+  \item[VFG:] variable frequency generator
+  \item[VHF:] very high frequency
+  \item[VSCFG:] variable speed constant frequency generator
+  \item[WTB:] wing tip brake
+\end{description}
+
+
+\section{Materials and structures}
+Categories and function of aircraft structures:
+\begin{description}
+  \item[Primary structure] Load-bearing, stress and safety (wing box, fuselage, load paths)
+  \item[Secondary structure] Shaping, contour, surface (fairings, engine nacelle, nose cone)
+  \item[Inner structural configuration] Partitioning (payload, cockpit, system installation zones, safety-critical zones, segregation)
+\end{description}
+
+Structural layout of the aircraft fuselage:
+\begin{description}
+  \item[External skin] Carries shear from external transverse, torsional and cabin pressure loads
+  \item[Tranverse elements] Bulkheads support high concentrated loads in strategic zones (wings, empennage, landing gear) and distribute it into the skin; Frames maintain geometric integrity, support small loads
+  \item[Longitudinal elements] Longerons carry major portion of axial loads from bending; stringer carry residual axial loads from bending
+\end{description}
+
+Wing structure layout:
+\begin{description}
+  \item[Multi-rib] transport aircraft with high aspect ratio and relatively large thickness
+  \item[Multi-spar] high speed fighter aircraft, thin and highly loaded wings
+\end{description}
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Material properties}
+  % \label{tab:Table reference}
+  \begin{center}
+    \centering % Horizontal alignment of the table
+    \begin{tabular}{ % Number of letter (l: left, c: center, r: right) = number of column
+      l|p{2.5cm}|l
+      }
+      % Visible row border: \hline (needed for each row)
+      % Visible column border: | next to tabular declaration (needed for each column)
+      % Column separation: &, row separation: \\
+
+                 & Strength/weight         & Cost                  \\ \hline\hline
+      Al-alloy   & good                    & reasonable            \\ \hline
+      Steel      & too heavy               & reasonable            \\ \hline
+      Titanium   & better than Al          & very high             \\ \hline
+      Composites & very good               & depends               \\ \hline\hline
+                 & Temperature sensitivity & Corrosion             \\ \hline\hline
+      Al-alloy   & good                    & good                  \\ \hline
+      Steel      & good                    & stainless steel: good \\ \hline
+      Titanium   & very good               & good                  \\ \hline
+      Composites & bad                     & very good             \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table*}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Fastener types}
+  % \label{tab:Table reference}
+  \centering % Horizontal alignment of the table
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right) = number of column
+    m{0.2\linewidth}|p{0.3\linewidth}|p{0.3\linewidth}
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    Fastener             & Advantages                                                                                         & Disadvantages                                                                                                \\ \hline\hline
+    Rivets               & Low cost, low weight, flush surface possible, high rigidity                                        & Permanent, limited static shear, low tension, noisy installation                                             \\ \hline
+    Bolts                & Removable, high shear, high tension                                                                & no flush surface, high weight, high cost                                                                     \\ \hline
+    Solid rivet          & Low cost, low weight, good shear strength, automation, good clamp-up                               & Low tension strength, access to both side, permanent, noisy installation, incompatible with composite        \\ \hline
+    Blind rivet          & One side installation, low cost, low weight                                                        & Low tension strength, low shear strength, permanent, moderate clamp-up, poor fatigue, moderate reliability   \\ \hline
+    Blind Bolt           & One side installation, good shear strength                                                         & Low tension strength, high cost and weight, permanent, moderate clamp-up, poor fatigue, moderate reliability \\ \hline
+    Hi-Lites and Hi-Loks & High shear strength, high clamp-up, high reliability, moderate tension strength, high interference & Access to both side, permanent, noisy installation, moderate cost and weight, very high cost for Taper-Lok   \\
+  \end{tabular}
+\end{table*}
+
+
+\section{Aviation alphabet}
+\begin{description}
+  \item[A:] ALPHA
+  \item[B:] BRAVO
+  \item[C:] CHARLIE
+  \item[D:] DELTA
+  \item[E:] ECHO
+  \item[F:] FOXTROT
+  \item[G:] GOLF
+  \item[H:] HOTEL
+  \item[I:] INDIA
+  \item[J:] JULIET
+  \item[K:] KILO
+  \item[L:] LIMA
+  \item[M:] MIKE
+  \item[N:] NOVEMBER
+  \item[O:] OSCAR
+  \item[P:] PAPA
+  \item[Q:] QUEBEC
+  \item[R:] ROMEO
+  \item[S:] SIERRA
+  \item[T:] TANGO
+  \item[U:] UNIFORM
+  \item[V:] VICTOR
+  \item[W:] WHISKEY
+  \item[X:] XRAY
+  \item[Y:] YANKEE
+  \item[Z:] ZULU
+\end{description}
+
+\end{document}

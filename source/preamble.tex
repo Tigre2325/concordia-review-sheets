@@ -1,0 +1,283 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Packages
+\usepackage[utf8x]{inputenc} % Accept different input encodings
+\usepackage[T1]{fontenc} % Standard package for selecting font encodings
+\usepackage{lmodern} % Font name; classic: lmodern
+\usepackage[english]{babel} % Multilingual support for LaTeX
+% \usepackage{abstract} % Control the typesetting of the abstract environment
+\usepackage{amsmath} % AMS mathematical facilities for LaTeX
+\usepackage{amssymb} % TeX fonts from the American Mathematical Society
+\usepackage{amsthm} % Typesetting theorems (AMS style)
+\usepackage{array} % Extending the array and tabular environments
+\usepackage{cellspace} % Ensure minimal spacing for table cells
+\usepackage{chemformula} % Command for typesetting chemical formulas and reactions
+% \usepackage{colortbl} % Add colour to LaTeX tables
+% \usepackage{comment} % Selectively include/exclude portions of text
+% \usepackage[en-US,showdow]{datetime2} % Formats for dates, times and time zones
+\usepackage{enumitem} % Control layout of itemize, enumerate, description
+\usepackage{esint} % Extended set of integrals for Computer Modern
+\usepackage{graphicx} % Enhanced support for graphics
+% \usepackage{lipsum} % Easy access to the Lorem Ipsum dummy text
+\usepackage{mathrsfs} % Support for using RSFS fonts in maths
+\usepackage{moreverb} % Extended verbatim
+\usepackage{multicol} % Intermix single and multiple columns
+\usepackage{multirow} % Create tabular cells spanning multiple rows
+\usepackage[scr]{rsfso} % A mathematical calligraphic font based on rsfs
+\usepackage{setspace} % Set space between lines
+% \usepackage{soul} % Hyphenation for letterspacing, underlining, and more
+\usepackage{threeparttable} % Tables with captions and notes all the same width
+\usepackage{wrapfig} % Produces figures which text can flow around
+\usepackage{xcolor} % Driver-independent color extensions for LaTeX
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Lengths
+% 1cm = 10mm = 28pt = 1/2.54in
+% 1ex = height of a lowercase 'x' in the current font
+% 1em = width of an uppercase 'M' in the current font
+
+%%%% Spacing in math mode
+% \!                         = -3/18em
+% \,                         = 3/18em
+% \:                         = 4/18em
+% \;                         = 5/18em
+% \ (space after backslash!) = space in normal text
+% \quad                      = 1em
+% \qquad                     = 2em
+
+% \setlength{\baselineskip}{1em} % Vertical distance between lines in a paragraph
+% \renewcommand{\baselinestretch}{1.0} % A factor multiplying \baslineskip
+\setlength{\columnsep}{0.75cm} % Distance between columns
+% \setlength{\columnwidth}{} % The width of a column
+\setlength{\columnseprule}{1pt} % The width of the vertical ruler between columns
+% \setlength{\evensidemargin}{} % Margin of even pages, commonly used in two-sided documents such as books
+% \setlength{\linewidth}{} % Width of the line in the current environment.
+% \setlength{\oddsidemargin}{} % Margin of odd pages, commonly used in two-sided documents such as books
+% \setlength{\paperwidth}{} % Width of the page
+% \setlength{\paperheight}{} % Height of the page
+\setlength{\parindent}{0cm} % Paragraph indentation
+\setlength{\parskip}{6pt} % Vertical space between paragraphs
+% \setlength{\tabcolsep}{} % Separation between columns in a table (tabular environment)
+% \setlength{\textheight}{} % Height of the text area in the page
+% \setlength{\textwidth}{} % Width of the text area in the page
+% \setlength{\topmargin}{} % Length of the top margin
+\setlist{
+  %%%% Vertical spacing
+  topsep = 0pt,
+  partopsep = 0pt,
+  parsep = 0pt,
+  itemsep = 0pt,
+  %%%% Horizontal spacing
+  leftmargin = 0.5cm,
+  rightmargin = 0cm,
+  % listparindent = 0cm,
+  % labelwidth = 0cm,
+  % labelsep = 0cm,
+  % itemindent = 0cm
+}
+\addtolength{\cellspacetoplimit}{2pt}
+\addtolength{\cellspacebottomlimit}{2pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Page layout
+\usepackage{layout} % View the layout of a document
+\usepackage{geometry} % Flexible and complete interface to document dimensions
+% 1cm = 10mm = 28pt = 1/2.54in
+% ex = height of a lowercase 'x' in the current font
+% em = width of an uppercase 'M' in the current font
+\geometry{
+  a4paper,
+  top         = 1cm,
+  bottom      = 1cm,
+  left        = 1.5cm,
+  right       = 1.5cm,
+  includehead = true,
+  includefoot = true,
+  landscape   = false, % Paper orientation
+  twoside     = false,
+}
+% \geometry{showframe} % Show paper outline for the text area and page
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Header and footer style
+\usepackage{fancyhdr} % Extensive control of page headers and footers in LaTeX
+\pagestyle{fancy}
+% Options: \leftmark (chapter title), \rightmark(section title), \thepage (page number), \thechapter(chapter number), \thesection (section number)
+\lhead{\Title}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% URL insertion settings
+\usepackage{hyperref} % Extensive support for hypertext in LaTeX
+\definecolor{black}{RGB}{0, 0, 0} % rgb(0, 0, 0)
+\definecolor{blue}{RGB}{0, 0, 255} % rgb(0, 0, 255)
+\hypersetup{
+  % unicode            = true,
+  pdftitle           = {\Title},
+  pdfauthor          = {\Author},
+  % pdfsubject       = {},
+  %%%% Reference
+  % bookmarks          = true,
+  bookmarksnumbered  = true,
+  bookmarksopen      = true, % Open the bookmarks
+  bookmarksopenlevel = 2, % Open until 1 level (section)
+  %%%% Bookmarks
+  breaklinks         = true,
+  pdfborder          = {0 0 0},
+  % backref            = true, % Add links into bibliography
+  % pagebackref        = true,
+  % hyperindex         = true, % Add links into index
+  %%%% Color
+  colorlinks         = true,
+  linkcolor          = black, % Internal links color
+  citecolor          = black,
+  urlcolor           = blue, % Hyperlinks color
+  filecolor          = black,
+}
+
+\usepackage{varioref} % Intelligent page reference
+\usepackage[capitalise,noabbrev]{cleveref}
+\usepackage{prettyref} % Make label references "self-identity" with \prettyref{#1}
+\newrefformat{cha}{chapter \textbf{\nameref{#1}} \vpageref{#1}} % {chapter \textbf{\nameref{#1}} on page \pageref{#1}}
+\newrefformat{sec}{section \textbf{\nameref{#1}} \vpageref{#1}} % {section \textbf{\nameref{#1}} on page \pageref{#1}}
+% \newrefformat{fig}{\vref{#1}} % {Figure \ref{#1} on page \pageref{#1}}
+% \newrefformat{tab}{\vref{#1}} % {Table \ref{#1} on page \pageref{#1}}
+% \newrefformat{eqn}{\vref{#1}}
+% \newrefformat{lis}{\emph{\nameref{#1}} \vpageref{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Physics units settings
+% Dependencies
+\usepackage{booktabs} % Publication quality tables in LaTeX
+\usepackage{caption} % Customizing captions in floating environments
+\usepackage{helvet} % Load Helvetica, scaled
+\usepackage{cancel} % Place lines through maths formulae
+
+\usepackage{siunitx} % A comprehensive (SI) units package
+\sisetup{
+  exponent-product     = \cdot, % Symbol between number and power of ten
+  group-minimum-digits = 5, % Number of digits when 3 digits separation appear
+  % inter-unit-product   = \cdot, % Symbol between units (when several units are used)
+  output-complex-root  = \ensuremath{i}, % How i math should be seen
+  % prefixes-as-symbols  = false, % Translate prefixes (kilo, centi, milli, micro,...) into a power of ten
+  separate-uncertainty = true, % Write uncertainty with +-
+  scientific-notation  = engineering,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Theorems and proofs
+\numberwithin{equation}{section}
+% \makeatletter
+% \g@addto@macro\th@remark{\thm@headpunct{:}}
+% \makeatother
+\theoremstyle{remark}
+\newtheorem*{example}{Example}
+\newtheorem*{remark}{Remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% User-defined environments
+% Remove the space before the enumerate and itemize environments
+\let\oldenumerate\enumerate % Keep a copy of \enumerate (or \begin{enumerate})
+\let\endoldenumerate\endenumerate % Keep a copy of \endenumerate (or \end{enumerate})
+\renewenvironment{enumerate}{
+  \begin{oldenumerate}
+    \vspace{-6pt}
+    }{
+  \end{oldenumerate}
+}
+
+\let\olditemize\itemize % Keep a copy of \itemize (or \begin{itemize})
+\let\endolditemize\enditemize % Keep a copy of \enditemize (or \end{itemize})
+\renewenvironment{itemize}{
+  \begin{olditemize}
+    \vspace{-6pt}
+    }{
+  \end{olditemize}
+}
+
+\let\olddescription\description % Keep a copy of \description (or \begin{description})
+\let\endolddescription\enddescription % Keep a copy of \enddescription (or \end{description})
+\renewenvironment{description}{
+  \begin{olddescription}
+    \vspace{-6pt}
+    }{
+  \end{olddescription}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% User-defined commands
+\newcommand{\Romannumeral}[1]{\MakeUppercase{\romannumeral #1}} % Capital roman numbers
+% \newcommand{\gui}[1]{\og #1 \fg{}} % French quotation marks
+\renewcommand{\thefootnote}{[\arabic{footnote}]}
+
+%%% Figure command
+%% Include SVG files
+\newcommand{\executeiffilenewer}[3]{
+  \ifnum\pdfstrcmp{\pdffilemoddate{#1}}
+    {\pdffilemoddate{#2}}>0
+    {\immediate\write18{#3}}\fi
+}
+\newcommand{\includesvg}[1]{
+  \executeiffilenewer{#1.svg}{#1.pdf}
+  {
+    % Inkscape must be installed in PATH and the user must include '--shell-escape' in the build arguments
+    inkscape #1.svg --export-type=pdf --export-latex
+  }
+  \input{#1.pdf_tex}
+}
+
+%%% Math commands
+%% Tables (requires cellspace package)
+\newcolumntype{L}{>{\(\displaystyle}Cl<{\)}} % Column type for left-aligned math column
+\newcolumntype{D}{>{\(\displaystyle}Cc<{\)}} % Column type for centered math column
+
+%% Functions
+\newcommand{\constant}{\mathrm{constant}} % Constant
+\newcommand{\abs}[1]{\left| #1 \right|} % Absolute function
+\newcommand{\erf}[1]{\mathrm{erf} \left( #1 \right)} % Error function
+\newcommand{\erfc}[1]{\mathrm{erfc} \left( #1 \right)} % Complementary error function
+\newcommand{\unitstep}[1]{\,\mathcal{U}\left( #1 \right)} % Unit step function
+\newcommand{\diracdelta}[2]{\,\delta_{#1}\left( #2 \right)} % Dirac delta function
+
+
+%% Derivatives and integrals
+\newcommand{\diff}[2]{\mathrm{d}^{#1} #2} % Letter 'd' of differentials
+\newcommand{\diffint}[1]{\,\diff{}{#1}} % Differential with a space for integrals
+\newcommand{\derivative}[2]{\frac{\diff{}{#1}}{\diff{}{#2}}} % Derivative
+\newcommand{\nderivative}[3]{\frac{\diff{#1}{#2}}{\diff{}{#3^{#1}}}} % Derivative of degree n
+\newcommand{\partialderivative}[2]{\frac{\partial #1}{\partial #2}} % Partial derivative
+\newcommand{\npartialderivative}[3]{\frac{\partial^{#1} #2}{\partial #3^{#1}}} % Partial derivative of degree n
+\newcommand{\direcderivative}[2]{D_{\vec{#1}}\,#2} % Directional derivative
+
+\newcommand{\Laplace}[1]{\mathcal{L}\left\{ #1 \right\}} % Laplace transform notation
+\newcommand{\invLaplace}[1]{\mathcal{L}^{-1}\left\{ #1 \right\}} % Inverse Laplace transform notation
+
+%% Set
+\newcommand{\set}[3]{\mathbb{#1}_{#2}^{#3}} % Set of numbers
+\newcommand{\integerset}{\mathbb{Z}} % Set of integer numbers (compatibility)
+\newcommand{\realset}{\mathbb{R}} % Set of real numbers (compatibility)
+
+%% Limits
+\newcommand{\limit}[3]{\lim_{#1 \to #2}{#3}} % Limit from a point to another
+\newcommand{\rlimit}[3]{\lim_{#1 \to #2^{+}}{#3}} % Right limit from a point to another
+\newcommand{\llimit}[3]{\lim_{#1 \to #2^{-}}{#3}} % Left imit from a point to another
+\newcommand{\modulus}[1]{\,\left[ #1 \right]} % Modulus notation
+
+%% Vectors
+\newcommand{\ivec}{\hat{\mathrm{i}}} % i vector
+\newcommand{\jvec}{\hat{\mathrm{j}}} % j vector
+\newcommand{\kvec}{\hat{\mathrm{k}}} % k vector
+\renewcommand{\Vec}[1]{\overrightarrow{#1}} % Vector notation for expression with more than one letter
+\newcommand{\norm}[1]{\left\| #1 \right\|} % Norm notation for expression with just one letter
+\newcommand{\normvec}[1]{\left\| \vec{#1} \right\|} % Norm notation for expression with just one letter
+\newcommand{\Normvec}[1]{\left\| \Vec{#1} \right\|} % Norm notation for expression with more than one letter
+\newcommand{\comp}[2]{\mathrm{comp}_{\vec{#2}}\vec{#1}} % Components
+\newcommand{\proj}[2]{\mathrm{proj}_{\vec{#2}}\vec{#1}}
+\newcommand{\grad}[1]{\vec{\nabla}#1} % Gradient notation
+\newcommand{\frames}[2]{\left( #1 \right)_{#2}} % Frame definition
+
+\newcommand{\curl}[1]{\mathrm{curl}\,\vec{#1}} % Curl of a vector field
+\newcommand{\divergence}[1]{\mathrm{div}\,\vec{#1}} % Divergence of a vector field

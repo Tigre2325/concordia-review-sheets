@@ -1,0 +1,906 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{ENGR 361: Fluid Mechanics I}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+% \renewcommand{\abstractname}{} % Change the abstract title
+
+\section{Viscosity and surface tension}
+A fluid is defined as a substance that deforms continuously when acted on by a shearing stress of any magnitude.
+
+\subsection{Viscosity}
+The viscosity is the resistance of a fluid to shearing motion.
+In order to defined the viscosity of fluid, we use the viscous resistance or viscosity \(\mu\) of this fluid.
+
+In a translation motion, the viscosity is
+\[
+  \mu = \frac{\tau}{\dot{\gamma}} \iff \tau = \mu \dot{\gamma} = \mu \derivative{v}{h}
+\]
+\[
+  \begin{array}{|l}
+    \mu (\si{\newton\second\per\metre\squared}) \text{: viscosity}        \\
+    \tau (\si{\newton\per\metre\squared}) \text{: shear stress}           \\
+    \dot{\gamma} (\si{\per\second}) \text{: shear rate velocity gradient} \\
+    v (\si{\metre\per\second}) \text{: speed of the fluid}                \\
+    h (\si{\metre}) \text{: height of the fluid}
+  \end{array}
+\]
+
+In the case of a cylindrical shaft sliding in a bearing, the formula becomes
+\[
+  \mu = \frac{\frac{F}{2 \pi R L}}{\frac{v}{h}} = \frac{F h}{2 \pi R L v}
+\]
+\[
+  \begin{array}{|l}
+    \mu (\si{\newton\second\per\metre\squared}) \text{: viscosity}      \\
+    F (\si{\newton}) \text{: translation force applied on the shaft}    \\
+    h (\si{\metre}) \text{: gap size between the shaft and the bearing} \\
+    R (\si{\metre}) \text{: shaft's radius}                             \\
+    L (\si{\metre}) \text{: shaft's length}                             \\
+    v (\si{\metre\per\second}) \text{: shaft's speed}
+  \end{array}
+\]
+For the torque of shaft rotating in a casing which is needed to overcome viscosity friction:
+\begin{align*}
+  T = \int{\tau R \diffint{A}} = \int{\frac{2 \pi \mu \omega R^3}{h} \diffint{s}}
+\end{align*}
+\[
+  \begin{array}{|l}
+    T [\si{\newton\metre}] \text{: torque needed to overcome viscosity friction} \\
+    \tau (\si{\newton\per\metre\squared}) \text{: shear stress}                  \\
+    R [\si{\metre}] \text{: radius of the shaft}                                 \\
+    A [\si{\metre\squared}] \text{: contact area}                                \\
+    \mu (\si{\newton\second\per\metre\squared}) \text{: viscosity}               \\
+    \omega [\si{\radian\per\second}] \text{: shaft angular velocity}             \\
+    h [\si{\metre}] \text{: gap size}                                            \\
+    s [\si{\metre}] \text{: side length of the shaft}                            \\
+  \end{array}
+\]
+
+In the case of a cylindrical shaft rotating in a bearing, the formula for the torque is
+\begin{align*}
+  T & = \tau A R = \mu \dot{\gamma} A R     \\
+    & = \frac{\mu\omega R}{h} (2 \pi R L) R \\
+  T & = \frac{2 \pi \mu \omega L R^3}{h}
+\end{align*}
+
+\subsection{Surface tension}
+The surface tension \(\sigma\) is a property of a fluid at the intersection between a liquid and a gas: at very small scales, the fluid can support the weight of an object heavier than water, thanks to the surface tension.
+
+\paragraph{Pressure inside a drop of fluid}
+The difference in pressure between the inside and the outside of a drop of fluid is defined by
+\[
+  \Delta P = \frac{2\sigma}{R}
+\]
+\[
+  \begin{array}{|l}
+    P (\si{\pascal}) \text{: pressure}                       \\
+    \sigma (\si{\newton\per\metre}) \text{: surface tension} \\
+    R (\si{\metre}) \text{: droplet radius}
+  \end{array}
+\]
+
+\paragraph{Rise of liquid in a capillary tube}
+Using equilibrium equation, we can find that the height at which liquid will rise due to surface tension is
+\[
+  h = \frac{2 \sigma \cos\theta}{\gamma R}
+\]
+\[
+  \begin{array}{|l}
+    h (\si{\metre}) \text{: height of the liquid}                                \\
+    \sigma (\si{\newton\per\metre}) \text{: surface tension}                     \\
+    \theta (\si{\radian}) \text{: angle between the vertical and the water}      \\
+    \gamma (\si{\newton\per\metre\cubed}) \text{: specific weight of the liquid} \\
+    R (\si{\metre}) \text{: inside radius of the tube}
+  \end{array}
+\]
+
+\section{Fluid statics}
+\subsection{Pressure at a point}
+The pressure defines a force applied normal to a surface:
+\[
+  P = \frac{F}{A}
+\]
+\[
+  \begin{array}{|l}
+    P (\si{\pascal}) \text{: pressure}                     \\
+    F (\si{\newton}) \text{: force applied on the surface} \\
+    A (\si{\metre\squared}) \text{: area onto which the force is applied}
+  \end{array}
+\]
+
+\subsubsection*{Oil and water}
+Let a glass filled with oil on top of water.
+The pressure at the interface between the 2 surfaces is constant over the horizontal plane, and it is the same in the oil and the water (Newton's first law)
+
+\subsubsection*{Glass with a hole}
+The pressure pushes the water, meaning pressure is not only in the vertical direction, but it acts in all directions.
+
+\subsubsection*{Pressure at a point}
+\paragraph{First law of fluid statics: Pascal law}
+The pressure at one point in equilibrium is independent of the direction of observation: the pressure is isotropic.
+
+This law does not apply if there are other forces such as shear stress.
+
+
+\subsection{Pressure variation}
+\paragraph{Stevin principle}
+The pressure of a fluid at rest is independent of the shape of the container.
+It varies with depth but is the same horizontally.
+
+\paragraph{Second law of fluid statics}
+Variation of pressure with change in height:
+\begin{align*}
+  \partialderivative{P}{z} & = - \rho g                              \\
+  \iff P_2 - P_1          & = -g\int_{z_1 }^{z_2 }{\rho\diffint{z}}
+\end{align*}
+
+For an incompressible fluid (\(\rho\) constant):
+\[
+  P_2 - P_1 = -\rho g\left( z_2 - z_1 \right)
+\]
+
+\subsection{Measurement of pressure}
+\subsubsection*{Absolute and gage pressure}
+There are two references in measurement of pressure:
+\begin{itemize}
+  \item Absolute pressure: the pressure measured from vacuum, which correspond to no molecular bombardment
+  \item Gage pressure: the pressure measured from the atmospheric pressure
+\end{itemize}
+
+The relation between the absolute pressure and the gage pressure is
+\[
+  P_\mathrm{absolute} = P_\mathrm{gage} + P_\mathrm{atmosphere}
+\]
+
+\begin{example}
+  Some examples of gage pressure
+  \begin{itemize}
+    \item Car tire: \(\SI[scientific-notation = false]{210 e+3}{\pascal}\approx 30.4 \text{ psi}\)
+    \item Bicycle tire: \(\SI[scientific-notation = false]{500 e+3}{\pascal}\approx 72.5 \text{ psi}\)
+    \item Blood: \(\SI[scientific-notation = false]{13.3 e+3}{\pascal} \approx \SI{100}{\mmHg}\)
+  \end{itemize}
+\end{example}
+
+\subsubsection*{Manometry}
+Manometry is a very old-fashioned way to measure pressure in a pipe, but it has the advantages of being simple, visual, cheap and accurate.
+It relies on Stevin principle and the second law of fluid statics.
+
+\subsection{Hydrostatic force on a plane surface}
+The hydrostatic force exerted by the pressure of a liquid onto a gate is
+\[
+  F_P = \gamma h_C A
+\]
+\[
+  \begin{array}{|l}
+    F_P (\si{\newton}) \text{: hydrostatic force}                                \\
+    \gamma (\si{\newton\per\metre\cubed}) \text{: specific weight of the liquid} \\
+    h_C (\si{\metre}) \text{: depth of the gate's centroid}                      \\
+    A (\si{\metre\squared}) \text{: area of the gate}
+  \end{array}
+\]
+where \(F_P\) is normal to the surface of the gate.
+
+\subsubsection*{\(y\)-location}
+This force acts at the location \(y_P\), which is always at a point below the centroid because pressure increase with depth:
+\[
+  y_P = y_C + \frac{I_{x_C}}{y_C A}
+\]
+\[
+  \begin{array}{|l}
+    y_R (\si{\metre}) \text{: location of the center of pressure}                    \\
+    y_C (\si{\metre}) \text{: location of the gate's centroid}                       \\
+    I_{x_C} (\si{\metre\tothe{4}}) \text{: moment of inertia at the gate's centroid} \\
+    A (\si{\metre\squared}) \text{: area of the gate}
+  \end{array}
+\]
+
+\subsubsection*{\(x\)-location}
+The location \(x_P\) is determined using the product moment of inertia \(I_{{xy}_C}\)
+\[
+  x_P = x_C + \frac{I_{{xy}_C}}{y_C A}
+\]
+\[
+  \begin{array}{|l}
+    x_R (\si{\metre}) \text{: location of the center of pressure}                       \\
+    x_C (\si{\metre}) \text{: location of the gate's centroid}                          \\
+    I_{{xy}_C} (\si{\metre\tothe{4}}) \text{: moment of inertia at the gate's centroid} \\
+    A (\si{\metre\squared}) \text{: area of the gate}
+  \end{array}
+\]
+
+
+\subsection{Hydrostatic force on a curved surface}
+The study of the forces on a curved surface is done in several steps:
+\begin{enumerate}
+  \item Isolate the volume of liquid above the curved surface
+  \item Determine the forces exerted on it: the forces due to pressure, the weight of the liquid and the force exerted by the surface
+\end{enumerate}
+
+
+\subsection{Buoyance and stability}
+\subsubsection*{Buoyance}
+Buoyance forces comes from Archimedes' principle which states that the net hydrostatic force due to the pressure of a fluid on floating or submerged body is equal to the weight of the fluid displaced:
+\[
+  \norm{\vec{F}_B} = \normvec{W} = \gamma_\mathrm{fluid} V
+\]
+\[
+  \begin{array}{|l}
+    F_B (\si{\newton}) \text{: buoyance force}                                                 \\
+    W (\si{\newton}) \text{: weight of the body}                                               \\
+    \gamma_\mathrm{fluid} (\si{\newton\per\metre\cubed}) \text{: specific weight of the fluid} \\
+    V (\si{\metre\cubed}) \text{: volume of the displaced fluid}
+  \end{array}
+\]
+The buoyant force passes through the centroid of the displaced volume and is vertically upward.
+
+\subsubsection*{Stability}
+Related to buoyance, a submerged body can be stable or unstable, depending on the center of gravity and the center of buoyance.
+For a stable body, if it is rotated clockwise or counterclockwise, the forces will return it to the original position.
+However, for an unstable body, if it is rotated, the forces will not return it to the original position, but they will place it in its stable position.
+
+
+\subsection{Hydraulic power}
+The objective of hydraulic jacks, lifts and presses is to generate a large force using a smaller one.
+This can be achieved using the fact that \(F = PA\), thus having the same pressure in a system but a different area can increase the force.
+
+Generally, pistons are used to change the pressure throughout the system.
+Since the pressure in those systems are usually very high, the pressure variation due to elevation change can be neglected.
+
+For a system with two cylindrical pistons, the high force \(\vec{F}\) will be:
+\[
+  \normvec{F} = \normvec{f} \left( \frac{D}{d} \right)^2
+\]
+\[
+  \begin{array}{|l}
+    F (\si{\newton}) \text{: high force obtained}              \\
+    f (\si{\newton}) \text{: small force applied}              \\
+    D (\si{\metre}) \text{: diameter of the high-force piston} \\
+    d (\si{\metre}) \text{: diameter of the small-force piston}
+  \end{array}
+\]
+
+\begin{example}
+  If the ratio of diameters is 10, then \(F\) is 100 times the force \(f\).
+\end{example}
+
+
+\section{Fluid kinematics, continuity equation and Bernoulli equation}
+\subsection{Fluid kinematics}
+Fluid kinematics studies the fluid motion without being concerned with the actual forces needed to produce the motion.
+
+There are 2 methods to study fluid kinematics:
+\begin{itemize}
+  \item Lagrangian method: the flow of the fluid is described in terms of the motion of a fluid particle
+  \item Eulerian method: the flow of the fluid is described at fixed point in space
+\end{itemize}
+
+
+\subsubsection{Variation with time}
+\begin{description}
+  \item[Steady flow:] the velocity is the same at a fixed location, meaning the velocity depends only on the location in space
+  \item[Unsteady flow:] the velocity varies with time at a fixed location
+\end{description}
+
+
+\subsubsection{Laminar and turbulent flows}
+A laminar flow is a smooth flow, and by looking at it, the fluid does not seem to move at all.
+Conversely, a turbulent flow is an irregular flow and is often seen as chaotic (most engineering flows are turbulent).
+
+
+\subsubsection{Streamlines}
+In order to visually understand a flow, streamlines are used: they are colored lines equally separated which let us see how the general flow is moving.
+The streamlines are always tangent to the velocity.
+
+In space, streamlines separates stream tubes which are imaginary tube of fluid.
+Stream tube are used to represent a boundary which cannot be crossed by the particles flowing.
+
+
+\subsubsection{Flow rate}
+The flow rate for a incompressible fluid in a steady flow is defined as
+\[
+  Q = \int{v \diffint{A}}
+\]
+\[
+  \begin{array}{|l}
+    Q [\si{\metre\cubed\per\second}] \text{: flow rate} \\
+    v [\si{\metre\per\second}] \text{: fluid velocity}  \\
+    A [\si{\metre\squared}] \text{: stream tube cross-sectional area}
+  \end{array}
+\]
+
+The average velocity in a stream tube is
+\[
+  v_\mathrm{average} = \frac{Q}{A}
+\]
+
+For a pipeline system for liquids, \(Q\) is a constant, therefore we have the following relation between the inlet and the outlet of the pipe:
+\[
+  v_\mathrm{in}A_\mathrm{in} = v_\mathrm{out}A_\mathrm{out}
+\]
+This means that in a pipe with constant cross sectional area, the velocity of the fluid is also constant.
+
+\subsection{Acceleration}
+\subsubsection{Fluid acceleration}
+For a steady flow, the velocity is not a function of time, but a function of position, meaning the acceleration in the direction of the fluid (tangent to the stream lines) is
+\[
+  a = v \derivative{v}{s}
+\]
+where \(s\) is the path of the flow.
+
+For an unsteady flow, the tangential acceleration have a new component called the local acceleration:
+\[
+  a = \partialderivative{v}{t} + v\partialderivative{v}{s}
+\]
+
+
+\subsubsection{Normal acceleration}
+If the streamline is curved, there is a normal acceleration where
+\[
+  a_n = \frac{v^2}{R}
+\]
+\[
+  \begin{array}{|l}
+    a_n [\si{\metre\per\second\squared}] \text{: normal acceleration pointing inward} \\
+    v [\si{\metre\per\second}] \text{: fluid velocity}                                \\
+    R [\si{\metre}] \text{: radius of curvature}
+  \end{array}
+\]
+
+
+\subsubsection{Cartesian coordninates}
+In vector form and cartesian coordinates, we have
+\begin{align*}
+  \vec{v} & = \left( v_x, v_y, v_z \right)                                                                                                               \\
+  \vec{a} & = \left( a_x, a_y, a_z \right)                                                                                                               \\
+          & = \partialderivative{\vec{v}}{t} + v_x\partialderivative{\vec{v}}{x} + v_y\partialderivative{\vec{v}}{y} + v_z\partialderivative{\vec{v}}{z}
+\end{align*}
+
+
+\subsection{Fluid dynamics}
+In fluid dynamics, we look at the forces that give rise to the motion and the relation between pressure and flow.
+
+\subsubsection{Pressure variation along a streamline}
+By assuming that we have a steady flow, a constant density and negligible friction, we get the Bernoulli equation:
+\begin{align*}
+  P + \rho g z + \frac{\rho v^2}{2}          & = \constant \\
+  \iff \frac{P}{\rho g} + z + \frac{v^2}{2g} & = \constant
+\end{align*}
+
+
+Thus between 2 points of the streamline:
+\begin{align*}
+  P_1 + \rho g z_1 + \frac{\rho {v_1}^2}{2}          & = P_2 + \rho g z_2 + \frac{\rho {v_2}^2}{2}     \\
+  \iff \frac{P_1}{\rho g} + z_1 + \frac{{v_1}^2}{2g} & = \frac{P_2}{\rho g} + z_2 + \frac{{v_2}^2}{2g}
+\end{align*}
+
+\paragraph{Horizontal pipe}
+Considering a horizontal pipe with a reduction in the cross-section area, the mix between the continuity and the Bernoulli equation gives us:
+\[
+  v_1 < v_2 \text{ and } P_1 > P_2
+\]
+which can be interpreted as the pressure must push the liquid in order to increase its velocity.
+
+\paragraph{Large reservoir}
+For a large reservoir with a pipe coming out of it, we have the pressure in the reservoir greater than the pressure in the pipe since the liquid must be pushed out of the reservoir through the pipe.
+
+\paragraph{Gradual expenasion}
+In the case where the cross-sectional area of a pipe increases gradually, the velocity at the end is lower and thus the pressure greater than at the start because the particles need to decelerate.
+
+
+\subsubsection{Pressure variation normal to a streamline}
+This time, by studying the normal pressure in a curve pipe, we get:
+\[
+  \partialderivative{}{n} \left[ P + \rho g z \right] = \frac{\rho v^2}{R}
+\]
+where \(n\) is the normal direction and \(R\) is the radius of curvature of the pipe.
+
+\begin{remark}
+  \begin{itemize}
+    \item Neglecting the variations in \(z\) leads to pressure increasing in the \(n\) direction;
+    \item If the streamlines are straight, \(R \to \infty\), thus \(P + \rho g z = \text{constant}\), meaning the hydrostatic equation can be applied across streamlines when the streamlines are straight.
+  \end{itemize}
+\end{remark}
+
+\begin{example}
+  Let us assume a lake and a river both the same depth and both horizontal, then the pressure at the bottom will be the same even though the river if flowing.
+\end{example}
+\begin{example}
+  If we have a ramp with certain angle and a liquid flowing on it, then the pressure at the bottom is only the vertical component of the liquid depth and not the total depth from the vertical.
+\end{example}
+
+
+\subsection{Example of use of the Bernoulli equation}
+\subsubsection{Draining tank}
+In a draining tank in which the water level is decreasing very very slowly (assumes it is not decreasing), then the velocity at a hole in the tank is \(v = \sqrt{2gh}\) where \(h\) is the height between the hole and the free surface of the water in the tank.
+
+\begin{remark}
+  This formula is the same as the free fall formula,the velocity is independent of the size of the exit and of the direction: it would be the same whether the hole is on the side or in the bottom.
+\end{remark}
+
+
+\subsubsection{Venturi constriction}
+In a venturi constriction, the pressure in the constriction is:
+\[
+  P_2 = P_2 - \frac{1}{2} \rho {v_1}^2 \left( \frac{{D_1}^4}{{D_2}^4} - 1 \right)
+\]
+where \(D\) is the diameter of the section.
+
+
+\subsubsection{Venturi meter}
+Using the venturi constriction principle, a venturi meter was invented, made of a venturi constriction and a manometer.
+It is used to measure the speed of a flow and its flow rate:
+\begin{align*}
+  v_1 & = \sqrt{\frac{2 \left( P_1 - P_2 \right)}{\rho \left( \frac{{D_1}^4}{{D_2}^4} - 1 \right)}} = \sqrt{\frac{2 h \left( \gamma_\text{gage fluid} - \gamma_\text{flow fluid} \right)}{\rho \left( \frac{{D_1}^4}{{D_2}^4} - 1 \right)}} \\
+  Q   & = \frac{\pi {D_1}^2}{4} \sqrt{\frac{2 \left( P_1 - P_2 \right)}{\rho \left( \frac{{D_1}^4}{{D_2}^4} - 1 \right)}}                                                                                                                   \\
+      & = \frac{\pi {D_1}^2}{4} \sqrt{\frac{2 h \left( \gamma_\text{gage fluid} - \gamma_\text{flow fluid} \right)}{\rho \left( \frac{{D_1}^4}{{D_2}^4} - 1 \right)}}                                                                       \\
+\end{align*}
+
+
+\subsubsection{Pitot tube}
+The velocity of an airplane can be find using a pitot tube which measure pressure at a stagnation point:
+\[
+  v = \sqrt{\frac{2 \left( P_\mathrm{pitot} - P_\mathrm{atm} \right)}{\rho_\mathrm{air}}}
+\]
+
+
+\subsubsection{Stagnation tube}
+In order to measure the speed of a river, a stagnation tube can be used.
+The velocity of the river would be \(v = \sqrt{2gh}\) where \(h\) is the height of the water above the surface.
+
+
+\section{Momentum equation and energy equation}
+\subsection{Energy equation}
+The Bernoulli equation previously seen neglects friction.
+While it is useful fro accelerating or decelerating flows over short distances, it is not for constant velocity flows over long distances.
+
+Thus in a long pipe flow of constant diameter, the pressure upstream must be greater than the pressure downstream in order to overcome the losses due to friction.
+In order to quantify those loses, we add a term \(h_L\) to the Bernoulli equation:
+\[
+  \left( \frac{P_1}{\rho g} + z_1 + \frac{{v_1}^2}{2g} \right) - \left( \frac{P_2}{\rho g} + z_2 + \frac{{v_2}^2}{2g} \right) = h_L
+\]
+
+
+\subsubsection{Draining of a large reservoir}
+Now accounting for friction, the velocity at the exit of a large reservoir is \(v = \sqrt{2g(h - h_L)}\) where \(h_L\) is the representation of friction in terms of height.
+
+
+\subsubsection{Pipe with elevation}
+The pressure difference between the upstream and the downstream in a pipe with elevation is
+\[
+  \frac{P_1 - P_2}{\gamma} = z_2 - z_1 + h_L
+\]
+meaning the pressure must push the fluid up and also overcome friction.
+
+
+\subsubsection{Draining a large reservoir in another large reservoir}
+In this case, the friction losses are equal the the height between the two reservoir.
+This is non-recoverable energy, but by placing a turbine ine the pipe connecting the two reservoir, some of the energy can be transferred to the turbine and thus lowering the friction forces.
+
+
+\subsubsection{Addition and extraction of energy}
+Pumps and turbines can be added to the pipe system so that they can increase or decrease the energy.
+In order to simplify the analysis, we work in height:
+\[
+  h = \frac{W_\mathrm{net}}{mg} = \frac{\dot{W}_\mathrm{net}}{\dot{m}g} = \frac{\dot{W}_\mathrm{net}}{\gamma Q}
+\]
+
+Pumps add energy \(h_p\) and turbines extract energy \(h_t\), leading to the following energy equation:
+\[
+  h_p + \frac{P_1}{\rho g} + z_1 + \frac{{v_1}^2}{2g} = h_L + h_t + \frac{P_2}{\rho g} + z_2 + \frac{{v_2}^2}{2g}
+\]
+
+\subsection{Grad lines}
+Grade lines are used to visualize the change sof the energy in the flow in terms of heights.
+There are two types of grade lines:
+\begin{description}
+  \item[HGL:] the hydraulic grade lines, which uses Piezometer heights: \(HGL = \frac{P}{\gamma} + z\)
+  \item[EGL:] the energy grade lines, which includes also the kinetic energy: \(EGL = \frac{P}{\gamma} + z + \frac{v^2}{2g}\)
+\end{description}
+
+Thus in a problem, the pumps add an extra height \(h_p\) and the turbines removes a height \(h_t\), while the losses \(h_L\) are seen as a slope in the diagram.
+
+
+\subsection{Control volume analysis}
+\subsubsection{Control volume}
+A control volume is a volume fixed in spae through which fluid flows.
+It can be a fixed control volume, as in a pipe, or a deforming control volume like in a air balloon.
+
+The control volume is defined by control surfaces.
+
+\subsubsection{Mass flow rate}
+The net mass flow rate through an area is (make sure to compute it for the inlet \emph{and} the outlet):
+\begin{align*}
+  \dot{m} & = \int_\mathrm{CS}{\rho \left( \vec{v} \bullet \hat{n} \right) \diffint{A}}       \\
+          & = \sum_\mathrm{out}{\dot{m}_\mathrm{out}} - \sum_\mathrm{in}{\dot{m}_\mathrm{in}}
+\end{align*}
+\[
+  \begin{array}{|l}
+    \dot{m} [\si{\kilogram\per\second}] \text{: mass flow rate}  \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: fluid density} \\
+    \vec{v} [\si{\metre\per\second}] \text{: fluid velocity}     \\
+    \hat{n} \text{: control surface direction}                   \\
+    A [\si{\metre\squared}] \text{: control surface area}        \\
+  \end{array}
+\]
+
+The decrease in mass inside the control volume is:
+\[
+  \dot{m} = \partialderivative{}{t} \left[ \int_\mathrm{CV}{\rho \diffint{V}} \right]
+\]
+\[
+  \begin{array}{|l}
+    \dot{m} [\si{\kilogram\per\second}] \text{: mass flow rate}  \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: fluid density} \\
+    V [\si{\metre\cubed}] \text{: control volume volume}         \\
+  \end{array}
+\]
+
+
+\subsubsection{Conservation of mass}
+The control volume equation for conservation of mass equation is:
+\[
+  \partialderivative{}{t} \left[ \int_\mathrm{CV}{\rho \diffint{V}} \right] + \int_\mathrm{CS}{\rho \left( \vec{v} \bullet \hat{n} \right) \diffint{A}} = 0
+\]
+
+For steady flows, there is no change with time, thus the equation becomes just:
+\[
+  \int_\mathrm{CS}{\rho \left( \vec{v} \bullet \hat{n} \right) \diffint{A}} = 0
+\]
+
+The average speed in a pipe is:
+\[
+  v = \frac{\int_\mathrm{CS}{\rho \left( \vec{v} \bullet \hat{n} \right) \diffint{A}}}{\int_\mathrm{CS}{\rho \diffint{A}}}
+\]
+
+\subsubsection{Conservation of momentum}
+The fluid momentum inside a control volume is:
+\[
+  \vec{B} = \int_\mathrm{CV}{\rho \vec{v} \diffint{V}}
+\]
+
+Newton's Second Law can then be derived for fluid dynamics into the conservation of linear momentum for a fixed control volume:
+\[
+  \sum{\vec{F}} = \partialderivative{}{t} \left[ \int_\mathrm{CV}{\rho \vec{v} \diffint{V}} \right] + \int_\mathrm{CS}{\rho \vec{v} \left( \vec{v} \bullet \hat{n} \right) \diffint{A}}
+\]
+
+For a steady flow, there is no change with time, meaning the momentum equation becomes:
+\[
+  \sum{\vec{F}} = \int_\mathrm{CS}{\rho \vec{v} \left( \vec{v} \bullet \hat{n} \right) \diffint{A}}
+\]
+
+\begin{remark}
+  When the fluid momentum changes direction, forces are required to change the momentum since the direction and the magnitude changes.
+\end{remark}
+
+\paragraph{General vane}
+For a general vane in which the fluid enters horizontally and exits at an angle \(\theta\) from the horizontal, the forces of the jet on the vane are:
+\begin{align*}
+  \text{In } \vec{x}: & F_x = \rho v^2 A (1 - \cos\theta)            \\
+  \text{In } \vec{z}: & F_z = \rho v^2 A \sin\theta + W_\mathrm{jet} \\
+\end{align*}
+
+\subsection{Moving control volumes}
+For a moving control volume, the conservation of linear momentum equation becomes:
+\[
+  \sum{\vec{F}} = \partialderivative{}{t} \left[ \int_\mathrm{CV}{\rho \vec{v}_\mathrm{fluid} \diffint{V}} \right] + \int_\mathrm{CS}{\rho \vec{v}_\mathrm{fluid} \left( \vec{v}_\mathrm{relative} \bullet \hat{n} \right) \diffint{A}}
+\]
+where \(\vec{v}_\mathrm{relative} = \vec{v}_\mathrm{fluid} - \vec{v}_{CV}\).
+
+In case of a steady flow and a constant control volume velocity (\(\vec{a}_{CV} = 0\)), then the equation can be simplified to:
+\[
+  \sum{\vec{F}} = \int_\mathrm{CS}{\rho \vec{v}_\mathrm{relative} \left( \vec{v} \bullet \hat{n} \right) \diffint{A}}
+\]
+
+
+\paragraph{General vane}
+For a general vane in which the fluid enters horizontally and exits at an angle \(\theta\) from the horizontal, the forces of the jet on the vane are:
+\begin{align*}
+  \text{In } \vec{x}: & F_x = \rho (\vec{v}_\mathrm{fluid} - \vec{v}_{CV})^2 A (1 - \cos\theta)            \\
+  \text{In } \vec{z}: & F_z = \rho (\vec{v}_\mathrm{fluid} - \vec{v}_{CV})^2 A \sin\theta + W_\mathrm{jet} \\
+\end{align*}
+
+
+\paragraph{Rocket engine}
+For a rocket engine, which either stationary or in motion, the thrust is:
+\[
+  F_\mathrm{thrust} = \rho (v_\mathrm{fluid})^2 A
+\]
+
+
+\section{Dimensional analysis and similitude}
+\subsection{Dimensional analysis}
+Dimensional analysis looks at the dimensions in the parameters of equations and use those dimensions to link parameters.
+Dimensional analysis is useful in:
+\begin{itemize}
+  \item Correlation of test data or experimental results
+  \item Reduction of the amount of experimental work
+  \item Similitude and test models
+\end{itemize}
+
+The idea of dimensional analysis is to find equations using only the dimensions of the various parameters.
+
+
+\subsection{Buckingham \(\pi\) theorem}
+The Buckingham \(\pi\) theorem states that the number of dimensionless parameters \(\pi_i\) is \(m - n\) where \(m\) is the number of dimensional quantities and \(n\) is the number of fundamental units (length, time, force or mass).
+Since the dimensionless parameters \(\pi_i\) are dimensionless, they can be related and they reduce the number of variables in equations.
+
+\(\pi_i\) parameters are found using dimensional analysis and use the fact that dimensions can cancel each other.
+
+\paragraph{Drag force on a square prism of finite length}
+We assume that the drag force \(F_D\) is a function of fluid velocity \(v\), square side length \(l\), fluid density \(\rho\), fluid viscosity \(\mu\), square depth \(b\) and angle of the incoming flow \(\alpha\): \(F_D = f(v, l, \rho, \mu, b, \alpha)\).
+Using dimensionless parameters, we can find that:
+\[
+  \begin{split}
+    \pi_1 & = f(\pi_2, \pi_3, \alpha) \\
+    \iff \frac{F_D}{\rho v^2 l^2} & = f\left( \frac{\mu}{\rho v l}, \frac{b}{l}, \alpha \right)
+  \end{split}
+\]
+
+\paragraph{Flow through a V-notch weir}
+We assume that the flow \(Q\) is a function of height of the V-notch \(h\) and gravitational acceleration \(g\): \(Q = f(h, g)\).
+From dimensionless analysis: \(\pi_1 = f(0) = k\), where \(k\) is a constant and
+\(\pi_1 = \frac{Q}{\sqrt{gh^5}}\)
+\[
+  \begin{split}
+    \pi_1 & = \frac{Q}{\sqrt{gh^5}} = k \\
+    \iff Q & = k\sqrt{gh^5}
+  \end{split}
+\]
+
+
+\subsection{Common dimensionless groups}
+\subsubsection{Reynolds number Re}
+The Reynolds number is a ratio of inertial forces over viscous forces:
+\[
+  \mathrm{Re}_x = \frac{\rho v x}{\mu} = \frac{v x}{\nu}
+\]
+\[
+  \begin{array}{|l}
+    \mathrm{Re}_x \text{: Reynolds number}                            \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: flow density}       \\
+    v [\si{\metre\per\second}] \text{: flow velocity}                 \\
+    x [\si{\metre}] \text{: characteristic length}                    \\
+    \mu [\si{\kilogram\per\meter\per\second}] \text{: flow viscosity} \\
+    \nu [\si{\meter\squared\per\second}] \text{: kinematic viscosity}
+  \end{array}
+\]
+Thus:
+\begin{description}
+  \item[Re \(\ll 1\):] viscous effects dominate
+  \item[Re \(\gg 1\):] inertial effects dominate
+\end{description}
+
+\subsubsection{Froude number}
+Froude number Fr appears in the flow of a free surface:
+\[
+  \frac{v}{\sqrt{gh}}
+\]
+
+\subsubsection{Lift, drag and pressure coefficients}
+\begin{align*}
+  c_L & = \frac{F_L}{\frac{1}{2} \rho v^2 S}    \\
+  c_D & = \frac{F_D}{\frac{1}{2} \rho v^2 S}    \\
+  c_P & = \frac{\Delta P}{\frac{1}{2} \rho v^2} \\
+\end{align*}
+
+
+\subsection{Similitude}
+Working with similitude is a way to test scaled model that can be tested in real condition while conserving materials, costs and efforts since only a smaller version of the real model is actually built.
+
+\begin{example}
+  The same Reynolds number in 2 different location of a wind turbine will result in the same power production even though the 2 turbines are not under the same environmental conditions.
+\end{example}
+
+
+\section{Viscous flow in pipes}
+\subsection{Viscous flow in cylindrical pipes}
+The flow in a pipe has to overcome viscous forces, thus a relation between flow rate and pressure drop is needed in order to design realistic pipe systems.
+
+
+\subsubsection{Laminar and turbulent flows}
+The flow in a pipe can be laminar or turbulent.
+From Reynolds' experiment, the transition from laminar flow to turbulent flow is around Re = 2100.
+Recall that we have:
+\[
+  \mathrm{Re}_D = \frac{\rho v D}{\mu} = \frac{v D}{\nu}
+\]
+\[
+  \begin{array}{|l}
+    \mathrm{Re}_D \text{: Reynolds number}                            \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: flow density}       \\
+    v [\si{\metre\per\second}] \text{: flow velocity}                 \\
+    D [\si{\metre}] \text{: pipe diameter}                            \\
+    \mu [\si{\kilogram\per\meter\per\second}] \text{: flow viscosity} \\
+    \nu [\si{\meter\squared\per\second}] \text{: kinematic viscosity}
+  \end{array}
+\]
+This leads to say that:
+\begin{description}
+  \item[Re \(< 2100\):] laminar flow
+  \item[Re \(> 2100\):] turbulent flow
+\end{description}
+
+
+\subsubsection{Study the flow in circular pipes}
+The force balance on a fluid element is:
+\begin{align*}
+  P_1 \pi r^2 - (P_1 - \Delta P) \pi r^2 - \tau 2 \pi r L & = 0                        \\
+  \iff \tau                                               & = - \frac{\Delta P r}{2 L}
+\end{align*}
+where \(\tau 2 \pi r L\) is the sheer force that the side of the pipe exert on the fluid element due to viscosity.
+
+From viscosity equation:
+\begin{align*}
+  \tau = \mu \derivative{v}{r} & = - \frac{\Delta P r}{2 L}                                    \\
+  \iff \int_0^v{ \diffint{v}}  & = \int_R^r{- \frac{\Delta P r}{2 \mu L} \diffint{r}}          \\
+  \iff v(r)                    & = \frac{\Delta P}{4 \mu L} \left( R^2 - r^2 \right)           \\
+                               & = \frac{\tau_\mathrm{wall} D}{4 \mu} \left( R^2 - r^2 \right)
+\end{align*}
+
+Then, the volumetric flow rate \(Q\) and the average velocity \(v_\mathrm{avg}\) can be obtained:
+\begin{align*}
+  Q              & = \int_0^R{v(r) 2 \pi r \diffint{r}} =\frac{\pi D^4 \Delta P}{128 \mu L} \\
+  v_\mathrm{avg} & = \frac{D^2 \Delta P}{32 \mu L}
+\end{align*}
+
+
+\subsubsection{Poiseuille's Law}
+Poisseuille's Law states that the pressure loss of a laminar flow in a cylindrical pipe is:
+\[
+  \Delta P = \frac{8}{\pi} \frac{\mu L Q}{R^4} = \frac{128}{\pi} \frac{\mu L Q}{D^4}
+\]
+\[
+  \begin{array}{|l}
+    \Delta P [\si{\pascal}] \text{: pressure loss} \\
+  \end{array}
+\]
+Thus, the head loss of a laminar flow due to friction in a cylindrical pipe is:
+\[
+  h_L = \frac{\Delta P}{\gamma} =\frac{128}{\pi} \frac{\mu L Q}{\gamma D^4} = \frac{64}{\mathrm{Re}} \frac{L}{D} \frac{v^2}{2g}
+\]
+
+
+\subsection{Moody chart}
+\subsubsection{Pressure drop using dimensional analysis}
+From dimensional analysis:
+\[
+  \frac{D \Delta P}{\mu v} = f\left( \frac{L}{D} \right)
+\]
+Now, assume that the following relationship can be obtained:
+\begin{align*}
+  \frac{D \Delta P}{\mu v} & = C \frac{L}{D}       \\
+  \iff \frac{\Delta P}{L}  & = C \frac{\mu v}{D^2}
+\end{align*}
+where \(C = 32\) for a cylindrical pipe.
+
+In the end, the pressure drop is:
+\begin{align*}
+  \Delta P                      & = f \frac{L}{D} \frac{\rho v^2}{2} \\
+  h_L = \frac{\Delta P}{\gamma} & = f \frac{L}{D} \frac{v^2}{2g}
+\end{align*}
+where \(f\) is Darcy friction factor and \(f = \frac{64}{\mathrm{Re}}\) for a fully-developed laminar flow.
+
+
+\subsubsection{Friction factor}
+The friction factor depends on the roughness \(\varepsilon\) of the pipe and on the Reynolds number Re of the associated flow (Colebrook equation):
+\[
+  \frac{1}{\sqrt{f}} = -2 \log\left( \frac{\frac{\varepsilon}{D}}{3.7} + \frac{2.51}{\mathrm{Re}\sqrt{f}} \right)
+\]
+Since this equation is too complicated to solve as \(f\) appears on both sides, either Haaland formula is used (approximation of Colebrook equation), or the Moody chart.
+\[
+  \frac{1}{\sqrt{f}} \approxeq -1.8 \log\left( \left[ \frac{\frac{\varepsilon}{D}}{3.7} \right]^{1.11} + \frac{6.9}{\mathrm{Re}} \right)
+\]
+
+
+\subsubsection{Observations from the Moody chart}
+For laminar flows, the friction factor \(f\) decreases with increasing Reynolds number, and it is independent of the surface roughness.
+The friction factor is a minimum for a smooth pipe and increases with roughness.
+The data in the transition are the least reliable.
+
+In order to get the roughness, Table \ref{tab:roughness} is used.
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Equivalent roughness for new pipes}
+  \label{tab:roughness}
+  \begin{center}
+    \centering % Horizontal alignment of the table
+    \begin{tabular}{ % Number of letter (l: left, c: center, r: right) = number of column
+        lll
+      }
+      % Visible row border: \hline (needed for each row)
+      % Visible column border: | next to tabular declaration (needed for each column)
+      % Column separation: &, row separation: \\
+
+      Pipe             & \(\epsilon\) [ft] & \(\epsilon [\si{\metre}]\) \\\hline\hline
+      Riveted steel    & [0.003; 0.03]     & [0.0009; 0.0090]           \\\hline
+      Concrete         & [0.001; 0.01]     & [0.000~3; 0.0030]          \\\hline
+      Wood stave       & [0.0006; 0.003]   & [0.000~18; 0.0009]         \\\hline
+      Cast iron        & 0.000~85          & 0.000~26                   \\\hline
+      Galvanized iron  & 0.000~5           & 0.000~15                   \\\hline
+      Commercial steel & 0.000~15          & 0.000~045                  \\\hline
+      Drawn tubing     & 0.000~005         & 0.000~001~5                \\\hline
+      Plastic, glass   & 0                 & 0
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\subsection{Three types of problems}
+\begin{enumerate}
+  \item Given \(D\), \(L\), \(Q\) or \(v\), \(\rho\), \(\mu\) and \(g\): find the headloss \(h_L\) or \(\Delta P\)
+  \item Given \(D\), \(L\), \(\rho\), \(\mu\) and \(g\): find \(Q\) or \(v\)
+  \item Given \(L\), \(h_L\), \(Q\) or \(v\), \(\rho\), \(\mu\) and \(g\): find \(D\)
+\end{enumerate}
+
+
+\subsubsection{Solution methods: type 1}
+Given \(D\), \(L\), \(Q\) or \(v\), \(\rho\), \(\mu\) and \(g\):
+\begin{enumerate}
+  \item Compute Re and \(\frac{\varepsilon}{D}\)
+  \item Determine \(f\) from Moody chart or Colebrook equation
+\end{enumerate}
+
+
+\subsubsection{Solution methods: type 2}
+Without knowing \(v\), Re cannot be computed!
+Thus to get \(v\) or \(Q\), an iterative approach need to be used.
+Given \(D\), \(L\), \(\rho\), \(\mu\) and \(g\):
+\begin{enumerate}
+  \item Use an initial value of \(f\) with which Re is in the wholly turbulent flow region
+  \item \label{itm:compute-v} Compute \(v\) using
+        \begin{align*}
+          h_L    & = f \frac{L}{D} \frac{v^2}{2g} \\
+          \iff v & = \sqrt{\frac{2 g h_L D}{f L}}
+        \end{align*}
+  \item \label{itm:compute-Re} Compute Re using
+        \[
+          \mathrm{Re} = \frac{\rho v D}{\mu} = \frac{v D}{\nu} = \frac{4 Q}{\pi D \nu}
+        \]
+  \item Get a new value of \(f\) using Moody chart and Re calculated at step \ref{itm:compute-Re}
+  \item Repeat all steps from step \ref{itm:compute-v} using the value of \(f\) previously calculated until \(f\) converges
+  \item Compute the final value of \(v\) and \(Q\)
+\end{enumerate}
+
+
+\subsubsection{Solution methods: type 3}
+Without knowing \(D\), Re and \(\frac{\varepsilon}{D}\) cannot be computed!
+THus, to get \(D\), an iterative approach need to be used.
+Given \(L\), \(h_L\), \(Q\) or \(v\), \(\rho\), \(\mu\) and \(g\):
+\begin{enumerate}
+  \item Use \(f = 0.02\)
+  \item \label{itm:compute-D} Compute D using
+        \begin{align*}
+          h_L    & = f \frac{L}{D} \frac{\left( \frac{4Q}{\pi D^2} \right)^2}{2g} \\
+          \iff D & = \sqrt[5]{\frac{8}{\pi^2}\frac{f L Q^2}{h_L g}}
+        \end{align*}
+  \item Compute Re using
+        \[
+          \mathrm{Re} = \frac{\rho v D}{\mu} = \frac{v D}{\nu} = \frac{4 Q}{\pi D \nu}
+        \]
+  \item Compute \(\frac{\varepsilon}{D}\)
+  \item Get a new value of \(f\) using Moody chart
+  \item Repeat all steps from step \ref{itm:compute-D} using the value of \(f\) previously calculated until \(f\) converges
+  \item Compute the final value of \(D\)
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,658 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{PHYS 205: Electricity and Magnetism}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Table of contents
+% \renewcommand{\contentsname}{Table of contents title} % Change the table of contents title
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+
+\renewcommand{\abstractname}{Constants} % Change the abstract title
+\begin{abstract}
+  \vspace{-20pt}
+  \begin{align*}
+    c                     & = \SI{3.00 e8}{\meter\per\second}                                                         \\
+    N_A                   & = \SI{6.02 e23}{\per\mole}                                                                \\
+    m_{\mathrm{proton}}   & = \SI{1.672 e-27}{\kilogram}                                                              \\
+    m_{\mathrm{neutron}}  & = \SI{1.674 e-27}{\kilogram}                                                              \\
+    m_{\mathrm{electron}} & = \SI{9.11 e-31}{\kilogram}                                                               \\
+    e                     & = \SI{1.602 e-19}{\coulomb}                                                               \\
+    k_e                   & = \frac{1}{4 \pi \epsilon_0 } = \SI{8.8976 e9}{\newton\metre\squared\per\coulomb\squared} \\
+    \epsilon_0            & = \SI{8.8542 e-12}{\coulomb\squared\per\newton\per\metre\squared}                         \\
+    \mu_0                 & = \SI{4 \pi e-7}{\tesla\metre\per\ampere}
+  \end{align*}
+\end{abstract}
+
+\setlength{\abovedisplayskip}{2pt} % Space above displayed equations
+\setlength{\belowdisplayskip}{2pt} % Space below displayed equations
+
+\section{Electric forces and fields}
+Conservation of charge:
+\[
+  \sum {q_{\mathrm{initial}}} = \sum{}^{}{q_{\mathrm{final}}}
+\]
+
+Quantization of charge:
+\[
+  q = \left( N_{\mathrm{proton}} - N_{\mathrm{electron}} \right)e
+\]
+
+Electric force between two point-charges:
+\[
+  F_E = k_e \frac{\left| q_1 \right|\left| q_2 \right|}{r^2 }
+\]
+
+Electric field:
+\begin{itemize}
+  \item Point-charge:
+        \[
+          \vec{E} = \frac{\vec{F}_E }{q_0 } = k_e \frac{q}{r^2 } \hat{r}
+        \]
+  \item Uniform electric field:
+        \[
+          E = \frac{\left| \sigma \right|}{2\epsilon_0 }
+        \]
+  \item Two parallel plates:
+        \[
+          E = \frac{\left| \sigma \right|}{\epsilon_0 }
+        \]
+\end{itemize}
+
+\section{Continuous charge distribution}
+Charge densities:
+\begin{itemize}
+  \item Linear charge density:
+        \[
+          \lambda = \frac{Q}{l}
+        \]
+  \item Area charge density:
+        \[
+          \sigma = \frac{Q}{A}
+        \]
+  \item Volume charge density (insulator):
+        \[
+          \rho = \frac{Q}{V}
+        \]
+  \item Varying charge density:
+        \[
+          Q_{\mathrm{tot}} = \int{\diff{}{q}} = \int{\lambda\left( x \right)\diff{}{x}}
+        \]
+\end{itemize}
+
+Electric field of a continuous charge distribution:
+\[
+  \vec{E} = \int{\diff\vec{E}} = k_e \int{\frac{\diff{}{q}}{r^2 }\hat{r}}
+\]
+
+Electric flux:
+\begin{itemize}
+  \item Constant electric field:
+        \[
+          \Phi_E = \vec{E} \bullet \vec{A} = EA\cos{\theta}
+        \]
+  \item Gauss's law:
+        \[
+          \Phi_E = \oint{\vec{E} \bullet \diff\vec{A}} = \frac{q_{\mathrm{in}}}{\epsilon_0 }
+        \]
+\end{itemize}
+
+\section{Electrical potential}
+Work:
+\begin{itemize}
+  \item Uniform electric field:
+        \[
+          W_{1 \rightarrow 2} = q\vec{E} \bullet \Delta\vec{r} = qE\Delta r\cos{\theta}
+        \]
+  \item Non-uniform electric field:
+        \[
+          W_{1 \rightarrow 2} = q\int_1 ^2 {\vec{E} \bullet \diff\vec{s}}
+        \]
+\end{itemize}
+
+Electric potential energy:
+\begin{itemize}
+  \item Uniform electric field:
+        \[
+          \Delta U = - W_{1 \rightarrow 2} = - q\vec{E} \bullet \Delta\vec{r} = - \mathrm{qE}\Delta r\cos{\theta}
+        \]
+  \item Non-uniform electric field:
+        \[
+          \Delta U = - W_{1 \rightarrow 2} = - q\int_1 ^2 {\vec{E} \bullet \diff\vec{s}}
+        \]
+  \item Two point-charges:
+        \[
+          U = k_e \frac{{q_1 q}_2 }{r}
+        \]
+\end{itemize}
+Potential:
+\begin{itemize}
+  \item Point-charge:
+        \[
+          V = \frac{U}{q_0 } = k_e \frac{q}{r}
+        \]
+  \item Potential difference of a point charge:
+        \[
+          \Delta V = \frac{\Delta U}{q_0 }
+        \]
+  \item Uniform electric field:
+        \[
+          \Delta V = - \vec{E} \bullet \Delta\vec{r} = - E\Delta r\cos{\theta}
+        \]
+  \item Non-uniform electric field:
+        \[
+          \Delta V = - \int_1 ^2 {\vec{E} \bullet \diff\vec{s}}
+        \]
+        \begin{itemize}
+          \item Electric field from potential:
+                \[
+                  E = - \derivative{V}{s}
+                \]
+        \end{itemize}
+  \item Continuous charge distribution:
+        \[
+          V = \int{\diff{}{V}} = k_e \int{\frac{\diff{}{q}}{r}}
+        \]
+\end{itemize}
+
+\section{Capacitance and dielectric}
+Capacitance:
+\[
+  C = \frac{Q}{\Delta V_C }
+\]
+\begin{itemize}
+  \item Parallel plate capacitor:
+        \[
+          C = \frac{\epsilon_0 A}{d}
+        \]
+\end{itemize}
+Capacitor in circuits:
+\begin{itemize}
+  \item Parallel:
+        \[
+          C_{\mathrm{eq}} = C_1 + C_2 + C_3 + \cdots = \sum_i {C_i }
+        \]
+  \item Series:
+        \[
+          C_{\mathrm{eq}} = \frac{1}{\frac{1}{C_1 } + \frac{1}{C_2 } + \frac{1}{C_3 } + \cdots} = \frac{1}{\sum_i {\frac{1}{C_i }}} = \left( \sum_i {\frac{1}{C_i }} \right)^{-1}
+        \]
+\end{itemize}
+Energy related to a capacitor:
+\begin{itemize}
+  \item Energy stored in a capacitor:
+        \[
+          U_C = \frac{Q^2 }{2C} = \frac{1}{2}Q\Delta V_C = \frac{1}{2}C\left( \Delta V_C \right)^2
+        \]
+  \item Energy stored in the electric field between the two plates:
+        \[
+          U_C = \frac{1}{2}\epsilon_0 AdE^2
+        \]
+  \item Energy density of the electric field:
+        \[
+          u_E = \frac{U_C }{Ad} = \frac{1}{2}\epsilon_0 E^2
+        \]
+\end{itemize}
+Dielectric:
+\begin{align*}
+  E_1    & = E_0 - E_{\mathrm{induced}} \\
+  \kappa & = \frac{E_0 }{E_1 }          \\
+  C_1    & = \kappa C_0
+\end{align*}
+
+Electrostatic breakdown:
+\[
+  V = E_{\mathrm{max}}d
+\]
+
+\section{Current and resistance}
+Current:
+\[
+  I = \derivative{Q}{t}
+\]
+
+Drift speed (speed of the electron in a conductor):
+\[
+  v_d = \frac{I}{Aen_e }
+\]
+
+Ohm's law:
+\[
+  J = \frac{I}{A} = v_d en_e
+\]
+
+\begin{itemize}
+  \item Conductivity of a material:
+        \[
+          \sigma = \frac{J}{E}
+        \]
+  \item Resistivity of a material:
+        \[
+          \rho = \frac{1}{\sigma} = \frac{E}{J}
+        \]
+  \item Resistance:
+        \[
+          R = \frac{\rho d}{A} = \frac{d}{\sigma A}
+        \]
+  \item Most known:
+        \[
+          \Delta V = RI
+        \]
+\end{itemize}
+
+Resistor in circuits:
+\begin{itemize}
+  \item Parallel:
+        \[
+          R_{\mathrm{eq}} = \frac{1}{\frac{1}{R_1 } + \frac{1}{R_2 } + \frac{1}{R_3 } + \cdots} = \frac{1}{\sum_i {\frac{1}{R_i }}} = \left( \sum_i {\frac{1}{R_i }} \right)^{-1}
+        \]
+  \item Series:
+        \[
+          R_{\mathrm{eq}} = R_1 + R_2 + R_3 + \cdots = \sum_i {R_i }
+        \]
+\end{itemize}
+
+\section{DC circuits}
+EMF:
+\[
+  \varepsilon = \frac{W_{\mathrm{chem}}}{q}
+\]
+\begin{itemize}
+  \item Ideal battery:
+        \[
+          \Delta V = \varepsilon
+        \]
+  \item Realistic battery:
+        \[
+          \Delta V = \varepsilon - IR_{\mathrm{internal}}
+        \]
+\end{itemize}
+
+Power:
+\begin{itemize}
+  \item Power output of a DC source:
+        \[
+          P_{\mathrm{elec}} = \derivative{U}{t} = \derivative{Q}{t}\Delta V = I\Delta V
+        \]
+  \item Power dissipated in a resistor:
+        \[
+          P_R = I\Delta V_R = RI^2 = \frac{\left( \Delta V_R \right)^2 }{R}
+        \]
+\end{itemize}
+
+Kirchhoff's rules:
+\begin{itemize}
+  \item Junction rule:
+        \[
+          \sum_{\mathrm{in}}{I_{\mathrm{in}}} = \sum_{\mathrm{out}}{I_{\mathrm{out}}}
+        \]
+  \item Loop rule:
+        \[
+          \Delta V_{\mathrm{loop}} = \sum_i {\Delta V_i } = 0
+        \]
+\end{itemize}
+
+RC circuits:
+\begin{itemize}
+  \item Time constant:
+        \[
+          \tau = RC
+        \]
+  \item Discharging capacitor:
+        \begin{itemize}
+          \item Charge:
+                \[
+                  Q\left( t \right) = Q_{\mathrm{max}}e^{-\frac{t}{\tau}} = C\Delta V_C e^{-\frac{t}{\tau}}
+                \]
+          \item Current:
+                \[
+                  I\left( t \right) = I_{\mathrm{max}}e^{-\frac{t}{\tau}} = \frac{\Delta V_C }{R}e^{-\frac{t}{\tau}} = \frac{Q_{\mathrm{max}}}{\tau}e^{-\frac{t}{\tau}}
+                \]
+          \item Potential:
+                \[
+                  {\Delta V}\left( t \right) = \Delta V_C e^{-\frac{t}{\tau}} = \frac{Q_{\mathrm{max}}}{C}e^{-\frac{t}{\tau}}
+                \]
+        \end{itemize}
+        \columnbreak
+  \item Charging capacitor:
+        \begin{itemize}
+          \item Charge:
+                \[
+                  Q\left( t \right) = Q_{\mathrm{max}}\left( 1 - e^{- \frac{t}{\tau}} \right) = C\Delta V_C \left( 1 - e^{- \frac{t}{\tau}} \right)
+                \]
+          \item Current:
+                \[
+                  I\left( t \right) = I_{\mathrm{max}}e^{- \frac{t}{\tau}} = \frac{\Delta V_C }{R}e^{- \frac{t}{\tau}} = \frac{Q_{\mathrm{max}}}{\tau}e^{- \frac{t}{\tau}}
+                \]
+          \item Potential:
+                \[
+                  \Delta V\left( t \right) = \Delta V_C \left( 1 - e^{- \frac{t}{\tau}} \right) = \frac{Q_{\mathrm{max}}}{C}\left( 1 - e^{- \frac{t}{\tau}} \right)
+                \]
+        \end{itemize}
+\end{itemize}
+
+\section{Magnetic fields and forces}
+Magnetic force:
+\[
+  \vec{F}_B = q\vec{v} \times \vec{B}\
+\]
+Radius of the circle path of a charge:
+\[
+  r = \frac{mv_{\perp  B}}{qB}
+\]
+Lorentz force:
+\[
+  \vec{F} = \vec{F}_E + \vec{F}_B = q\vec{E} + q\vec{v} \times \vec{B}
+\]
+Force on a current carrying wire:
+\[
+  \vec{F}_{\mathrm{wire}} = I\vec{L} \times \vec{B}
+\]
+Torque on a current carrying loop:
+\[
+  T = I\left\| \vec{A} \times \vec{B} \right\| = IAB\sin{\theta}
+\]
+
+\section{Sources of magnetic fields}
+Biot-Savart law:
+\[
+  \vec{B} = \frac{\mu_0 I}{4\pi}\int{\frac{\diff\vec{s} \times \hat{r}}{r^2 }}
+\]
+\begin{itemize}
+  \item Segment of straight wire:
+        \[
+          B = \frac{\mu_0 I}{4\pi d}\left( \sin{\alpha} + \sin{\beta} \right)
+        \]
+  \item Infinite wire:
+        \[
+          B = \frac{\mu_0 I}{2\pi d}
+        \]
+  \item Circular section of wire:
+        \[
+          B = \frac{\mu_0 I\theta}{4\pi r}
+        \]
+\end{itemize}
+
+Ampere's law:
+\[
+  \oint{\vec{B} \bullet \diff\vec{s} = \mu_0 I_{\mathrm{through}}}
+\]
+\begin{itemize}
+  \item Field strength inside a solenoid:
+        \[
+          B = \mu_0 nI = \mu_0 \frac{N}{l}I
+        \]
+\end{itemize}
+
+\section{Faraday's law}
+Motional EMF:
+\begin{itemize}
+  \item Current:
+        \[
+          I = \frac{vlB}{R}
+        \]
+  \item Force exerted:
+        \[
+          F_{\mathrm{pull}} = F_B = \frac{vl^2 B^2 }{R}
+        \]
+\end{itemize}
+
+\columnbreak
+Magnetic flux:
+\begin{itemize}
+  \item Uniform magnetic field:
+        \[
+          \Phi_B = \vec{A} \bullet \vec{B} = AB\cos{\theta}
+        \]
+  \item Non-uniform magnetic field:
+        \[
+          \Phi_B = \int{\vec{B} \bullet \diff\vec{A}}
+        \]
+\end{itemize}
+
+Faraday's law:
+\begin{itemize}
+  \item Single loop induced EMF:
+        \[
+          \Delta V_{\mathrm{induced}} = \left| \derivative{\Phi_B }{t} \right|
+        \]
+  \item Multiple loops induced EMF:
+        \[
+          \Delta V_{\mathrm{induced}} = N\left| \derivative{\Phi_B }{t} \right|
+        \]
+  \item AC generators:
+        \[
+          \Delta v = ABN\omega\sin{\omega t}
+        \]
+\end{itemize}
+
+\section{Inductance}
+Self-inductance:
+\[
+  L = \frac{\Delta V}{\left| \derivative{I}{t} \right|} = \frac{\Phi_B }{I}
+\]
+
+Inductance of a solenoid:
+\[
+  L = \frac{\mu_0 AN^2 }{l}
+\]
+
+RL circuits:
+\begin{itemize}
+  \item Time constant:
+        \[
+          \tau = \frac{L}{R}
+        \]
+  \item Decreasing current:
+        \[
+          I\left( t \right) = I_{\mathrm{max}}e^{-\frac{t}{\tau}} = \frac{\Delta V_R }{R}e^{-\frac{t}{\tau}}
+        \]
+  \item Increasing current:
+        \[
+          I\left( t \right) = I_{\mathrm{max}}\left( 1 - e^{-\frac{t}{\tau}} \right) = \frac{\Delta V_R }{R}\left( 1 - e^{-\frac{t}{\tau}} \right)
+        \]
+  \item Power dissipation:
+        \[
+          P_L = LI\derivative{I}{t}
+        \]
+  \item Energy stored in the magnetic field of and inductor:
+        \[
+          U_L = \frac{1}{2}LI^2
+        \]
+\end{itemize}
+
+LC circuits with a charged capacitor:
+\begin{itemize}
+  \item Angular frequency:
+        \[
+          \omega = \sqrt{\frac{1}{LC}}
+        \]
+  \item Natural frequency:
+        \[
+          f_{\mathrm{natural}} = \frac{1}{2\pi}\sqrt{\frac{1}{LC}}
+        \]
+  \item Charge:
+        \[
+          Q\left( t \right) = Q_{\mathrm{max}}\cos{\omega t}
+        \]
+  \item Current:
+        \[
+          I\left( t \right) = - I_{\mathrm{max}}\sin{\omega t} = - \omega Q_{\mathrm{max}}\sin{\omega t}
+        \]
+\end{itemize}
+
+\section{AC circuits}
+Angular frequency:
+\[
+  \omega = 2\pi f = \frac{2\pi}{T}
+\]
+
+Instantaneous voltage:
+\[
+  \Delta v = \Delta V_{\mathrm{max}}\sin{\omega t}
+\]
+
+RMS:
+\begin{itemize}
+  \item Current:
+        \[
+          I_{\mathrm{RMS}} = \frac{\sqrt{2}}{2}I_{\mathrm{max}} \approx 0.707I_{\mathrm{max}}
+        \]
+  \item Voltage:
+        \[
+          \Delta V_{\mathrm{RMS}} = \frac{\sqrt{2}}{2}\Delta V_{\mathrm{max}} \approx 0.707\Delta V_{\mathrm{max}}
+        \]
+\end{itemize}
+
+Resistor circuits:
+\begin{itemize}
+  \item Max voltage:
+        \[
+          \Delta V_{\mathrm{max}} = I_{\mathrm{max}}R
+        \]
+  \item Instantaneous current:
+        \[
+          i_R = I_{\mathrm{max}}\sin{\omega t} = \frac{\Delta V_{\mathrm{max}}}{R}\sin{\omega t}
+        \]
+  \item Instantaneous voltage:
+        \[
+          \Delta v_R = \Delta V_{\mathrm{max}}\sin{\omega t} = I_{\mathrm{max}}R\sin{\omega t}
+        \]
+  \item Average power dissipation:
+        \[
+          P_R = RI_{RMS}^2 = \frac{1}{2}RI_{\mathrm{max}}^2
+        \]
+\end{itemize}
+
+Inductor circuits:
+\begin{itemize}
+  \item Inductive reactance:
+        \[
+          X_L = \omega L
+        \]
+  \item Max voltage:
+        \[
+          \Delta V_{\mathrm{max}} = I_{\mathrm{max}}X_L
+        \]
+  \item Instantaneous current:
+        \[
+          i_L = I_{\mathrm{max}}\sin\left( \omega t - \frac{\pi}{2} \right) = \frac{\Delta V_{\mathrm{max}}}{X_L }\sin\left( \omega t - \frac{\pi}{2} \right)
+        \]
+  \item Instantaneous voltage:
+        \[
+          \Delta v_L = - \Delta V_{\mathrm{max}}\sin{\omega t} = -I_{\mathrm{max}}X_L \sin{\omega t}
+        \]
+\end{itemize}
+
+Capacitor circuits:
+\begin{itemize}
+  \item Capacitive reactance:
+        \[
+          X_C = \frac{1}{\omega C}
+        \]
+  \item Max voltage:
+        \[
+          \Delta V_{\mathrm{max}} = I_{\mathrm{max}}X_R
+        \]
+  \item Instantaneous current:
+        \[
+          i_C = I_{\mathrm{max}}\sin\left( \omega t + \frac{\pi}{2} \right) = \frac{\Delta V_{\mathrm{max}}}{X_C }\sin\left( \omega t + \frac{\pi}{2} \right)
+        \]
+  \item Instantaneous voltage:
+        \[
+          \Delta v_C = \Delta V_{\mathrm{max}}\sin{\omega t} = I_{\mathrm{max}}X_C \sin{\omega t}
+        \]
+\end{itemize}
+
+RLC series circuits:
+\begin{itemize}
+  \item Impedance:
+        \[
+          Z = \sqrt{R^2 + \left( X_L - X_C \right)^2 }
+        \]
+  \item Phase angle:
+        \[
+          \varphi = \tan^{- 1}\left( \frac{X_L - X_C }{R} \right)
+        \]
+  \item Max voltage:
+        \[
+          \Delta V_{\mathrm{max}} = I_{\mathrm{max}}Z
+        \]
+  \item Instantaneous current:
+        \[
+          i = I_{\mathrm{max}}\sin\left( \omega t - \varphi \right) = \frac{\Delta V_{\mathrm{max}}}{Z}\sin\left( \omega t - \varphi \right)
+        \]
+  \item Instantaneous voltage:
+        \begin{alignat*}{2}
+          \Delta v_R & = I_{\mathrm{max}}R\sin{\omega t}                                 & = & \Delta V_R \sin{\omega t}   \\
+          \Delta v_L & = I_{\mathrm{max}}X_L \sin\left( \omega t - \frac{\pi}{2} \right) & = & - \Delta V_L \cos{\omega t} \\
+          \Delta v_C & = I_{\mathrm{max}}X_C \sin\left( \omega t + \frac{\pi}{2} \right) & = & \Delta V_C \cos{\omega t}
+        \end{alignat*}
+\end{itemize}
+
+\section{Electromagnetic waves}
+Maxwell's equations (in vacuum):
+\begin{itemize}
+  \item Gauss's law:
+        \[
+          \Phi_E = \oint{\vec{E} \bullet \diff\vec{A}} = \frac{q_{\mathrm{in}}}{\epsilon_0 }
+        \]
+  \item Gauss’s law for magnetism (magnetic monopoles do not exist):
+        \[
+          \Phi_B = \oint{\vec{B} \bullet \diff\vec{A}} = 0
+        \]
+  \item Faraday's law:
+        \[
+          \oint{\vec{E} \bullet \diff\vec{s}} = -\derivative{\Phi_B }{t}
+        \]
+  \item Ampere-Maxwell law:
+        \begin{itemize}
+          \item Displacement current:
+                \[
+                  I_{\mathrm{displacement}} = \epsilon_0 \derivative{\Phi_E }{t}
+                \]
+          \item Ampere-Maxwell law:
+                \[
+                  \oint{\vec{B} \bullet \diff\vec{s}} = \mu_0 I_{\mathrm{displacement}} + \mu_0 I_{\mathrm{through}}
+                \]
+        \end{itemize}
+  \item Lorentz force:
+        \[
+          \vec{F} = \vec{F}_E + \vec{F}_B = q\vec{E} + q\vec{v} \times \vec{B}
+        \]
+\end{itemize}
+
+Wave equations:
+\[
+  \npartialderivative{2}{E}{x} = \mu_0 \epsilon_0 \npartialderivative{2}{E}{t} \text{ and } \npartialderivative{2}{B}{x} = \mu_0 \epsilon_0 \npartialderivative{2}{B}{t}
+\]
+\begin{itemize}
+  \item Speed of light equations:
+        \begin{align*}
+          c & = \lambda f = \frac{\omega}{k} = \frac{E}{B}                                   \\
+          c & = \frac{1}{\sqrt{\mu_0 \epsilon_0 }} \approx \SI{2.9979 e8}{\metre\per\second}
+        \end{align*}
+  \item Solutions to wave equations:
+        \[
+          E = E_{\mathrm{max}}\cos\left( kx - \omega t \right) \text{ and } B = B_{\mathrm{max}}\cos\left( kx - \omega t \right)
+        \]
+\end{itemize}
+\end{document}

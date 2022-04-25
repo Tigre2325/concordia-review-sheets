@@ -1,0 +1,1173 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{ENGR 213: Applied Ordinary Differential Equations}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% New commands
+% \renewcommand{\contentsname}{} % Change the table of contents title
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Theorems and proofs
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle
+% \tableofcontents
+% \layout % Show a drawing of page layout
+% \renewcommand{\abstractname}{} % Change the abstract title
+\setlength{\abovedisplayskip}{2pt} % Space above displayed equations
+\setlength{\belowdisplayskip}{2pt} % Space below displayed equations
+
+
+\section{Introduction to differential equations}
+\subsection{Definitions and terminology}
+A differential equation (differential equation) is an equation containing the derivatives of one or more dependent variables with respect to one or more independent variables.
+
+Differential equations can be classified by:
+\begin{itemize}
+  \item Type:
+        \begin{itemize}
+          \item Ordinary differential equations (ODE): derivatives are with respect to a single independent variable.
+                \begin{example}
+                  \[
+                    \derivative{y}{x} + 5y = e^x \text{ or } \derivative{x}{t} + \derivative{y}{t} = 3x + 2y
+                  \]
+                \end{example}
+          \item Partial differential equations (PDE): derivatives are with respect to two or more independent variables.
+                \begin{example}
+                  \[
+                    \npartialderivative{2}{u}{x} = \npartialderivative{2}{u}{t} - 2\partialderivative{u}{t} \text{ or } \partialderivative{u}{y} = - \partialderivative{v}{x}
+                  \]
+                \end{example}
+        \end{itemize}
+  \item Order: the order of an ordinary differential equation or a partial differential equation is the order of the highest derivative in the equation
+        \begin{example}
+          \begin{align*}
+            \derivative{y}{x} + 5y = e^x                                     & \rightarrow \text{ order 1} \\
+            2\npartialderivative{4}{u}{x} + \npartialderivative{2}{u}{x} = 0 & \rightarrow \text{ order 4}
+          \end{align*}
+        \end{example}
+  \item Linearity:
+        \begin{itemize}
+          \item Form of a linear ordinary differential equation:
+                \begin{multline*}
+                  a_n (x)\nderivative{n}{y}{x} + a_{n - 1}(x)\nderivative{n - 1}{y}{x} + \cdots \\
+                  + a_1 (x)\derivative{y}{x} + a_0 (x)y = g(x)
+                \end{multline*}
+                \begin{multline*}
+                  a_n (x) y^{(n)} + a_{n - 1}(x) y^{(n - 1)} + \cdots \\
+                  + a_1 (x) y' + a_0 (x)y = g(x)
+                \end{multline*}
+
+          \item Non-linear ordinary differential equation:
+                \begin{itemize}
+                  \item The coefficient \(a_0 (x)\), \(a_1 (x)\), \dots,\(a_{n - 1}(x)\), \(a_n (x)\) contains the dependent variable \(y\) or its derivative
+                  \item Powers of \(y\), \(y'\), \dots, \(y^{(n - 1)}\), \(y^{(n)}\) appears in the equation
+                  \item Non-linear functions of the dependent variable or its derivatives, such as \(\sin{y}\) or \(e^y \), appear in the equation
+                \end{itemize}
+        \end{itemize}
+  \item Homogeneity:
+        \begin{itemize}
+          \item Homogeneous: \(g(x) = 0\) in a linear ordinary differential equation or \(\derivative{y}{x}\) can be represented as \(f\left( \frac{y}{x} \right)\)
+          \item Nonhomogeneous: \(g(x)\) is a constant or a function of \(x\) in a linear ordinary differential equation or \(\derivative{y}{x}\) cannot be represented as \(f\left( \frac{y}{x} \right)\)
+        \end{itemize}
+\end{itemize}
+
+Solutions of a ordinary differential equation:
+\begin{itemize}
+  \item Solution curve: the solution is a function.
+        \begin{itemize}
+          \item Families of solutions: solution contains one or more arbitrary constant \(c\), \( c_1 \), \dots, \( c_n \)
+          \item Particular solution: solution does not contain an arbitrary constant
+        \end{itemize}
+  \item Singular solution: solution which is not member of a family of solutions
+  \item Trivial solution: \(y(x) = 0\)
+\end{itemize}
+
+
+\begin{definition}
+  If a linear homogeneous ordinary differential equation has solutions \(y = f(x)\) and \(y = g(x)\), then \(y = af(x) + bg(x)\) (where \(a\) and \(b\) are constants) is also a solution.
+\end{definition}
+
+
+\subsection{Initial-value problem (IVP)}
+In an IVP, we seek a solution \(y(x)\) of a differential equation so that \(y(x)\) satisfies one or more initial conditions at \(x_0 \) in order to get a particular solution.
+
+\vspace{-10pt}
+\paragraph*{Existence of a unique solution}
+If \(\derivative{y}{x} = f(x,y)\) and \(\partialderivative{f}{y}\) are continuous a region \(R\), then there exists a unique function \(y(x)\) that is a solution of the IVP.
+
+
+\subsection{Differential equations as mathematical models}
+A mathematical model is a description of a system or a phenomenon.
+
+Steps of the modeling process:
+\begin{enumerate}
+  \item Make assumptions and hypotheses about the system or phenomenon
+  \item Express these assumptions in terms of differential equations
+  \item Get a mathematical formulation
+  \item Solve the differential equations
+  \item Obtain solutions
+  \item Display predictions of the model (e.g. graphically)
+  \item Check the model's predictions with known facts
+  \item If necessary alter assumptions or increase resolution of the model
+\end{enumerate}
+
+\begin{example}
+  \begin{itemize}
+    \item Population dynamics
+    \item Radioactive decay
+    \item Newton's law of cooling and warming
+    \item Spread of a disease
+    \item Chemical reactions
+    \item Mixtures
+    \item Draining a tank
+    \item Series circuits
+    \item Falling bodies
+    \item Falling bodies and air resistance
+    \item Suspended cables
+    \item \dots{} and many more
+  \end{itemize}
+\end{example}
+
+
+\section{First-order differential equations}
+\subsection{Separable equations}
+A first-order differential equation of the form
+\[
+  \derivative{y}{x} = g(x)h(y)
+\]
+is said to be separable or to have separable variables.
+
+A separable first-order differential equation can be rewritten in the form \(h(y)\diff{}{y} = g(x)\diff{}{x}\), which can be solved by integrating both sides.
+
+
+\subsection{Linear equations}
+A first-order differential equation of the form
+\[
+  a_1 (x)\derivative{y}{x} + a_0 (x)y = g(x)
+\]
+is said to be a linear equation in the dependent variable \(y\).
+
+The standard form of a linear differential equation is obtained by dividing both sides by the lead coefficient \(a_1 (x)\):
+\[
+  \derivative{y}{x} + P(x)y = f(x)
+\]
+
+Method of solution:
+\begin{enumerate}
+  \item Rewrite the equation in its standard form:
+        \[
+          \derivative{y}{x} + P(x)y = f(x)
+        \]
+  \item Determine the integrating factor \(e^{\int{P(x) \diffint{x}}}\)
+  \item Write
+        \[
+          \derivative{}{x}\left[ e^{\int{P(x) \diffint{x}}}y \right] = e^{\int{P(x) \diffint{x}}}f(x)
+        \]
+  \item Multiply both sides by \(\diff{}{x}\)
+  \item Integrate both sides
+  \item Divide both sides by the integrating factor \(e^{\int{P(x) \diffint{x}}}\) to isolate for \(y\)
+\end{enumerate}
+
+Using these steps, the solution is:
+\[
+  y = e^{-\int{P(x) \diffint{x}}} \int{e^{\int{P(x) \diffint{x}}}f(x) \diffint{x}}
+\]
+
+
+\subsubsection*{Piecewise-linear differential equation}
+\begin{enumerate}
+  \item Solve the initial-value problem in several parts corresponding to the intervals over which \(f(x)\) is defined
+  \item Piece the two solutions together so that the solution \(y(x)\) is continuous on a larger interval
+\end{enumerate}
+
+
+\subsubsection*{Error functions}
+Error function:
+\[
+  \erf(x) = \frac{2}{\sqrt{\pi}}\int_0 ^x {e^{-t^2 } \diffint{t}}
+\]
+
+Complementary error function:
+\[
+  \erfc(x) = \frac{2}{\sqrt{\pi}}\int_x ^{\infty}{e^{-t^2 } \diffint{t}}
+\]
+
+Property of the error functions:
+\[
+  \erf(x) + \erfc(x) = 1
+\]
+
+
+\subsection{Exact equations}
+A first-order differential equation of the form
+\[
+  M(x,y)\diff{}{x} + N(x,y)\diff{}{y} = 0
+\]
+is said to be an exact equation if the expression on the left side is an exact differential.
+
+The condition of exact differentials is:
+\[
+  \partialderivative{M(x, y)}{y} = \partialderivative{N(x, y)}{x}
+\]
+
+Method of solution:
+\begin{enumerate}
+  \item Check for exact differentials
+  \item If the equation is exact, there exists a function \(f(x,y)\) such that:
+        \[
+          \partialderivative{f(x, y)}{x} = M(x,y) \text{ and } \partialderivative{f(x, y)}{y} = N(x,y)
+        \]
+  \item Find \(f(x,y)\) by integrating \(M(x,y)\) with respect to \(x\), while holding \(y\) constant.
+        This gives:
+        \[
+          f(x,y) = \int{M(x,y)\diffint{x}} + g(y)
+        \]
+        where an arbitrary function \(g(y)\) is the "constant" of integration
+  \item Differentiate \(f(x,y)\) with respect to \(y\) and set it equals to \(N(x,y)\):
+        \[
+          \partialderivative{f(x, y)}{y} = \partialderivative{}{y}\left[ \int{M(x,y)\diffint{x}} \right] + g'(y) = N(x,y)
+        \]
+  \item This gives:
+        \[
+          g'(y) = N(x,y) - \partialderivative{}{y}\left[ \int{M(x,y)\diffint{x}} \right]
+        \]
+  \item Integrate \(g'(y)\) with respect to \(y\)
+  \item Substitute the result in \(f(x,y) = \int{M(x,y)\diffint{x}} + g(y)\)
+  \item The implicit solution of \(M(x,y)\diff{}{x} + N(x,y)\diff{}{y} = 0\) is \(f(x,y) = c\)
+\end{enumerate}
+
+Therefore, if the equation is exact, the full solution becomes:
+\begin{multline*}
+  f(x,y) = \int{M(x,y)\diffint{x}} \\
+  + \int{N(x,y) - \partialderivative{}{y}\left[ \int{M(x,y)\diffint{x}} \right]\diffint{y}} = c
+\end{multline*}
+
+
+\subsubsection*{Integrating factor for exact equations}
+An equivalent exact equation can be created from a non-exact equation using an integrating factor \(\mu(x,y)\):
+\begin{enumerate}
+  \item Check for integrating factor:
+        \begin{itemize}
+          \item If \(\frac{M_y - N_x}{N}\) is a function of \(x\) alone, then an integrating factor for \(\mu(x,y)M(x,y)\diff{}{x} + \mu(x,y)N(x,y)\diff{}{y} = 0\) is:
+                \[
+                  \mu(x) = e^{\int{\frac{M_y - N_x}{N} \diffint{x}}}
+                \]
+          \item If \(\frac{N_x - M_y}{M}\) is a function of \(y\) alone, then an integrating factor for \(\mu(x,y)M(x,y)\diff{}{x} + \mu(x,y)N(x,y)\diff{}{y} = 0\) is:
+                \[
+                  \mu(y) = e^{\int{\frac{N_x - M_y}{M} \diffint{y}}}
+                \]
+        \end{itemize}
+  \item If there exists an integrating factor \(\mu(x,y)\), then the new exact equation is
+        \[
+          \left[ \mu(x,y)M(x,y) \right]\diff{}{x} + \left[ \mu(x,y)N(x,y) \right]\diff{}{y} = 0
+        \]
+  \item Apply the method of solution of an exact equation taking \(M(x,y) = \mu(x,y)M(x,y)\) and \(N(x,y) = \mu(x,y)N(x,y)\)
+\end{enumerate}
+
+
+\subsection{Solution by substitution (Bernoulli, homogeneous and linear substitution)}
+Substitution is used to get a differential equation in a form such that a known procedure can be used to find a solution.
+The chain rule is often used as a tool to get the differential form:
+\begin{enumerate}
+  \item Let a function \(u(x,y)\), then \(y = g(x,u)\) and
+        \[
+          \derivative{y}{x} = \partialderivative{g(x, u)}{x} + \partialderivative{g(x, u)}{u}\derivative{u}{x}
+        \]
+  \item Solve for \(u\) using \(\derivative{u}{x}\) and another method (separable, linear or exact equations)
+  \item Replace back \(u\) in \(y = g(x,u)\) to solve for \(y\)
+\end{enumerate}
+
+
+\subsubsection*{Homogeneous equations}
+In \(M(x,y)\diff{}{x} + N(x,y)\diff{}{y} = 0\), if \(M(tx,ty) = t^{\alpha}M(x,y)\) and \(N(tx,ty) = t^{\alpha}N(x,y)\), then the equation is homogeneous.
+
+Method of solution:
+\begin{enumerate}
+  \item Let \(y = ux \Rightarrow \diff{}{y} = u\diff{}{x} + x\diff{}{u}\)
+  \item Replace \(y\) and \(dy\) in the equation by \(ux\) and \(u\diff{}{x} + x\diff{}{u}\) respectively
+  \item Solve for \(u\) using another method (separable, linear or exact equations)
+  \item Replace back \(u\) by \(\frac{y}{x}\)
+  \item Solve to get an implicit or an explicit solution
+\end{enumerate}
+
+
+\subsubsection*{Bernoulli's equation}
+A Bernoulli's equation is a differential equation of the form
+\[
+  \derivative{y}{x} + P(x)y = f(x)y^n , \quad n \in \realset
+\]
+
+Method of solution:
+\begin{enumerate}
+  \item Let \(u = y^{1 - n}\).
+        The equation becomes:
+        \[
+          \derivative{u}{x} + (1 - n)P(x)u = (n - 1)f(x)
+        \]
+  \item Solve for \(u\) using the linear equation method
+  \item Solve for \(y\) by using \(y = u^{\frac{1}{n - 1}}\)
+\end{enumerate}
+
+
+\subsubsection*{Reduction to separation of variables}
+A differential equation of the form
+\[
+  \derivative{y}{x} = f(Ax + By + C)
+\]
+can always be reduced to an equation with separable variables by means of the substitution \(u = Ax + By + C\) if \(B \neq 0\).
+
+Method of solution:
+\begin{enumerate}
+  \item Let \(u = Ax + By + C \Rightarrow \derivative{u}{x} = A + B \derivative{y}{x}\).
+        The equation becomes:
+        \[
+          \derivative{u}{x} = A + B \cdot f(u)
+        \]
+  \item Solve for \(u\) using another method (separable, linear or exact equations)
+  \item Solve for \(y\) using \(y = \frac{u - Ax - C}{B}\)
+\end{enumerate}
+
+
+\subsection{Linear models}
+\subsubsection*{Growth and decay}
+For growth and decay, the general initial value problem is
+\[
+  \derivative{x}{t} = kx, x(t_0 ) = x_0
+\]
+where \(k\) is the constant of proportionality.
+
+The general solution of this differential equation is \(x(t) = Ce^{kt}\).
+
+When \(t_0 = 0\), \(C = x_0 \) and the solution of the differential equation becomes \(x(t) = x_0 e^{kt}\).
+In order to get the value of \(k\), another value of \(x(t)\) needs to be known.
+
+\paragraph*{Half-life}
+The half-life is a measure of the stability of a radioactive substance.
+It is the time it takes for one-half of the atoms in an initial amount \(A_0 \) to disintegrate.
+
+In half-life value problems, the solution of the differential equation is \(A(t) = A_0 e^{kt}\) with \(k = -\frac{\ln 2}{t_{\mathrm{half-life}}}\).
+
+One of the special value of half-life to know is the half-life of carbon - 14 which is \(t_{\mathrm{C-14}} = \SI[scientific-notation = false]{5730}{\mathrm{years}}\).
+
+
+\subsubsection*{Newton's law of cooling and warming}
+Newton's empirical law of cooling and warming states that the rate \(\derivative{T}{t}\) at which the temperature of a body changes is proportional to the difference between the temperature \(T\) of the body and the temperature \(T_m\) of the surroundings, i.e. the ambient temperature:
+\[
+  \derivative{T}{t} = k(T - T_m), T(t_0 ) = T_0
+\]
+where \(k\) is a constant of proportionality.
+
+The general solution of this differential equation is \(T(t) = T_m + Ce^{kt}\).
+
+When \(t_0 = 0\), \(C = T_0 - T_m\) and the solution of the differential equation becomes \(T(t) = T_m + (T_0 - T_m)e^{kt}\).
+In order to get the value of \(k\), another value of \(T(t)\) needs to be known.
+
+
+\subsubsection*{Series circuits}
+\paragraph*{RL circuits}
+The instantaneous voltage \(v\) in a RL circuit is described by the following differential equation:
+\[
+  L\derivative{I}{t} + RI = V
+\]
+
+\paragraph*{RC circuits}
+The instantaneous voltage \(v\) in a RC circuit is described by the following differential equation:
+\[
+  R \derivative{Q}{t} + \frac{1}{C}Q = V
+\]
+
+\paragraph*{RLC circuits}
+The instantaneous voltage \(v\) in a RLC circuit is described by the following differential equation:
+\[
+  L \nderivative{2}{Q}{t} + R \derivative{Q}{t} + \frac{1}{C}Q = V
+\]
+
+
+\subsection{Non-linear models}
+\subsubsection*{Logistic equation}
+Let an environment be capable of sustaining no more than a fixed number of \(P_\mathrm{max}\) individuals in its population.
+The quantity \(P_\mathrm{max}\) is called the carrying capacity of the environment.
+Let \(P_0 \) be the initial population.
+Then, using a density-dependent model of population dynamics, we get the logistic equation as
+\[
+  \derivative{P}{t} = P(a - bP)
+\]
+where \(a = kP_\mathrm{max}\), \(b = k\) and \(k\) a constant of proportionality.
+
+From this equation, it follows that
+\begin{align*}
+  P(t) & = \frac{aP_0 }{bP_0 + (a - bP_0 )e^{-at}}                                       \\
+       & = \frac{P_0 P_\mathrm{max}}{P_0 + (P_\mathrm{max} - P_0 )e^{-kP_\mathrm{max}t}}
+\end{align*}
+
+To get the graph of \(P(t)\), the second derivative of \(P\) can be used:
+\begin{align*}
+  \nderivative{2}{P}{t} & = 2b^2 P\left( P - \frac{a}{b} \right)\left( P - \frac{a}{2b} \right)                                                         \\
+                        & = 2\left( \frac{P_0 }{P_\mathrm{max}} \right)^2 P\left( P - P_\mathrm{max} \right)\left( P - \frac{P_\mathrm{max}}{2} \right)
+\end{align*}
+
+
+\subsubsection*{Modification of the logistic equation}
+There exist many variations of the logistic equation such as
+\[
+  \derivative{P}{t} = P(a - bP) \pm h
+\]
+where \(h\) is a rate of increasing or decreasing in the population.
+
+Another variation of the logistic equation, known as the Gompertz differential equation, is stated as:
+\[
+  \derivative{P}{t} = P(a - b\ln{P})
+\]
+This differential equation is used as a model in the study of the growth or decline of population, growth of solid tumors\dots
+
+
+\subsubsection*{Chemical reactions}
+Let a quantity \(a\) of chemical \(A\) and \(b\) of chemical \(B\).
+If a reaction needs \(M\) part of \(A\) and \(N\) parts of \(B\) to form a quantity \(X\) of a chemical \(C\), then the quantity of \(A\) and \(B\) remaining at any time are, respectively,
+\[
+  a - \frac{M}{M + N}X \text{ and } b - \frac{N}{M + N}X
+\]
+The rate at which chemical \(C\) is produced can be governed by a second-order differential equation of the following
+\[
+  \derivative{X}{t} = k(\alpha - X)(\beta - X)
+\]
+with \(\alpha = a\frac{M + N}{M}\) and \(\beta = b\frac{M + N}{N}\).
+
+Method of solution:
+\begin{enumerate}
+  \item Compute \(\alpha = a\frac{M + N}{M}\) and \(\beta = b\frac{M + N}{N}\)
+  \item Solve the differential equation using separable equation and integration of partial fractions
+  \item Solve the constant \(C\) of integration using \(X_0 = 0\)
+  \item Solve for the constant \(k\) of proportionality of the reaction using a known value of \(X(t)\)
+  \item The maximum quantity \(X_\mathrm{max}\) of chemical C is equal to the smallest value between \(\alpha\) and \(\beta\)
+\end{enumerate}
+
+
+\subsubsection*{Leaking tank}
+TODO: leaking tank
+
+
+\section{Higher-order differential equations}
+\subsection{Theory of linear equations}
+A linear differential equation is an equation of the form
+\begin{multline*}
+  a_n (x)\nderivative{n}{y}{x} + a_{n - 1}(x)\nderivative{n - 1}{y}{x} + \cdots \\
+  + a_1 (x)\derivative{y}{x} + a_0 (x)y = g(x)
+\end{multline*}
+
+
+\subsubsection*{Initial-value problem}
+For a linear equation, an \(n\)th-order initial-value problem (IVP) is a problem where the linear equation
+\begin{multline*}
+  a_n (x)\nderivative{n}{y}{x} + a_{n - 1}(x)\nderivative{n - 1}{y}{x} + \cdots \\
+  + a_1 (x)\derivative{y}{x} + a_0 (x)y = g(x)
+\end{multline*}
+is solved using the initial conditions
+\[
+  y(x_0 ) = y_0 , y'(x_0 ) = y_1 , \dots, y^{(n - 1)}(x_0 ) = y_{n - 1}
+\]
+
+\paragraph*{Existence of a unique solution}
+Let \(a_n(x)\), \(a_{n - 1}(x)\), \dots, \(a_1 (x)\), \(a_0 (x)\) and \(g(x)\) be continuous on an interval \(I\), and let \(a_n(x) \neq 0\) for every \(x\) in this interval.
+If \(x = x_0 \) is any point in this interval, then a solution \(y(x)\) of the initial-value problem exists on the interval and is unique.
+
+
+\subsubsection*{Boundary-value problem}
+Another type of problem, called a boundary value problem (BVP) consists of solving a linear differential equation in which the dependent variable \(y\) or its derivatives are specified a different points.
+The general boundary conditions for a two-point boundary-value problem are
+\begin{align*}
+  A_1 y(a) + B_1 y'(a) & = C_1 \\
+  A_2 y(b) + B_2 y'(b) & = C_2 \\
+\end{align*}
+
+
+\subsubsection*{Homogeneous equations}
+A linear \(n\)th order differential equation of the form
+\begin{multline*}
+  a_n (x)\nderivative{n}{y}{x} + a_{n - 1}(x)\nderivative{n - 1}{y}{x} + \cdots \\
+  + a_1 (x)\derivative{y}{x} + a_0 (x)y = 0
+\end{multline*}
+is said to be homogeneous, whereas an equation
+\begin{multline*}
+  a_n (x)\nderivative{n}{y}{x} + a_{n - 1}(x)\nderivative{n - 1}{y}{x} + \cdots \\
+  + a_1 (x)\derivative{y}{x} + a_0 (x)y = g(x)
+\end{multline*}
+with \(g(x) \neq 0\) is said to be nonhomogeneous.
+
+In order to solve a nonhomogeneous linear equation, the associated homogeneous equation must first be solvable and solved.
+
+
+\subsubsection*{Differential operator}
+Differential operator \(D\) transforms differentiable functions into other functions:
+\[
+  \derivative{}{x} \left( \derivative{y}{x} \right) = \nderivative{2}{y}{x} = D(Dy) = D^2 y
+\]
+and in a general manner
+\[
+  \nderivative{n}{y}{x} = D^n y
+\]
+Any linear differential equation can be expressed in terms of \(D\).
+\begin{example}
+  \[
+    y'' + 5y' + 6y = 5x - 3 \implies \left( D^2 + 5D + 6 \right)y = 5x - 3
+  \]
+\end{example}
+
+
+\subsubsection*{Superposition principle}
+\paragraph*{Linear dependence and independence}
+A set of functions \(f_1 (x)\), \(f_2 (x)\), \dots, \(f_n (x)\) is said to be linearly dependent on an interval \(I\) if there exist constants \(c_1 \), \(c_2 \), \dots, \(c_n \) not all zero, such that
+\[
+  c_1 f_1 (x) + c_2 f_2 (x) + \cdots + c_n f_n (x) = 0
+\]
+for every \(x\) in the interval.
+If the set of functions is not linearly dependent on the interval, it is said to be linearly independent.
+Any set of \(n\) linearly independent solutions of the homogeneous linear differential equation on interval \(I\) is a fundamental set of solutions.
+
+\paragraph*{Superposition principle for homogeneous equations}
+Let \(y_1 \), \(y_2 \), \dots, \(y_k \) be solutions of a homogeneous \(n\)th-order differential equation on an interval \(I\).
+Then, the linear combination
+\[
+  y = c_1 y_1 (x) + c_2 y_2 (x) + \cdots + c_k y_k (x)
+\]
+where \(c_1 \), \(c_2 \), \dots, \(c_k \) are arbitrary constants, is also a solution on the interval.
+
+
+\subsubsection*{Solutions of differential equations}
+\paragraph*{Wronskian}
+Suppose each of the functions \(f_1 (x)\), \(f_2 (x)\), \dots, \(f_n (x)\) posses at least \(n - 1\) derivatives.
+The determinant
+\[
+  W(f_1 , f_2 , \dots, f_n ) =
+  \begin{vmatrix}
+    f_1           & f_2           & \dots & f_n           \\
+    f'_1          & f'_2          & \dots & f'_n          \\
+    \vdots        & \vdots        &       & \vdots        \\
+    f^{(n - 1)}_1 & f^{(n - 1)}_2 & \dots & f^{(n - 1)}_n
+  \end{vmatrix}
+\]
+where the primes denotes derivatives, is called the Wronskian of the functions.
+
+\paragraph*{Linearly independent solutions}
+Let \(y_1 \), \(y_2 \), \dots, \(y_n \) be \(n\) solutions of a homogeneous \(n\)th-order differential equation on an interval \(I\).
+Then, the set of solutions is linearly independent on \(I\) if and only if \(W(y_1 , y_2 , \dots, y_n ) \neq 0\) for every \(x\) in the interval.
+
+The general solution of a homogeneous differential equation is
+\[
+  y = c_1 y_1 (x) + c_2 y_2 (x) + \cdots + c_n y_n (x)
+\]
+where \(y_1 \), \(y_2 \), \dots, \(y_n \) is a fundamental set of solutions and \(c_1 \), \(c_2 \), \dots, \(c_k \) are arbitrary constants.
+
+The general solution of a nonhomogeneous differential equation is
+\[
+  y = c_1 y_1 (x) + c_2 y_2 (x) + \cdots + c_n y_n (x) + y_p
+\]
+where \(y_1 \), \(y_2 \), \dots, \(y_n \) is a fundamental set of solutions, \(c_1 \), \(c_2 \), \dots, \(c_k \) are arbitrary constants and \(y_p \) is a particular solution of the differential equation.
+
+
+\subsubsection*{Another superposition principle}
+\paragraph*{Superposition principle for nonhomogeneous equations}
+Let \(y_{p_1 }\), \(y_{p_2 }\), \dots, \(y_{p_k }\) be \(k\) particular solutions of a nonhomogeneous linear\(n\)th-order differential equation on an interval \(I\) corresponding, in turn, to \(k\) distinct functions \(g_1 \), \(g_2 \), \dots, \(g_n \).
+That is, suppose that \(y_{p_i }\) denotes a particular solution of the corresponding differential equation
+\begin{multline*}
+  a_n (x) y^{(n)} + a_{n - 1}(x) y^{(n - 1)} + \cdots \\
+  + a_1 (x) y' + a_0 (x) y = g_i (x)
+\end{multline*}
+where \(i = 1, 2, \dots, k\).
+Then
+\[
+  y_p (x) = y_{p_1 } + y_{p_2 } + \cdots + y_{p_k }
+\]
+is a particular solution of
+\begin{multline*}
+  a_n (x) y^{(n)} + a_{n - 1}(x) y^{(n - 1)} + \cdots + a_1 (x) y' + a_0 (x) y \\
+  = g_1 (x) + g_2 (x) + \cdots + g_k (x)
+\end{multline*}
+
+
+\subsection{Homogeneous linear equations with constant coefficients}
+An homogeneous linear equation with constant coefficients has the following form:
+\[
+  a_n y^{(n)} + a_{n - 1} y^{(n - 1)} + \cdots + a_1 y' + a_0 y = 0
+\]
+where the coefficients \(a_0 \), \(a_1 \), \dots, \(a_{n - 1}\), \(a_n \) are real constants and \(a_n \neq 0\).
+
+
+The auxiliary equation of a homogeneous linear differential equation is used to solve the differential equation it is associated with:
+\[
+  a_n m^n + a_{n - 1}m^{n - 1} + \cdots + a_1 m + a_0 = 0
+\]
+where \(m\) is used to find a solution for the homogeneous linear differential equation.
+
+The three possible cases for the value of \(m\) are:
+\begin{description}
+  \item[Case \Romannumeral{1}: distinct real roots] For each real root, there is a solution \(y = ce^{mx}\)
+  \item[Case \Romannumeral{2}: repeated real roots] For each repeated root, there is a solution \(y = c_1 e^{mx} + c_2 xe^{mx} + \dots + c_k x^{k - 1}e^{mx}\), where \(m\) is a root of multiplicity \(k\) (i.e. \(k\) roots are equal to \(m\)).
+  \item[Case \Romannumeral{3}: conjugate complex roots] For each conjugate complex root \(m = \alpha \pm i\beta\), there is a solution \(y = e^{\alpha x}(c_1 \cos{\beta x} + c_2 \sin{\beta x})\)
+\end{description}
+
+Method of solution:
+\begin{enumerate}
+  \item Build the auxiliary equation associated with the differential equation
+  \item Solve for for all values of \(m\)
+  \item Follow the rule for the three possible cases of \(m\)
+  \item Sum all the solutions in order to get the full solution \(y_c \)
+\end{enumerate}
+
+The most difficult step to solve the auxiliary equation is to find some roots in order to reduce the equation to a factorized form with only 2nd order terms.
+
+Method of solution:
+\begin{enumerate}
+  \item Find all the multiple (positive and negative) of the last coefficient \(a_0 \) as \(p\)
+  \item Find all the multiple (positive and negative) of the first coefficient \(a_n \) as \(q\)
+  \item Build the values \(\frac{p}{q}\) which are possibles solutions of the auxiliary equation
+  \item Test the values \(\frac{p}{q}\) until finding one that solves the auxiliary equation
+  \item Factor \(m - \frac{p}{q}\) of the equation using long division
+  \item Repeat the process until having only 2nd order terms
+\end{enumerate}
+
+
+\subsubsection*{Two equations worth knowing}
+Two differential equations
+\[
+  y'' + k^2 y = 0 \text{ and } y'' - k^2 y = 0, \quad k \in \realset
+\]
+
+The general solution of \(y'' + k^2 y = 0\) is
+\[
+  y_c = c_1 \cos{kx} + c_2 \sin{kx}
+\]
+and the general solution of  \(y'' - k^2 y = 0\) is
+\[
+  y_c = c_1 e^{kx} + c_2 e^{-kx} = c_3 \cosh{kx} + c_4 \sinh{kx}
+\]
+
+
+\subsection{Undetermined coefficients}
+To solve a nonhomogeneous linear differential equation
+\[
+  a_n y^{(n)} + a_{n - 1} y^{(n - 1)} + \cdots + a_1 y' + a_0 y = g(x)
+\]
+two things must be done:
+\begin{enumerate}
+  \item Find the complementary function \(y_c \)
+  \item Find any particular solution \(y_p \) of the nonhomogeneous equation
+  \item Sum \(y_c \) and \(y_p \) ot get the general solution \(y = y_c + y_p \)
+\end{enumerate}
+
+The method of undetermined coefficients is limited to nonhomogeneous linear differential equations where
+\begin{itemize}
+  \item The coefficients \(a_0 \), \(a_1 \), \dots, \(a_{n - 1}\), \(a_n \) are real constants
+  \item \(g(x)\) is a linear combination of functions of the type
+        \begin{align*}
+           & P(x) = a_n x^n + a_{n - 1} x^{n - 1} + \cdots + a_1 x + a_0 \\
+           & P(x)e^{\alpha x}                                            \\
+           & P(x)e^{\alpha x}\cos{\beta x}                               \\
+           & P(x)e^{\alpha x}\sin{\beta x}
+        \end{align*}
+        where \(n \in \realset^+ \) and \((\alpha, \beta) \in \realset\)
+\end{itemize}
+
+There are several cases to find \(y_p \):
+\begin{description}
+  \item[Case \Romannumeral{1}] No function in \(y_p \) is found in \(y_c \)
+  \item[Case \Romannumeral{2}] A function in \(y_p \) is found in \(y_c \)
+\end{description}
+
+The form of \(y_p \) can be found using the following table.
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table}[h!] % Options: b (bottom), t (top), h (here), H (HERE!), ! (insist)
+  \caption{Trial particular solutions}
+  % \label{Trial particular solutions}
+  \begin{center}
+    \centering % Horizontal alignment of the table
+    \begin{tabular}{ % Number of letter (l: left, c: center, r: right) = number of column
+        ll
+      }
+      % Visible row border: \hline (needed for each row)
+      % Visible column border: | next to tabular declaration (needed for each column)
+      % Column separation: &, row separation: \\
+
+      \(g(x)\)                            & Form of \(y_p \)                  \\
+      \hline
+      Constant                            & \(A\)                             \\
+      \(a_n x^n + \cdots + a_1 x + a_0 \) & \(A x^n + \cdots + Y x + Z\)      \\
+      \(a\cos{bx}\)                       & \(A\cos{bx} + B\sin{bx}\)         \\
+      \(a\sin{bx}\)                       & \(A\cos{bx} + B\sin{bx}\)         \\
+      \(ae^{bx}\)                         & \(Ae^{bx}\)                       \\
+      \((a_n x^n + \cdots + a_0 )e^{bx}\) & \((A x^n + \cdots + Z)e^{bx}\)    \\
+      \(ae^{bx}\cos{cx}\)                 & \(e^{bx}(A\cos{cx} + B\sin{cx})\) \\
+    \end{tabular}
+  \end{center}
+\end{table}
+
+\paragraph*{Multiplication rule}
+If function of \(y_p \) contains terms that duplicate terms in \(y_c \), then that function must be multiplied by \(x^n \), where \(n\) is the smallest positive integer that eliminates that duplication.
+
+Method of solution
+\begin{enumerate}
+  \item Find the form of \(y_p \)
+        \begin{itemize}
+          \item If no function in \(y_p \) is found in \(y_c \), then no more work is needed
+          \item If a function in \(y_p \) is found in \(y_c \), then the multiplication rule must be applied
+        \end{itemize}
+  \item Solve for the unknowns of \(y_p \) using the differential equation and the derivatives of \(y_p \)
+\end{enumerate}
+
+
+\subsection{Variation of parameters}
+Unlike the method of undetermined coefficients, the variation of parameters method is not limited to special function of \(g(x)\), not is it limited to differential equations with constant coefficients.
+
+Method of solution:
+\begin{enumerate}
+  \item Rewrite the differential equation in its standard form (with a coefficient of 1 in front of the biggest derivative)
+        \[
+          y^{(n)} + P_{n - 1}(x) y^{(n - 1)} + \cdots + P_1 (x) y' + P_0 (x) y = f(x)
+        \]
+  \item Solve for \(y_c \), with
+        \[
+          y_c = c_1 y_1 + c_2 y_2 + \cdots + c_n y_n
+        \]
+        where \(y_1 \), \(y_2 \), \dots, \(y_n \) constitute a linearly independent set of solutions of the associated homogeneous differential equation.
+        The particular solution \(y_p \) will be of the form
+        \[
+          y_p = u_1 y_1 + u_2 y_2 + \cdots + u_n y_n
+        \]
+        where \(u\) is a function of \(x\)
+  \item Solve for \(u_1 \), \(u_2 \), \dots, \(u_n \) using their derivative and the following formula
+        \[
+          u'_k = \frac{W_k }{W} \text{, } k = 1, 2, \dots, n
+        \]
+        where \(W\) is the Wronskian of \(y_1 \), \(y_2 \), \dots, \(y_n \) and \(W_k \) is the determinant obtained by replacing the \(k\)th column of the Wronskian by the column \((0, 0, \dots, f(x))\)
+\end{enumerate}
+
+
+\subsection{Cauchy-Euler equations}
+Any linear differential equation of the form
+\[
+  a_n x^n y^{(n)} + a_{n - 1}x^{n - 1}y^{(n - 1)} + \cdots + a_1 xy' + a_0 y = g(x)
+\]
+where the coefficients \(a_n \), \(a_{n - 1}\), \dots, \(a_0 \) are constants, is known as a Cauchy-Euler equation or an equidimensional equation.
+
+The auxiliary equation of a Cauchy-Euler equation is used to solve the differential equation it is associated with.
+In order to get the auxiliary equation, the substitution \(y = x^m \) is done, and the differential equation is set equal to 0.
+
+\begin{example}
+  For a second-order Cauchy-Euler equation, we would get
+  \begin{alignat*}{2}
+     &                           & am(m - 1) + bm + c  & = 0 \\
+     & \Longleftrightarrow \quad & am^2 + (b - a)m + c & = 0
+  \end{alignat*}
+  where \(m\) is used to find a solution for the Cauchy-Euler equation.
+\end{example}
+
+The three possible cases for the value of \(m\) are:
+\begin{description}
+  \item[Case \Romannumeral{1}: distinct real roots] For each real root, there is a solution \(y = cx^m \)
+  \item[Case \Romannumeral{2}: repeated real roots] For each repeated root, there is a solution \(y = c_1 x^m + c_2 x^m \ln{x} + \dots + c_k x^m (\ln{x})^{k-1}\), where \(m\) is a root of multiplicity \(k\) (i.e. \(k\) roots are equal to \(m\)).
+  \item[Case \Romannumeral{3}: conjugate complex roots] For each conjugate complex root \(m = \alpha \pm i\beta\), there is a solution \(y = x^{\alpha}\left[ c_1 \cos(\beta\ln{x}) + c_2 \sin(\beta\ln{x}) \right]\)
+\end{description}
+
+Method of solution:
+\begin{enumerate}
+  \item Build the auxiliary equation associated with the Cauchy-Euler equation
+  \item Solve for for all values of \(m\)
+  \item Follow the rule for the three possible cases of \(m\)
+  \item Sum all the solutions in order to get the full solution \(y_c \)
+  \item Get \(y_p \) using the method of variation of parameters
+\end{enumerate}
+
+A generalization of this method can be made by replacing \(x\) by \(x - x_0 \).
+
+
+\subsection{Nonlinear equations}
+In order to solve nonlinear equations, several method exists.
+One of them known as the reduction of order may be used to find solutions of special kinds of nonlinear second-order differential equations:
+\begin{itemize}
+  \item When the dependent variable \(y\) is missing and we have \(F(x, y', y'') = 0\)
+  \item When the independent variable \(x\) is missing and we have \(F(y, y', y'') = 0\)
+\end{itemize}
+
+In each case, the differential equation can be reduced to a first-order equation by the substitution \(u = \derivative{y}{x}\).
+In the first case, the differential equation becomes \(F(x, u, u') = 0\), where \(\derivative{y}{x} = u\) and \(\nderivative{2}{y}{x} = \derivative{u}{x}\).
+In the second case, the differential equation becomes \(F(y, u, u') = 0\), where \(y\) is the new independent variable and \(\derivative{y}{x} = u\) and \(\nderivative{2}{y}{x} = u\derivative{u}{y}\).
+
+
+\subsection{Linear Models: initial-value problems (IVP)}
+\subsubsection*{Spring-mass systems: free undamped motion}
+For a free undamped motion of a spring-mass system of spring constant \(k\) and mass \(m\), using Hooke's law (\(F = -ks\), where \(k \in \realset^*_+\)) and Newton's Second law (\(F = ma\)), the following second order differential equation can be obtained
+\[
+  \nderivative{2}{x}{t} + \omega^2 x = 0 \text{, where }\omega^2 = \frac{k}{m}
+\]
+This equation describes a simple harmonic motion, also called free undamped motion.
+
+The solution of this differential equation is
+\[
+  x(t) = c_1 \cos{\omega t} + c_2 \sin{\omega t}
+\]
+The period of free vibrations is
+\[
+  T = \frac{2\pi}{\omega}
+\]
+and the frequency is
+\[
+  f = \frac{1}{T} = \frac{\omega}{2\pi}
+\]
+
+An alternative form of \(x(t)\) is used to find the amplitude of free vibrations \(A\) and the phase angle \(\phi\) of the system:
+\begin{gather*}
+  y = A\sin(\omega t + \phi) = A\cos(\omega t + \phi - \frac{\pi}{2}) \\
+  \text{where } A = \sqrt{c_1 ^2 + c_2 ^2 } \text{ and } \phi = \arctan\left( \frac{c_1 }{c_2 } \right)
+\end{gather*}
+
+\paragraph*{Multiple spring systems}
+If the springs are in parallel, we have \(k_{\mathrm{equivalent}} = k_1 + k_2 + \cdots\).
+If the springs are in series, we have \(\frac{1}{k_{\mathrm{equivalent}}} = \frac{1}{k_1}+ \frac{1}{k_2} + \cdots\).
+
+\paragraph*{Systems with variable spring constants}
+The above solution does not apply for systems with variable spring constants, e.g. aging spring or environments with rapid temperature change.
+
+
+\subsubsection*{Spring and mass systems: free damped motion}
+For a free damped motion of a spring-mass system of spring constant \(k\), mass \(m\) and damping factor \(\beta\), the following second order differential equation can be obtained
+\begin{gather*}
+  \nderivative{2}{x}{t} + 2\lambda\derivative{x}{t} + \omega^2 x = 0 \\
+  \text{where } 2\lambda = \frac{\beta}{m} \text{ and } \omega^2 = \frac{k}{m}
+\end{gather*}
+This equation describes a free damped motion.
+
+There are three possible cases:
+\begin{description}
+  \item[Case \Romannumeral{1}: \(\lambda^2 - \omega^2 > 0\)] The system is said to be overdamped, it results in a smooth and nonoscillatory motion and the solution is
+        \[
+          x(t) = e^{-\lambda t} \left( c_1 e^{t\sqrt{\lambda^2 - \omega^2 }} + c_2 e^{-t\sqrt{\lambda^2 - \omega^2 }} \right)
+        \]
+  \item[Case \Romannumeral{2}: \(\lambda^2 - \omega^2 = 0\)] The system is said to be critically damped and the solution is
+        \[
+          x(t) = e^{-\lambda t} (c_1 + c_2 t)
+        \]
+  \item[Case \Romannumeral{3}: \(\lambda^2 - \omega^2 < 0\)] The system is said to be underdamped, it results in an oscillatory motion fading over time and the solution is
+        \[
+          x(t) = e^{-\lambda t} \left( c_1 \cos{t\sqrt{\omega^2 - \lambda^2 }} + c_2 \sin{t\sqrt{\omega^2 - \lambda^2 }} \right)
+        \]
+\end{description}
+
+In case \Romannumeral{3} (\(\lambda^2 - \omega^2 < 0\)), an alternative form of \(x(t)\) is used to find the amplitude of free vibrations \(A\) and the phase angle \(\phi\) of the system:
+\begin{gather*}
+  y = A\sin(t\sqrt{\omega^2 - \lambda^2 } + \phi) \\
+  \text{where } A = \sqrt{c_1 ^2 + c_2 ^2 } \text{ and } \phi = \arctan\left( \frac{c_1 }{c_2 } \right)
+\end{gather*}
+
+
+\subsubsection*{Driven motion}
+The inclusion of another force \(f(t)\) in the formulation of Newton's second law gives the differential equation of driven of forced motion:
+\begin{gather*}
+  \nderivative{2}{x}{t} + 2\lambda\derivative{x}{t} + \omega^2 x = F(t) \\
+  \text{where } 2\lambda = \frac{\beta}{m} \text{, } \omega^2 = \frac{k}{m} \text{ and } F(t) = \frac{f(t)}{m}
+\end{gather*}
+
+Method of solution:
+\begin{enumerate}
+  \item Find \(x_c \) of the homogeneous equation using the solutions found for the free damped motion
+  \item Find \(x_p \) using the method of undetermined coefficients or variation of parameters
+\end{enumerate}
+
+Method of solution for driven motion without damping (pure resonance):
+\begin{gather*}
+  \nderivative{2}{x}{t} + \omega^2 x = F_0 \sin{\gamma t} \\
+  \text{where } \omega^2 = \frac{k}{m}
+\end{gather*}
+\begin{enumerate}
+  \item Find \(x_c \) of the homogeneous equation using the solutions found for the free undamped motion
+  \item Find \(x_p \) using the method of undetermined coefficients or variation of parameters
+  \item Determine the condition of pure resonance of the system by letting \(\gamma = \omega\)
+\end{enumerate}
+
+If the initial conditions are \(x_0 = 0\) and \(x'_0 = 0\), then for \(\gamma \neq \omega\), the solution is
+\[
+  x(t) = \frac{F_0 }{\omega\left( \omega^2 - \gamma^2 \right)}(- \gamma\sin{\omega t} + \omega\sin{\gamma t})
+\]
+and for \(\gamma = \omega\), the solution is
+\[
+  x(t) = \frac{F_0 }{2\omega^2 }\sin{\omega t} - \frac{F_0 }{2\omega}t\cos{\omega t}
+\]
+
+
+\subsubsection*{RLC-series circuits}
+Using Kirchhoff's loop rule, the following linear second-order differential equation is found:
+\[
+  L\nderivative{2}{Q}{t} + R\derivative{Q}{t} + \frac{1}{C}Q = V(t)
+\]
+
+The equation can be solved using previous solution method such as auxiliary equation, undetermined coefficient or variation of parameters.
+
+
+\section{Series solutions of linear equations}
+\subsection{Solutions about ordinary points}
+\subsubsection*{Review of power series}
+A power series centered at \(a\) is an infinite series of the form
+\[
+  \sum_{n = 0}^{\infty}{c_n (x - a)^n } = c_0 + c_1 (x - a) + c_2 (x - a)^2 + \cdots
+\]
+
+Power series characteristics:
+\begin{itemize}
+  \item Convergence: the convergence of a power series can be checked by the ration test
+        \[
+          \limit{n}{\infty}{\left| \frac{c_{n + 1}(x - a)^{n + 1}}{c_n (x - a)^n } \right|} = |x - a|\limit{n}{\infty}{\left| \frac{c_{n + 1}}{c_n } \right|} = L
+        \]
+        \begin{description}
+          \item[\(L < 1\)] The series converges absolutely
+          \item[\(L = 1\)] The test is inconclusive
+          \item[\(L > 1\)] The series diverges
+        \end{description}
+  \item Interval of convergence: the set of all real numbers for which the series converges
+  \item Radius of convergence \(R\): the set of all real numbers for which the series converges, centered at a constant \(a\).
+        The interval is then inside \(a - R\) and \(a + R\).
+  \item Analytic: a function is analytic at a point \(a\) if a it can be represented by a power series centered at \(a\) with \(R \in \realset^+ \)
+        \begin{example}
+          \begin{alignat*}{2}
+            e^x     & = \sum_ {n = 0}^{\infty}{\frac{x^n }{n!}}                      & = 1 + \frac{x}{1!} + \frac{x^2 }{2!} + \cdots    \\
+            \sin{x} & = \sum_ {n = 0}^{\infty}{\frac{(- 1)^n x^{2n + 1}}{(2n + 1)!}} & = x - \frac{x^3 }{3!} + \frac{x^5 }{5!} - \cdots \\
+            \sin{x} & = \sum_ {n = 0}^{\infty}{\frac{(- 1)^n x^{2n}}{(2n)!}}         & = 1 - \frac{x^2 }{2!} + \frac{x^4 }{4!} - \cdots
+          \end{alignat*}
+        \end{example}
+\end{itemize}
+
+Power series can be added if the power of \(x\) in each sum are "in phase" and if the summation indices start with the same number.
+Method to add power series:
+\begin{enumerate}
+  \item Identify and check the current power of \(x\) for all the series
+  \item Pull terms out of the series with the lowest power of \(x\) until it matches the power of the highest
+  \item Introduce a new counter \(k = f(n)\) equal to the power of \(x\) in the series
+  \item Replace the old counter \(n\) with the new one \(k\)
+  \item Combine the series
+\end{enumerate}
+
+
+\subsubsection*{Power series solutions}
+\paragraph*{Ordinary and singular points}
+A point \(x_0 \) is said to be an ordinary point of the differential equation if all the coefficients in the standard form are analytic at \(x_0 \).
+A point that is not an ordinary point is said to be a singular point of the equation.
+
+\paragraph*{Existence of power series solutions}
+If \(x = x_0 \) is an ordinary point of the differential equation, we can always find linearly independent solutions in the form of a power series centered at \(x_0 \).
+A series solution converges at least on some interval defined by \(|x - x_0 | < R\), where \(R\) is the distance from \(x_0 \) to the closest singular point.
+
+Method of solution (method of undetermined series coefficients at \(x = 0\)):
+\begin{enumerate}
+  \item Check for the existence of a solution at \(x = 0\)
+  \item Set the solution as
+        \begin{gather*}
+          y = \sum_ {n = 0}^{\infty}{c_n x^n } \implies y' = \sum_ {n = 1}^{\infty}{c_n nx^{n-1}}\\
+          \implies y'' = \sum_ {n = 2}^{\infty}{c_n n(n - 1)x^{n-2}}
+        \end{gather*}
+  \item Replace \(y\), \(y'\) and \(y''\) in the DE
+  \item If a coefficient is non-polynomial, replace it with it's polynomial form (for \(\sin{x}\), \(\cos{x}\) and \(e^x \))
+  \item Combine the series into one sum
+  \item Apply the identity property (set all terms equal to 0)
+  \item Get a recursion formula for the \(c\)'s
+  \item Solve for the \(c\)'s with different values of \(k\)
+  \item Combine the \(c\)'s into a unique \(y\) solution
+  \item Factor out the common \(c\)'s
+  \item Find a power series formula for each \(c\)
+  \item The distinct power series are the independent solutions expanded about the ordinary point \(x = 0\)
+\end{enumerate}
+
+
+\section{Systems of linear DEs}
+\subsection{Theory of linear systems}
+The normal form of a first-order system of linear equations is:
+\begin{align*}
+  \derivative{x_1 }{t} & = a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n + f_1 (t) \\
+  \derivative{x_2 }{t} & = a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n + f_2 (t) \\
+  \derivative{x_n }{t} & = a_{n1}x_1 + a_{n2}x_2 + \cdots + a_{nn}x_n + f_n (t)
+\end{align*}
+
+This system can be represented by a matrix equation \(\vec{\mathrm{X}}' = \mathbf{A}\vec{\mathrm{X}} + \vec{\mathrm{F}}\).
+If the system is homogeneous, its matrix form is then \(\vec{\mathrm{X}}' = \mathbf{A}\vec{\mathrm{X}}\).
+
+\paragraph*{Existence of a unique solution}
+Let the entries of the matrices \(\mathbf{A}(t)\) and \(\vec{\mathrm{F}}(t)\) be functions continuous on a common interval \(I\) that contains the point \(t_0 \).
+Then there exists a unique solution of the initial-value problem on the interval.
+
+
+\subsubsection*{Homogeneous systems}
+\paragraph*{Superposition principle}
+Let \(\vec{\mathrm{X}}_1 \), \(\vec{\mathrm{X}}_2 \), \dots, \(\vec{\mathrm{X}}_k \) be a set of solution vectors of a homogeneous system on an interval \(I\).
+Then the linear combination
+\[
+  \vec{\mathrm{X}} = c_1 \vec{\mathrm{X}}_1 + c_2 \vec{\mathrm{X}}_2 + \cdots + c_k \vec{\mathrm{X}}_k
+\]
+where \(c_1 \), \(c_2 \), \dots, \(c_k \) are arbitrary constants, is also a solution of the system on the interval.
+
+In order to check for linearly independent solutions, the Wronskian of \(\vec{\mathrm{X}}_1 \), \(\vec{\mathrm{X}}_2 \), \dots, \(\vec{\mathrm{X}}_k \) is computed:
+\begin{itemize}
+  \item If \(W \neq 0\), the solutions vectors are independent
+  \item If \(W = 0\), the solutions vectors are dependent
+\end{itemize}
+
+\paragraph*{General solution of a homogeneous system}
+Let \(\vec{\mathrm{X}}_1 \), \(\vec{\mathrm{X}}_2 \), \dots, \(\vec{\mathrm{X}}_n \) be a fundamental set of solutions, i.e a set independent solution vectors, of a homogeneous system on an interval \(I\).
+Then the general solution of the system on the interval is
+\[
+  \vec{\mathrm{X}} = c_1 \vec{\mathrm{X}}_1 + c_2 \vec{\mathrm{X}}_2 + \cdots + c_n \vec{\mathrm{X}}_n
+\]
+where \(c_1 \), \(c_2 \), \dots, \(c_n \) are arbitrary constants.
+
+
+\subsubsection*{Nonhomogeneous systems}
+\paragraph*{General solution of a nonhomogeneous system}
+The general solution \(\vec{\mathrm{X}}\) of a nonhomogeneous system is the sum of the general solution \(\vec{\mathrm{X}}_c \) of the associated homogeneous system and a particular solution \(\vec{\mathrm{X}}_p \):
+\[
+  \vec{\mathrm{X}} = \vec{\mathrm{X}}_c + \vec{\mathrm{X}}_p
+\]
+
+
+\subsection{Homogeneous linear systems}
+The matrix form of a homogeneous linear system is \(\vec{\mathrm{X}}' = \mathbf{A}\vec{\mathrm{X}}\) and the general solution is of the form
+\begin{gather*}
+  \vec{\mathrm{X}} = c_1 \vec{\mathrm{X}}_1 + c_2 \vec{\mathrm{X}}_2 + \cdots \\
+  \text{where } \vec{\mathrm{X}}_i = \vec{\mathrm{K}}_i e^{\lambda_i t}
+\end{gather*}
+
+This leads to solve this system as an eigenvalue and eigenvector problem, where the eigenvalues \(\lambda_i \) of \(\mathbf{A}\) are determined using the following characteristic equation:
+\[
+  \det(\mathbf{A} - \lambda\mathbf{I}) = 0
+\]
+From those eigenvalues, the corresponding eigenvectors \(\vec{\mathrm{K}}_i \) of \(\mathbf{A}\) can be determined using
+\[
+  (\mathbf{A} - \lambda\mathbf{I})\vec{\mathrm{K}} = \vec{0}
+\]
+
+Method of solution:
+\begin{itemize}
+  \item Determine the eigenvalues \(\lambda_i \) using \(\det(\mathbf{A} - \lambda\mathbf{I}) = 0\)
+  \item For each eigenvalue, determine an eigenvector using \((\mathbf{A} - \lambda\mathbf{I})\vec{\mathrm{K}} = \vec{0}\)
+  \item Apply the rule for one of the four possible cases:
+        \begin{description}
+          \item[Case \Romannumeral{1}] Distinct \(\lambda_i \)'s: the final answer is of the form
+                \[
+                  \vec{\mathrm{X}} = c_1 \vec{\mathrm{K}}_1 e^{\lambda_1 t} + c_2 \vec{\mathrm{K}}_2 e^{\lambda_2 t} + \cdots + c_n \vec{\mathrm{K}}_n e^{\lambda_n t}
+                \]
+          \item[Case \Romannumeral{2}] Repeated \(\lambda_i \)'s and distinct \(\vec{\mathrm{K}}_i \)'s: the final answer is of the form
+                \[
+                  \vec{\mathrm{X}} = c_1 \vec{\mathrm{K}}_1 e^{\lambda t} + c_2 \vec{\mathrm{K}}_2 e^{\lambda t} + \cdots + c_n \vec{\mathrm{K}}_1 e^{\lambda t}
+                \]
+          \item[Case \Romannumeral{3}] Repeated \(\lambda_i \)'s and \(\vec{\mathrm{K}}_i \)'s: the final answer is of the form
+                \begin{gather*}
+                  \vec{\mathrm{X}} = c_1 \vec{\mathrm{X}}_1 + c_2 \vec{\mathrm{X}}_2 + \cdots \\
+                  \text{where } \vec{\mathrm{X}}_1 = e^{\lambda t} \text{, } \vec{\mathrm{X}}_2 = \vec{\mathrm{K}}te^{\lambda t} + \vec{\mathrm{P}}e^{\lambda t} \text{, until}\\
+                  \vec{\mathrm{X}}_n = \vec{\mathrm{K}}\frac{t^{n - 1}}{(n - 1)!}e^{\lambda t} + \vec{\mathrm{P}}\frac{t^{n - 2}}{(n - 2)!}e^{\lambda t}  + \cdots + e^{\lambda t}
+                \end{gather*}
+          \item[Case \Romannumeral{4}] Complex \(\lambda_i \)'s: the final answer is of the form
+                \begin{align*}
+                  \vec{\mathrm{X}}                 & = c_1 \vec{\mathrm{X}}_1 + c_2 \vec{\mathrm{X}}_2                                                                                  \\
+                  \text{where } \vec{\mathrm{X}}_1 & = e^{\alpha t}\left[ \Re\left( \vec{\mathrm{K}}_1 \right)\cos{\beta t} - \Im\left( \vec{\mathrm{K}}_1 \right)\sin{\beta t} \right] \\
+                  \vec{\mathrm{X}}_2               & = e^{\alpha t}\left[ \Im\left( \vec{\mathrm{K}}_1 \right)\cos{\beta t} + \Re\left( \vec{\mathrm{K}}_1 \right)\sin{\beta t} \right] \\
+                \end{align*}
+        \end{description}
+\end{itemize}
+
+In case \Romannumeral{3}, to determine \(\vec{\mathrm{K}}\), \(\vec{\mathrm{P}}\), \dots, \(\vec{\mathrm{Q}}\), the following characteristic equations need to be used:
+\begin{align*}
+  (\mathbf{A} - \lambda\mathbf{I})\vec{\mathrm{K}} & = \vec{0}          \\
+  (\mathbf{A} - \lambda\mathbf{I})\vec{\mathrm{P}} & = \vec{\mathrm{K}} \\
+  (\mathbf{A} - \lambda\mathbf{I})\vec{\mathrm{Q}} & = \vec{\mathrm{P}}
+\end{align*}
+
+
+\section{Functions of a complex variable}
+\subsection{Complex numbers}
+\subsubsection*{Terminology}
+A complex number is any number of the form  where \(a\) and \(b\) are real numbers and \(i\) is the imaginary number such that \(i^2 = -1\).
+
+\paragraph*{Equality}
+Complex numbers \(z_1 = a_1 + ib_1 \) and \(z_2 = a_2 + ib_2 \) are equal if
+\[
+  \Re(z_1 ) = \Re(z_2 ) \text{ and } \Im(z_1 ) = \Im(z_2 )
+\]
+\subsubsection*{Arithmetic operations}
+\begin{description}
+  \item[Addition] \(z_1 + z_2 = (a_1 + a_2 ) + i(b_1 + b_2 )\)
+  \item[Subtraction] \(z_1 - z_2 = (a_1 - a_2 ) + i(b_1 - b_2 )\)
+  \item[Multiplication] \(z_1 \cdot z_2 = (a_1 a_2 - b_1 b_2 ) + i(b_1 a_2 + b_2 a_1 )\)
+  \item[Division] \(\frac{z_1 }{z_2 } = \left( \frac{a_1 a_2 + b_1 b_2 }{a_2 ^2 + b_2 ^2 } \right) + i\left( \frac{b_1 a_2 - b_2 a_1 }{a_2 ^2 + b_2 ^2 } \right)\)
+  \item[Modulus] \(| z | = \sqrt{a^2 + b^2 }\)
+\end{description}
+
+
+\subsubsection*{Conjugate}
+If \(z = a + ib\), then its conjugate is \(\bar{z} = a - ib\).
+
+The arithmetic operations are the same and it can be shown that
+\begin{align*}
+  \overline{z_1 + z_2 }                       & = \bar{z}_1 + \bar{z}_2         \\
+  \overline{z_1 - z_2 }                       & = \bar{z}_1 - \bar{z}_2         \\
+  \overline{z_1 \cdot z_2 }                   & = \bar{z}_1 \cdot \bar{z}_2     \\
+  \overline{\left( \frac{z_1 }{z_2 } \right)} & = \frac{\bar{z}_1 }{\bar{z}_2 }
+\end{align*}
+
+Then using a complex number \(z\) and its conjugate \(\bar{z}\), the following can be shown
+\begin{align*}
+  z + \bar{z}     & = 2a        \\
+  z - \bar{z}     & = 2bi       \\
+  z \cdot \bar{z} & = a^2 + b^2
+\end{align*}
+
+
+
+\subsection{Powers and roots}
+\subsubsection*{Polar form of complex numbers}
+A complex number \(z\) can be expressed in polar coordinates \((r,\theta)\) as
+\[
+  z = r(\cos\theta + i\sin\theta) = re^{i\theta}
+\]
+where \(r\) is the modulus of \(z\) and \(\theta\) is its argument, written as \(r = |z|\) and \(\theta = \arg{z}\).
+
+
+Multiplication and division with polar form:
+\begin{alignat*}{2}
+  z_1 \cdot z_2     & = r_1 r_2 \left[ \cos(\theta_1 + \theta_2 ) + i\sin(\theta_1 + \theta_2 ) \right]          & = & r_1 r_2 e^{i(\theta_1 + \theta_2 )}          \\
+  \frac{z_1 }{z_2 } & = \frac{r_1 }{r_2 }\left[ \cos(\theta_1 - \theta_2 ) + i\sin(\theta_1 - \theta_2 ) \right] & = & \frac{r_1 }{r_2 }e^{i(\theta_1 - \theta_2 )}
+\end{alignat*}
+
+
+\subsubsection*{Powers of \(z\)}
+\paragraph*{Integer powers of \(z\)}
+The polar form of a complex number is useful to manage powers of \(z\) more easily, as the formula is
+\[
+  z^n = r^n \left( \cos n\theta + i\sin n\theta \right), \quad n \in \integerset
+\]
+
+\paragraph*{Roots of \(z\)}
+A number \(w\) is said to be a \(n\)th root of a nonzero complex number \(z\) if \(w^n = z\).
+The \(n\) \(n\)th roots of a nonzero complex number \(z = r(\cos\theta + i\sin\theta) = re^{i\theta}\) are given by
+\begin{gather*}
+  \begin{aligned}
+    w_k & = \sqrt[n]{r}\left[ \cos\left( \frac{\theta + 2k\pi}{n} \right) + i\sin\left( \frac{\theta + 2k\pi}{n} \right) \right] \\
+        & = \sqrt[n]{r}e^{i\frac{\theta + 2k\pi}{n}}
+  \end{aligned} \\
+  \text{where } k = 0, 1, 2, \dots, n - 1
+\end{gather*}
+\end{document}

@@ -1,0 +1,1650 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{MECH 361: Fluid Mechanics II}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+% \renewcommand{\abstractname}{} % Change the abstract title
+\section{Introduction}
+% Dimensions, units and basic equations
+
+
+
+\section{Newton's law of viscosity}
+
+
+
+\section{Theoretical part}
+% Continuum assumption, non-newtonian fluids, rheology, surface tension and surface types
+
+
+
+\section{Velocity and acceleration}
+\subsection{Velocity analysis}
+The velocity vector field \(\vec{v}\) is a function of position in space as well as time:
+\[
+  \vec{v}(x, y, z, t) = v_x(x, y, z, t)\ivec + v_y(x, y, z, t)\jvec + v_z(x, y, z, t)\kvec
+\]
+
+The magnitude of the velocity \(\vec{v}\) is:
+\[
+  v = \normvec{v} = \sqrt{{v_x}^2 + {v_y}^2 + {v_z}^2}
+\]
+and for a 2-dimensional flow, the direction of the flow in the \(xy\)-plane:
+\[
+  \derivative{y}{x} = \tan\theta = \frac{v_y}{v_x}
+\]
+
+
+\subsubsection{Steady flow}
+In a steady flow, the fluid properties may vary from point to point in the field but would remain constant at that point with respect to time \(t\).
+
+In a steady flow, the velocity \(\vec{v}\) at a given point in space does not vary with time:
+\[
+  \partialderivative{\vec{v}}{t} = \vec{0}
+\]
+
+\begin{remark}
+  In reality, almost all flows are unsteady.
+\end{remark}
+
+
+\subsubsection{Unsteady flows}
+In unsteady flows, the velocity \(v\) does vary with time.
+Unsteady flows are more difficult to analyze and to investigate experimentally than are the steady flows.
+
+Considerable simplicity often results if one can make the assumption of steady flow without compromising the usefulness of the results.
+
+
+\subsubsection{Uniform flow}
+A flow in which the velocity \(v\) is constant at any cross-section of it is called a uniform flow.
+Under this assumption, a 2-dimensional flow is modeled as 1-dimensional for analysis.
+
+The density \(\rho\) and pressure \(P\) may also be assumed constant in the cross-section of a uniform flow.
+
+
+\subsection{Acceleration analysis}
+The acceleration of a fluid particle is described using partial derivative:
+\begin{align*}
+  \vec{a} & = \derivative{\vec{v}}{t} = \derivative{v_x}{t}\ivec + \derivative{v_y}{t}\jvec + \derivative{v_z}{t}\kvec                                      \\
+          & = a_x\ivec + a_y\jvec + a_z\kvec                                                                                                                \\
+          & = \partialderivative{\vec{v}}{t} + v_x \partialderivative{\vec{v}}{x} + v_y \partialderivative{\vec{v}}{y} + v_z \partialderivative{\vec{v}}{z} \\
+          & = \partialderivative{\vec{v}}{t} + \vec{v} \bullet \grad{\vec{v}}
+\end{align*}
+where \(\partialderivative{\vec{v}}{t}\) is called the local acceleration (acceleration depending on time) and \(\vec{v} \bullet \grad{\vec{v}}\) is the convective acceleration (acceleration depending on the position).
+
+This means that for the \(x\)-axis, we have:
+\begin{align*}
+  a_x & = \partialderivative{v_x}{t} + v_x \partialderivative{v_x}{x} + v_y \partialderivative{v_x}{y} + v_z \partialderivative{v_x}{z} \\
+      & = \partialderivative{v_x}{t} + \vec{v} \bullet \grad{v_x}
+\end{align*}
+
+
+\subsection{Analysis of fluid flows}
+\subsubsection{Stress}
+A state of stress is determined with 9 values at a point of a control volume using the hydrodynamic stress tensor:
+\[
+  \begin{pmatrix}
+    \sigma_{xx} & \tau_{xy}   & \tau_{xz}   \\
+    \tau_{yx}   & \sigma_{yy} & \tau_{yz}   \\
+    \tau_{zx}   & \tau_{zy}   & \sigma_{zz}
+  \end{pmatrix}
+\]
+\[
+  \begin{array}{|l}
+    \sigma [\si{\newton\per\metre\squared}] \text{: normal stress} \\
+    \tau [\si{\newton\per\metre\squared}] \text{: shear stress}
+  \end{array}
+\]
+
+The double notation of the stresses, the first defines the surface and the second defines the direction of the component.
+
+
+\subsubsection{Strain}
+Stresses lead to strains, which are deformations either in the longitudinal direction (length or width) or in the angular (shear).
+
+Longitudinal strains \(\epsilon_x\) and \(\epsilon_y\) are called normal strains are defined as:
+\begin{align*}
+  \epsilon_x = \frac{\Delta l}{l}
+  \epsilon_y = \frac{\Delta w}{w}
+\end{align*}
+\[
+  \begin{array}{|l}
+    \epsilon_x \text{: longitudinal strain}                 \\
+    \Delta l [\si{\metre}] \text{: elongation, deformation} \\
+    l [\si{\metre}] \text{: original length}
+    \epsilon_y \text{: longitudinal strain}                 \\
+    \Delta w [\si{\metre}] \text{: elongation, deformation} \\
+    w [\si{\metre}] \text{: original width}
+  \end{array}
+\]
+
+Angular strain \(\gamma\) is called shear strain and, for small angle, is defined as:
+\[
+  \gamma \approx \tan\gamma = \derivative{x}{y}
+\]
+
+
+\subsubsection{Hooke's laws for solids}
+For solids, the link between strain and stress are:
+\begin{align*}
+  \sigma_x = E \epsilon_x \\
+  \sigma_y = E \epsilon_y \\
+  \tau = E \gamma
+\end{align*}
+where \(E\) is Young's modulus and \(G\) is the modulus of rigidity.
+
+
+\subsubsection{Pressure in fluids}
+\paragraph{Hydrostatic pressure}
+Hydrostatic pressure is when the fluid is at rest pressure does not depend on orientation.
+It is also called the thermodynamic pressure.
+
+Hydrostatic pressure is isotropic (equal in all directions), which implies that all shear stresses  are equal to 0 when the fluid is at rest.
+
+
+\paragraph{Hydrodynamic pressure}
+Hydrodynamic pressure is the pressure when the fluid is in motion.
+It depends on orientation.
+
+
+\subsubsection{Compressibility}
+Compressibility is a measure of the change in volume of a fluid under the action of external forces.
+
+Compressibility is studied using a similar form of Hooke's law applied to fluids:
+\[
+  \Delta P = -E \frac{\Delta V}{V}
+\]
+\[
+  \begin{array}{|l}
+    \Delta P [\si{\pascal}] \text{: change in pressure}    \\
+    E [\si{\pascal}] \text{: modulus of fluid elasticity}  \\
+    \Delta V [\si{\metre\cubed}] \text{: change in volume} \\
+    V [\si{\metre\cubed}] \text{: original volume}
+  \end{array}
+\]
+
+\begin{remark}
+  Air is 20~000 times more compressible than water.
+\end{remark}
+
+In conclusion, in theory, liquids are incompressible fluids but gases are compressible fluids.
+
+
+\subsubsection{Deformation of volume of fluid particle}
+In general, the motion of fluid particle is composed of linear translation, rotation, linear deformation and angular deformation.
+
+In hydrostatics, there is only normal stresses because of gravity.
+
+In hydrodynamics, in addition to normal stresses, shear stresses exist as a result of internal micro-friction created by viscosity.
+
+The dilation or volumetric deformation rate is a measure of compressibility:
+\[
+  \mathrm{dilation} = \divergence{v} = \grad{} \bullet \vec{v} = \partialderivative{v_x}{x} + \partialderivative{v_y}{y} + \partialderivative{v_z}{z}
+\]
+\[
+  \begin{array}{|l}
+    \mathrm{dilation} [\si{\per\metre\cubed\per\second}] \text{: dilation or volumetric deformation} \\
+    \vec{v} [\si{\metre\per\second}] \text{: velocity vector of the flow}
+  \end{array}
+\]
+
+\begin{remark}
+  For an incompressible flow, the dilation is equal to \SI{0}{\per\metre\cubed\per\second}.
+\end{remark}
+
+
+
+\section{Flow kinematic analysis}
+% Rotation vector, irrotational flows, vorticity, volumetric dilation rate, rate of angular deformation
+\subsection{Continuity equation}
+The continuity equation is the conservation of mass for a liquid.
+The general continuity equation for an unsteady state of a compressible flow is
+\[
+  \partialderivative{\rho}{t} + \partialderivative{\rho v_x}{x} + \partialderivative{\rho v_y}{y} + \partialderivative{\rho v_z}{z} = \partialderivative{\rho}{t} + \grad{} \bullet \rho\vec{v} = 0
+\]
+\[
+  \begin{array}{|l}
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: liquid density} \\
+    t [\si{\second}] \text{: time}                                \\
+    \vec{v} [\si{\metre\per\second}] \text{: flow velocity field}
+  \end{array}
+\]
+
+In cylindrical coordinates, this gives
+\[
+  \partialderivative{\rho}{t} + \frac{1}{r}\partialderivative{r \rho v_r}{r} + \frac{1}{r} \partialderivative{\rho v_\theta}{\theta} + \partialderivative{\rho v_z}{z} = 0
+\]
+\[
+  \begin{array}{|l}
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: liquid density} \\
+    t [\si{\second}] \text{: time}                                \\
+    r [\si{\metre}] \text{: radius}                               \\
+    \theta [\si{\radian}] \text{: angle}                          \\
+    \vec{v} [\si{\metre\per\second}] \text{: flow velocity field}
+  \end{array}
+\]
+
+\begin{remark}
+  Assuming the flow is stead and incompressible, this gives the dilation or volumetric deformation
+  \begin{align*}
+    \mathrm{dilation} & = \partialderivative{v_x}{x} + \partialderivative{v_y}{y} + \partialderivative{v_z}{z} = 0                                    \\
+                      & = \frac{1}{r}\partialderivative{r v_r}{r} + \frac{1}{r} \partialderivative{v_\theta}{\theta} + \partialderivative{v_z}{z} = 0
+  \end{align*}
+  Therefore, in this case the dilation is used as a compressibility indication and also an indication that the continuity equation is satisfied.
+\end{remark}
+
+
+\subsection{Linear motion and deformation}
+Linear translation and deformation is given by the dilation:
+\[
+  \mathrm{dilation} = \divergence{v} = \grad{} \bullet \vec{v} = \partialderivative{v_x}{x} + \partialderivative{v_y}{y} + \partialderivative{v_z}{z}
+\]
+
+
+\subsection{Rotation analysis}
+Rotation of fluid particles is related to certain velocity gradients in the flow field.
+
+The rotation vector \(\vec{\omega}\) and the vorticity \(\vec{\zeta}\), which is defined as twice the rotation vector, are:
+\begin{align*}
+  \vec{\omega} & = \frac{1}{2} \curl{v} = \frac{1}{2} \grad{} \times \vec{v} \\
+  \vec{\zeta}  & = 2\vec{\omega} = \curl{v} = \grad{} \times \vec{v}
+\end{align*}
+
+\begin{remark}
+  Vorticity is created at fluid and solid interfaces as a result of frictional forces.
+\end{remark}
+
+
+\subsection{Shear strain}
+The derivatives associated with rotation can cause teh fluid element to undergo an angular deformation, which results in a change in the shape of the element.
+
+This change is made using the shear strain \(\dot{\gamma}\), which is defined as:
+\begin{align*}
+  \dot{\gamma}_{xy} & = \partialderivative{v_y}{x} + \partialderivative{v_x}{y} \\
+  \dot{\gamma}_{yz} & = \partialderivative{v_z}{y} + \partialderivative{v_y}{z} \\
+  \dot{\gamma}_{zx} & = \partialderivative{v_x}{z} + \partialderivative{v_z}{x}
+\end{align*}
+
+
+\subsubsection{General solving steps}
+The volumetric dilation rate \(\divergence{v} = \grad{} \bullet \vec{v}\) answers the following questions:
+\begin{itemize}
+  \item Flow is incompressible
+  \item Flow is physically possible
+  \item Flow satisfies the conservation of mass
+  \item Flow satisfies the continuity equation
+  \item the volumetric strain rate
+  \item The divergence of the velocity vector
+  \item is the volumetric dilation rate equal to zero?
+\end{itemize}
+
+The angular rotation is obtained using the rotation vector \(\vec{\omega} = \frac{1}{2} \curl{v}\).
+Alternatively, to determine if the flow is irrotational, the vorticity \(\vec{\zeta} = \curl{v} = 2 \vec{\omega}\) can be used.
+
+The shear strain (or rate of angular deformation) is found using:
+\[
+  \dot{\gamma} = \partialderivative{v_y}{x} + \partialderivative{v_x}{y}
+\]
+and it is used in the Newton's law viscosity
+\[
+  \tau = \mu \dot{\gamma}
+\]
+
+\begin{remark}
+  An irrotational flow is inviscid, but not any inviscid flow is irrotational since an inviscid flow cannot stop a particle from rotating if the particle was already rotating.
+\end{remark}
+
+
+\section{Stream function}
+The concept of the stream function is introduced only for two-dimensional fluid flows.
+Physically, it is a concept as close as it can be to the "flow rate at a point".
+
+A stream function \(\psi\) exists if and only if the flow is a two-dimensional incompressible flow.
+
+For a two-dimensional incompressible flow, in which the continuity equation applies, the stream function \(\psi(x,y)\) is related to the velocity components of the flow with:
+\[
+  v_x = \partialderivative{\psi}{y} \qquad v_y = - \partialderivative{\psi}{x}
+\]
+
+In polar coordinates, this gives
+\[
+  v_r = \frac{1}{r}\partialderivative{\psi}{\theta} \qquad v_\theta = - \partialderivative{\psi}{r}
+\]
+
+
+\subsection{Advantage of the stream function}
+Whenever the velocity components are defined in terms of the stream function, we know that conservation will be satisfied.
+
+For a particular problem, the stream function is unknown, but the analysis is simplified by having only one unknown function \(\psi(x,y)\) rater than two velocity function \(v_x(x,y)\) and \(v_y(x,y)\).
+
+
+\subsubsection{Features of the stream function}
+\subsubsection{Streamlines}
+The lines of constant stream function are streamlines, which is a line in the flow field where at each point the total fluid velocity is tangent to the line.
+
+By considering a line of constant stream function \(\diff{}{\psi(x,y)} = 0\) implies that the slope at any point along a streamline is \(\derivative{y}{x} = \frac{v_y}{v_x}\).
+
+
+\subsubsection{Crossing streamlines}
+A fluid never crosses a streamline since by definition the velocity is tangent to the streamline.
+
+This implies that streamlines act like a conduit for the flow.
+
+
+\subsubsection{Volumetric flow rate per unit width}
+The volumetric flow rate per unit width \(q\) passing between two streamlines is equal to the difference between the values of the stream functions.
+The actual numerical value associated with a particular stream line is not of particular significance, but the chang ein the value of \(\psi\) is related to the volume rate of flow.
+
+The volumetric flow rate per unit width \(q\) is defined as
+\[
+  q = \int_{\psi_1}^{\psi_2}{\diffint{\psi}} = \psi_2 - \psi_1
+\]
+
+
+\subsubsection{Direction of flow}
+The direction of flow is determined by whether \(\psi_2 < \psi_1\) or \(\psi_2 < \psi_1\).
+
+
+\subsection{How to use the stream function}
+The stream function can be used to find the velocity components as:
+\[
+  v_x = \partialderivative{\psi}{y} \qquad v_y = - \partialderivative{\psi}{x}
+\]
+
+Also, given the velocity components \(v_x\) and \(v_y\), the stream function \(\psi\) can be found and used to develop more information about the flow.
+To solve those problems, either use the method of exact differential equations, or simply integrate both equations and compare the resulting stream function \(\psi\) to find the functions of integration.
+
+
+\section{Velocity potential}
+For irrotational flows, there exists a velocity potential \(\phi\), which explains why irrotational flows are called potential flows.
+The velocity potential function \(\phi\) is defined as:
+\[
+  v_x = \partialderivative{\phi}{x} \qquad v_y = \partialderivative{\phi}{y} \qquad v_z = \partialderivative{\phi}{z}
+\]
+
+For an incompressible potential flow, the continuity equation becomes the Laplace equation, which is:
+\[
+  \npartialderivative{2}{\phi}{x} + \npartialderivative{2}{\phi}{y} + \npartialderivative{2}{\phi}{z} = 0
+\]
+
+
+\subsection{Potential flows}
+Potential flows have a potential function \(\phi(x,y,z)\) and they are defined by Laplace equation, which is a linear partial differential equation.
+Since it is linear, various solutions can be added to obtain other solutions, meaning if \(\phi_1\) and \(\phi_2\) are two solutions to Laplace equation, then \(\phi_3 = \phi_1 + \phi_2\).
+
+
+\subsection{Velocity potential in cylindrical coordinates}
+For an irrotational flow, the velocity potential \(\phi\) in cylindrical coordinates is :
+\[
+  v_r = \partialderivative{\phi}{r} \qquad v_\theta = \frac{1}{r} \partialderivative{\phi}{\theta} \qquad v_z = \partialderivative{\phi}{z}
+\]
+
+The Laplace equation in cylindrical coordinates is:
+\[
+  \frac{1}{r} \partialderivative{}{r} \left[ r \partialderivative{\phi}{r} \right] + \frac{1}{r} \npartialderivative{2}{\phi}{\theta} + \npartialderivative{2}{\phi}{z} = 0
+\]
+
+
+\section{Stream function and velocity potential}
+A stream function exists for irrotational flows if the flow is incompressible and two-dimensional.
+From the definition of the stream function and the continuity equation, the stream satisfies the Laplace equation if the flow is irrotational:
+\[
+  \npartialderivative{2}{\psi}{x} + \npartialderivative{2}{\psi}{y} = 0
+\]
+
+
+\subsection{Graphical relationship}
+For two-dimensional incompressible irrotational flows, lines of constant velocity potential are perpendicular to lines of constant stream function:
+\[
+  \left[ \derivative{y}{x} \right]_{\diff{}{\psi} = 0} = \frac{v}{u} \qquad \left[ \derivative{y}{x} \right]_{\diff{}{\phi} = 0} = - \frac{u}{v}
+\]
+
+
+\subsection{Questions relating the stream function and the velocity potential}
+The questions relating the stream function and the velocity potential can be:
+\begin{itemize}
+  \item Given the stream function \(\psi\), find the velocity potential \(\phi\);
+  \item Given the velocity potential \(\phi\), find the stream function \(\psi\);
+  \item Plot any of the obtained stream function \(\psi\) or velocity potential \(\phi\).
+\end{itemize}
+
+
+\section{Navier-Stokes, Euler, Bernoulli and continuity equations}
+Navier-Stokes equations are the basic differential equations describing the flow of incompressible viscous Newtonian fluids.
+
+
+\subsection{Bernoulli equation}
+The Bernoulli equation is a statement of the conservation of energy principle appropriate for flowing ideal fluids:
+\begin{align*}
+  \text{Energy: }   & \frac{P}{\rho} + gz + \frac{v^2}{2}   = \constant \\
+  \text{Pressure: } & P + \rho g z + \frac{\rho v^2}{2}     = \constant \\
+  \text{Head: }     & \frac{P}{\rho g} + z + \frac{v^2}{2g} = \constant \\
+\end{align*}
+\[
+  \begin{array}{|l}
+    P [\si{\pascal}] \text{: pressure}                                                    \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: density}                                \\
+    v [\si{\metre\per\second}] \text{: velocity}                                          \\
+    g = \SI{9.81}{\metre\per\second\squared} \text{: gravitational acceleration on Earth} \\
+    z [\si{\metre}] \text{: height}
+  \end{array}
+\]
+
+The assumptions for the Bernoulli equation states the flow must be inviscid, steady, incompressible and along a streamline.
+
+The Bernoulli equations applies along a streamline for inviscid flows and ideal fluids.
+It can be applied everywhere between any two points in an irrotational flow field.
+
+
+\subsection{Euler equation}
+
+
+
+
+
+
+\subsection{Navier-Stokes equations}
+The Navier-Stokes equations are the momentum equations of the differential analysis of fluid flow.
+
+There are two methods of describing a fluid flow:
+\begin{description}
+  \item[Lagrangian:]
+  \item[Eulerian:]
+\end{description}
+
+Newton second law of motion for fluid mechanics in Euler's view is
+\[
+  \derivative{m\vec{v}}{t} = m_\mathrm{in}\vec{v}_\mathrm{in} - m_\mathrm{out}\vec{v}_\mathrm{out} + \sum{\vec{F}_\mathrm{external}}
+\]
+which lead to the Navier-Stokes equations in the \(xy\)-plane:
+\begin{align*}
+  x \text{-axis: } & \partialderivative{\rho v_x}{t} + \partialderivative{\rho {v_x}^2}{x} + \partialderivative{\rho v_x v_y}{y} = \partialderivative{\sigma_{xx}}{x} +\partialderivative{\tau_{yx}}{y} + \rho g_x \\
+  y \text{-axis: } & \partialderivative{\rho v_y}{t} + \partialderivative{\rho {v_y}^2}{y} + \partialderivative{\rho v_x v_y}{x} = \partialderivative{\sigma_{yy}}{y} +\partialderivative{\tau_{xy}}{x} + \rho g_y
+\end{align*}
+
+Those equations are global equations which applies to newtonian and non-newtonian fluids, to laminar and turbulent flows, to compressible and incompressible flows.
+However, there are too many unknowns, meaning they are not very useful if no assumptions are used.
+
+Introducing the stress-strain relationship for newtonian fluid:
+\[
+  \begin{matrix}
+    \sigma_{xx} = -p + 2\mu\partialderivative{v_x}{x} & \tau_{xy} = \mu\left( \partialderivative{v_x}{y} + \partialderivative{v_y}{x} \right) & \tau_{xz} = \mu\left( \partialderivative{v_x}{z} + \partialderivative{v_z}{x} \right) \\
+    \sigma_{yy} = -p + 2\mu\partialderivative{v_y}{y} & \tau_{yz} = \mu\left( \partialderivative{v_y}{z} + \partialderivative{v_z}{y} \right) & \tau_{yx} = \mu\left( \partialderivative{v_y}{x} + \partialderivative{v_x}{y} \right) \\
+    \sigma_{zz} = -p + 2\mu\partialderivative{v_z}{z} & \tau_{zx} = \mu\left( \partialderivative{v_z}{x} + \partialderivative{v_x}{z} \right) & \tau_{zy} = \mu\left( \partialderivative{v_z}{x} + \partialderivative{v_x}{z} \right) \\
+  \end{matrix}
+\]
+
+By introducing Newton's law of viscosity \(\tau = \mu \derivative{v_x}{y}\) and the stress-strain relationship for newtonian fluid, the newtonian Navier-Stokes equations can be found (only valid for newtonian fluids):
+\begin{multline*}
+  x \text{-axis: } \partialderivative{\rho v_x}{t} + \partialderivative{\rho {v_x}^2}{x} + \partialderivative{\rho v_x v_y}{y} = \\
+  -\partialderivative{P}{x} + \rho g_x + \mu \left( \npartialderivative{2}{v_x}{x} + \npartialderivative{2}{v_x}{y} \right) + \mu \partialderivative{}{x} \left( \partialderivative{v_x}{x} + \partialderivative{v_y}{y} \right)
+\end{multline*}
+\begin{multline*}
+  y \text{-axis: } \partialderivative{\rho v_y}{t} + \partialderivative{\rho {v_y}^2}{y} + \partialderivative{\rho v_x v_y}{x} = \\
+  -\partialderivative{P}{y} + \rho g_y + \mu \left( \npartialderivative{2}{v_y}{x} + \npartialderivative{2}{v_y}{y} \right) + \mu \partialderivative{}{y} \left( \partialderivative{v_x}{x} + \partialderivative{v_y}{y} \right)
+\end{multline*}
+
+
+The Navier-Stokes equations for an incompressible newtonian 3-dimensional flow are
+\begin{multline*}
+  x \text{-axis: } \rho \left( \partialderivative{v_x}{t} + v_x \partialderivative{v_x}{x} + v_y \partialderivative{v_x}{y} + v_z \partialderivative{v_x}{z} \right) \\
+  = -\partialderivative{P}{x} + \rho g_x + \mu \left( \npartialderivative{2}{v_x}{x} + \npartialderivative{2}{v_x}{y} + \npartialderivative{2}{v_x}{x} \right)
+\end{multline*}
+\begin{multline*}
+  y \text{-axis: } \rho \left( \partialderivative{v_y}{t} + v_x \partialderivative{v_y}{x} + v_y \partialderivative{v_y}{y} + v_z \partialderivative{v_y}{z} \right) \\
+  = -\partialderivative{P}{y} + \rho g_y + \mu \left( \npartialderivative{2}{v_y}{x} + \npartialderivative{2}{v_y}{y} + \npartialderivative{2}{v_y}{x} \right)
+\end{multline*}
+\begin{multline*}
+  z \text{-axis: } \rho \left( \partialderivative{v_z}{t} + v_x \partialderivative{v_z}{x} + v_y \partialderivative{v_z}{y} + v_z \partialderivative{v_z}{z} \right) \\
+  = -\partialderivative{P}{z} + \rho g_z + \mu \left( \npartialderivative{2}{v_z}{x} + \npartialderivative{2}{v_z}{y} + \npartialderivative{2}{v_z}{x} \right)
+\end{multline*}
+
+
+
+\subsection{Use of the equations}
+Along with the continuity equation, Navier-Stokes equations are used when viscous flows are at hand, Euler equations will be use for inviscid flow fields and Bernoulli equation for inviscid irrotational flow field along a streamline.
+
+
+
+\subsection{Solving the Navier-Stokes equations}
+Navier-Stokes equations will be used to solve different problems:
+\begin{itemize}
+  \item Steady laminar flow between fixed parallel plates.
+  \item Steady laminar flow between two parallel plates, one fixed and the other moving (couette flow).
+  \item Steady laminar flow in circular tubes (Poiseuille's law)
+  \item Steady laminar flow in an annulus.
+  \item Steady laminar flow of a falling liquid film.
+\end{itemize}
+
+
+\subsubsection{General solving steps}
+\begin{enumerate}
+  \item Analyze which velocity components describe the flow;
+  \item Apply the continuity equation and simplify;
+  \item Apply the Navier-Stokes equations with the results;
+  \item Double check for the body forces \(\rho g\) and monitor carefully the direction of the gravitational acceleration;
+  \item Prove that the pressure varies hydrostatically using the two equations containing pressure differentials only;
+  \item Obtain the velocity profile using the third equation;
+  \item Apply boundary conditions to solve for the constants;
+  \item Obtain the equation for the volume flow rate using the velocity profile;
+  \item Obtain the equation for the mean velocity using the volume flow rate equation;
+  \item Find the maximum velocity by either using the derivative or the geometry of the problem;
+  \item Find the relation between the velocity profile and the maximum velocity.
+\end{enumerate}
+
+
+\subsubsection{Steady laminar flow between fixed parallel plates}
+For this flow, the fluid particles move in the \(x\) direction parallel to the plates, there is no velocity in the \(y\) or \(z\) directions, the gravity is in the \(-y\) direction, and the distance between the plates is \(2h\).
+
+The velocity \(v_y = v_z = 0\) and only \(v_x\) describe the flow.
+The continuity equation gives \(\partialderivative{v_x}{x} = 0 \implies v_x = v_x(y)\).
+
+Navier-Stokes equations in the \(x\), \(y\) and \(z\) directions are:
+\begin{align*}
+  \partialderivative{P}{x} & = \mu \npartialderivative{2}{v_x}{y} \\
+  \partialderivative{P}{y} & = -\rho g                            \\
+  \partialderivative{P}{z} & = 0
+\end{align*}
+
+The variations in pressure equation is:
+\[
+  P = -\rho g y + f_1(x)
+\]
+meaning it varies hydrostatically in the \(y\) direction.
+The velocity profile can be obtained with a double integral and using \(\partialderivative{v_x}{y} = \derivative{v_x}{y}\) since \(v_x\) is a function of \(y\) only:
+\[
+  v_x = \frac{1}{2\mu} \partialderivative{P}{x} y^2 + c_1 y + c_2
+\]
+
+The no slip boundary condition can be applied in order to find the values of the constants and get the complete profile equation: at \(y = \pm h\), we have \(v_x = 0\), and hence
+\[
+  v_x = - \frac{1}{2\mu} \partialderivative{P}{x} \left( y^2 - h^2 \right)
+\]
+
+The volume flow rate per unit width \(q\) between the plates is:
+\begin{align*}
+  q = \int_{-h}^h{v_x \diffint{y}} = -\frac{2h^3}{3 \mu} \partialderivative{P}{x} = \frac{2 h^3 \Delta P}{3 \mu l}
+\end{align*}
+
+The average velocity is found using the flow rate equation:
+\[
+  v_{x,\mathrm{avg}} = \frac{q}{2h} = -\frac{h^2}{3 \mu} \partialderivative{P}{x} = \frac{h^2 \Delta P}{3 \mu l}
+\]
+The maximum velocity \(v_{x,\mathrm{max}}\) occurs at the center between the two plates:
+\[
+  v_{x,\mathrm{max}} = -\frac{h^2}{2\mu} \partialderivative{P}{x} = \frac{h^2 \Delta P}{2\mu l}
+\]
+The relations between the mean velocity \(v_{x,\mathrm{avg}}\) and the maximum velocity \(v_{x,\mathrm{max}}\) is:
+\[
+  v_{x,\mathrm{max}} = \frac{3}{2} v_{x,\mathrm{avg}}
+\]
+
+
+\subsubsection{Steady laminar flow between two parallel plates, one fixed and the other moving}
+For this flow, the fluid particles move in the \(x\) direction parallel to the plates, there is no velocity in the \(y\) or \(z\) directions, the gravity is in the \(-y\) direction, and the distance between the plates is \(b\).
+
+The Navier-Stokes equations are the same as the previous case since only the boundary conditions changes.
+Hence, Navier-Stokes equations in the \(x\), \(y\) and \(z\) directions are:
+\begin{align*}
+  \partialderivative{P}{x} & = \mu \npartialderivative{2}{v_x}{y} \\
+  \partialderivative{P}{y} & = -\rho g                            \\
+  \partialderivative{P}{z} & = 0
+\end{align*}
+
+The variations in pressure equation is
+\[
+  P = -\rho g y + f_1(x)
+\]
+meaning it varies hydrostatically in the \(y\) direction.
+The velocity profile can be obtained with a double integral and using \(\partialderivative{v_x}{y} = \derivative{v_x}{y}\) since \(v_x\) is a function of \(y\) only:
+\[
+  v_x = \frac{1}{2\mu} \partialderivative{P}{x} y^2 + c_1 y + c_2
+\]
+
+Now the analysis changes from the last case: the boundary conditions are \(v_x = 0\) at \(y = 0\) and \(v_x = v_\mathrm{plate}\) at \(y = b\).
+Therefore, the velocity profile \(v_x\) is:
+\[
+  v_x = v_\mathrm{plate} \frac{y}{b} + \frac{1}{2\mu} \partialderivative{P}{x} \left( y^2 - by \right)
+\]
+In the special case in which there is no pressure drop in the \(x\) direction, it means the moving plate is driving the motion of the fluid and the velocity profile reduces \(v_x = v_\mathrm{plate} \frac{y}{b}\), which is the proof of Newton's law of viscosity for newtonian fluids.
+
+
+\subsubsection{Steady laminar flow in circular tubes (Poiseuille's law)}
+For this flow, the polar coordinate system is used.
+The fluid particles move in the \(z\) direction parallel to the tube, there is no velocity in the \(r\) or \(\theta\) directions, the gravity is in the \(-y\) direction, the radius of the tube is \(R\).
+
+The velocity \(v_r = v_\theta = 0\) and only \(v_z\) describe the flow.
+The continuity equation gives \(\partialderivative{v_z}{z} = 0 \implies v_z = v_z(r,\theta)\).
+
+For this flow, the assumption of an axisymmetric flow is made: the streamlines are symmetrically located around an axis.
+Accordingly, the pressure \(P\) and the cylindrical velocity components \(v_r\), \(v_\theta\) and \(v_z\) are independent of the angle \(\theta\).
+Hence, the continuity equation gives \(v_z = v_z(r)\)
+
+Navier-Stokes equations in the \(r\), \(\theta\) and \(z\) directions are:
+\begin{align*}
+  \partialderivative{P}{r} & = -\rho g_r = -\rho g \sin\theta                                                      \\
+  0                        & = - \rho g \cos\theta - \frac{1}{r} \cancelto{0}{\partialderivative{P}{\theta}}       \\
+  \partialderivative{P}{z} & = \mu \frac{1}{r} \partialderivative{}{r} \left[ r \partialderivative{v_z}{r} \right]
+\end{align*}
+
+The first two equations proves that:
+\[
+  P = -\rho g r \sin\theta + f_1(z) = -\rho g y + f_1(z)
+\]
+meaning the pressure is hydrostatically distributed at any cross-section.
+The velocity profile can be obtained with a double integral and using \(\partialderivative{v_z}{r} = \derivative{v_z}{r}\) since \(v_z\) is a function of \(r\) only:
+\[
+  v_z = \frac{1}{4\mu} \partialderivative{P}{z} r^2 + c_1 \ln{r} + c_2
+\]
+
+Using the existence of \(r = 0\) implies \(c_1 = 0\) since \(\ln(0) = -\infty\) (the study of the derivative at \(r = 0\) would give the same result), and using the boundary condition \(v_z = 0\) at \(r = R\), this implies \(c_2 = -\frac{1}{4\mu} \partialderivative{P}{z} R^2\), giving the following velocity profile:
+\[
+  v_z = \frac{1}{4\mu} \partialderivative{P}{z} \left( r^2 - R^2 \right)
+\]
+
+The volume flow rate \(Q\) in the tube is:
+\begin{align*}
+  Q = \int{v_z \diffint{A}} = 2\pi \int_0^R{v_z r \diffint{r}} = -\frac{\pi R^4 }{8 \mu}\partialderivative{P}{z}
+\end{align*}
+This equations is called Poiseuille's law and it relates the pressure drop and flow rate for steady, laminar flow in circular tubes.
+For a given pressure drop per unit length, the volume flor rate of flow is inversely proportional to the viscosity and proportional to the tube radius to the fourth power (ie. a doubling of the tube radius produces a sixteen volume flow rate increase).
+
+The average velocity is found using the flow rate equation:
+\[
+  v_{z,\mathrm{avg}} = \frac{Q}{A} = -\frac{R^2 }{8 \mu}\partialderivative{P}{z} = \frac{R^2 \Delta P}{8\mu l}
+\]
+The maximum velocity \(v_{z,\mathrm{max}}\) occurs at the center of the tube:
+\[
+  v_{z,\mathrm{max}} = -\frac{R^2}{2\mu}\partialderivative{P}{z} = \frac{R^2 \Delta P}{4\mu l}
+\]
+The relations between the mean velocity \(v_{z,\mathrm{avg}}\) and the maximum velocity \(v_{z,\mathrm{max}}\) is:
+\[
+  v_{z,\mathrm{max}} = 2 v_{z,\mathrm{avg}}
+\]
+
+
+\subsubsection{Steady laminar flow in an annulus}
+For this flow, the polar coordinate system is used.
+The fluid particles move in the \(z\) direction parallel to the tubes, there is no velocity in the \(r\) or \(\theta\) directions, the gravity is in the \(-y\) direction, the radius of the outer tube is \(r_o\) and the radius of the inner tube is \(r_i\).
+
+The velocity \(v_r = v_\theta = 0\) and only \(v_z\) describe the flow.
+The continuity equation gives \(\partialderivative{v_z}{z} = 0 \implies v_z = v_z(r,\theta)\).
+
+For this flow, the assumption of an axisymmetric flow is made: the streamlines are symmetrically located around an axis.
+Accordingly, the pressure \(P\) and the cylindrical velocity components \(v_r\), \(v_\theta\) and \(v_z\) are independent of the angle \(\theta\).
+Hence, the continuity equation gives \(v_z = v_z(r)\)
+
+Navier-Stokes equations in the \(r\), \(\theta\) and \(z\) directions are:
+\begin{align*}
+  \partialderivative{P}{r} & = -\rho g_r = -\rho g \sin\theta                                                      \\
+  0                        & = - \rho g \cos\theta - \frac{1}{r} \cancelto{0}{\partialderivative{P}{\theta}}       \\
+  \partialderivative{P}{z} & = \mu \frac{1}{r} \partialderivative{}{r} \left[ r \partialderivative{v_z}{r} \right]
+\end{align*}
+
+The first two equations proves that:
+\[
+  P = -\rho g r \sin\theta + f_1(z) = -\rho g y + f_1(z)
+\]
+meaning the pressure is hydrostatically distributed at any cross-section.
+The velocity profile can be obtained with a double integral and using \(\partialderivative{v_z}{r} = \derivative{v_z}{r}\) since \(v_z\) is a function of \(r\) only:
+\[
+  v_z = \frac{1}{4\mu} \partialderivative{P}{z} r^2 + c_1 \ln{r} + c_2
+\]
+
+The analysis changes from the last case: the boundary conditions are \(v_z = 0\) at \(r = r_i\) and \(r = r_o\), this gives the following velocity profile:
+\[
+  v_z = \frac{1}{4\mu} \partialderivative{P}{z} \left[ r^2 - {r_o}^2 + \frac{{r_i}^2 - {r_o}^2}{\ln\frac{r_o}{r_i}} \ln\frac{r}{r_o} \right]
+\]
+
+The volume flow rate \(Q\) in the tube is:
+\begin{align*}
+  Q & = \int{v_z \diffint{A}} = -\frac{\pi}{8\mu} \partialderivative{P}{z} \left[ {r_o}^4 - {r_i}^4 - \frac{\left( {r_i}^2 - {r_o}^2 \right)^2}{\ln\frac{r_o}{r_i}} \right] \\
+    & = \frac{\pi\Delta P}{8\mu l} \left[ {r_o}^4 - {r_i}^4 - \frac{\left( {r_i}^2 - {r_o}^2 \right)^2}{\ln\frac{r_o}{r_i}} \right]
+\end{align*}
+
+The average velocity is found using the flow rate equation:
+\[
+  v_{z,\mathrm{avg}} = \frac{Q}{A} = -\frac{R^2 }{8 \mu}\partialderivative{P}{z} = \frac{R^2 \Delta P}{8\mu l}
+\]
+The maximum velocity \(v_{z,\mathrm{max}}\) occurs at \(r_m\):
+\[
+  r_m = \sqrt{\frac{{r_o}^2 - {r_i}^2}{2\ln\frac{r_o}{r_i}}}
+\]
+
+
+% TODO: case for non circular section of tube using the "effective" diameter.
+
+
+\subsubsection{Steady laminar flow of a falling liquid film}
+The flow is on an inclined plane of angle \(\alpha\)and is a parallel flow in the \(x\) direction.
+
+The velocity \(v_y = v_z = 0\) and only \(v_x\) describe the flow.
+The continuity equation gives \(\partialderivative{v_x}{x} = 0 \implies v_x = v_x(y)\).
+
+Navier-Stokes equations in the \(x\), \(y\) and \(z\) directions are:
+\begin{align*}
+  \partialderivative{P}{x} & = \rho g \sin\alpha + \mu \npartialderivative{2}{v_x}{y} \\
+  \partialderivative{P}{y} & = -\rho g \cos\alpha                                     \\
+  \partialderivative{P}{z} & = 0
+\end{align*}
+
+Due to the flow being a free stream, \(\partialderivative{P}{x} = 0\), meaning the variations in pressure equation is:
+\[
+  P = -\rho g y + c
+\]
+meaning it varies hydrostatically in the \(y\) direction.
+Applying the boundary condition \(P = P_\mathrm{atmosphere}\) at the top of the fluid film \(y = a_0\).
+Considering the thickness \(y\) is very small, it can be approximated that \(\partialderivative{P}{y} \approx 0\) and \(P = P_\mathrm{atmosphere}\).
+
+This leads so the following Navier-Stokes in the \(x\) direction:
+\[
+  0 = \rho g \sin\alpha + \mu \npartialderivative{2}{v_x}{y}
+\]
+The velocity profile can be obtained with a double integral and using \(\partialderivative{v_x}{y} = \derivative{v_x}{y}\) since \(v_x\) is a function of \(y\) only:
+\[
+  v_x = -\frac{\rho g \sin\alpha}{2 \mu} y^2 + c_1 y + c_2
+\]
+
+The no slip boundary condition can be applied in order to find the values of the constants and get the complete profile equation: \(v_x = 0\) at \(y = 0\), and \(\derivative{v_x}{y} = 0\) at the interface \(y = a_0\) (since the shear stress is the friction between the air and the fluid, meaning it is minimal), hence
+\begin{align*}
+  v_x & = \frac{\rho {a_0}^2 g \sin\alpha}{\mu} \left[ \frac{y}{a_0} - \frac{1}{2}\left( \frac{y}{a_0} \right)^2 \right] \\
+      & = \frac{\rho g \sin\alpha}{\mu} \left[ a_0 y - \frac{y^2 }{2}\right]
+\end{align*}
+
+Using the velocity profile, the volume flow rate \(Q\) is:
+\[
+  Q = \int_0^{a_0}{v_x z \diffint{y}} = \frac{\rho g {a_0}^3 W \sin\alpha}{3\mu}
+\]
+where \(W\) is the width of the fluid film.
+
+The average velocity is found using the flow rate equation:
+\[
+  v_{x,\mathrm{avg}} = \frac{Q}{A} = \frac{\rho g {a_0}^2 \sin\alpha}{3\mu}
+\]
+
+This implies that the thickness of the film \(a_0\) as functions of \(v_{x,\mathrm{avg}}\) and as a function of \(Q\):
+\begin{align}
+  a_o & = \sqrt{\frac{3\mu v_{x,\mathrm{avg}}}{\rho g \sin\alpha}} \\
+  a_o & = \sqrt[3]{\frac{3\mu Q}{\rho g W \sin\alpha}}
+\end{align}
+
+The maximum velocity \(v_{x,\mathrm{max}}\) occurs at the top of the fluid film \(y = a_o\):
+\[
+  v_{x,\mathrm{max}} = \frac{\rho g {a_0}^2 \sin\alpha}{2\mu}
+\]
+The relations between the mean velocity \(v_{x,\mathrm{avg}}\) and the maximum velocity \(v_{x,\mathrm{max}}\) is:
+\[
+  v_{x,\mathrm{max}} = \frac{3}{2} v_{x,\mathrm{avg}}
+\]
+
+
+\subsection{Dimensionless analysis of the Navier-Stokes equations}
+% TODO: use of of dimensionless 16.40
+
+Dimensionless Navier-Stokes equations uses the characteristic length \(L\), the velocity \(V\), the time \(T = \frac{L}{V}\) and the pressure \(P = \rho V^2\).
+
+The dimensionless parameters of the equations are:
+\begin{align*}
+  \hat{x} = \frac{x}{L} \qquad \hat{y} = \frac{y}{L} \qquad \hat{v}_x = \frac{v_x}{V} \qquad \\
+\end{align*}
+% TODO: Reynolds and Froude numbers 16.44
+
+
+
+\subsubsection{Special case: high speed, negligible friction}
+In this case, Re \(\to \infty\), which implies that the dimensionless Navier-Stokes equations becomes:
+% TODO: Euler equation
+
+
+
+\subsubsection{Special case: creeping flows, lubrication theory}
+In this case, Re \(\to 0\), which implies that the dimensionless Navier-Stokes equations becomes:
+
+
+
+
+
+
+
+
+
+\section{Potential flows}
+Potential flows have a potential function \(\phi(x,y,z)\) and they are defined by Laplace equation, which is a linear partial differential equation.
+Since it is linear, various solutions can be added to obtain other solutions, meaning if \(\phi_1\) and \(\phi_2\) are two solutions to Laplace equation, then \(\phi_3 = \phi_1 + \phi_2\).
+
+Potential flows are inviscid, incompressible and irrotational.
+The five simple potential flows are uniform flow, source and sink, vortex flows and doublet flows.
+Their solution can be added in order to get a more complex flow.
+
+
+\subsection{Basic plane potential flows}
+\vref{tab:flow-field} summarizes all the equations of the stream function \(\psi\), the potential function \(\phi\) and the velocity components for each basic flows.
+
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table*}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Summary flow fields table}
+  \label{tab:flow-field}
+  \centering % Horizontal alignment of the table
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers, L: left-aligned math, D: centered math) = number of column
+      l D D D
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule % Header
+    \multicolumn{1}{c}{\textbf{Flow field}} & \multicolumn{1}{c}{\textbf{Stream function}} & \multicolumn{1}{c}{\textbf{Velocity potential}} & \multicolumn{1}{c}{\textbf{Velocity components}} \\
+    \midrule % Content
+    Uniform flow                            & \psi = v (y \cos\alpha - x \sin\alpha)       & \phi = v (x \cos\alpha + y \sin\alpha)          & \begin{aligned}
+      v_x & = U \cos\alpha \\
+      v_y & = U \sin\alpha
+    \end{aligned}                       \\
+    \midrule
+    Source or sink                          & \psi = \frac{m}{2\pi} \theta                 & \phi = \frac{m}{2\pi} \ln r                     & \begin{aligned}
+      v_r      & = \frac{m}{2 \pi r} \\
+      v_\theta & = 0                 \\
+    \end{aligned}                       \\
+    \midrule
+    Free vortex                             & \psi = - \frac{\Gamma}{2\pi} \ln r           & \phi = \frac{\Gamma}{2\pi} \theta               & \begin{aligned}
+      v_r      & = 0                      \\
+      v_\theta & = \frac{\Gamma}{2 \pi r}
+    \end{aligned}                       \\
+    \midrule
+    Doublet                                 & \psi = - \frac{K \sin\theta}{r}              & \phi = \frac{K \cos\theta}{r}                   & \begin{aligned}
+      v_r      & = -\frac{K \cos\theta}{r^2} \\
+      v_\theta & = -\frac{K \sin\theta}{r^2}
+    \end{aligned}                       \\
+    \bottomrule
+  \end{tabular}
+  \begin{tablenotes}
+    \item Velocity components are related to the stream function \(\psi\) and velocity potential \(\phi\) through the relationships:
+    \[
+      v_x = \partialderivative{\psi}{y} = \partialderivative{\phi}{x}
+      \qquad v_y = -\partialderivative{\psi}{x} = \partialderivative{\phi}{y}
+      \qquad v_r = \frac{1}{r} \partialderivative{\psi}{\theta} = \partialderivative{\phi}{r}
+      \qquad v_\theta = -\partialderivative{\psi}{r} = \frac{1}{r} \partialderivative{\phi}{\theta}
+    \]
+  \end{tablenotes}
+\end{table*}
+
+
+\subsubsection{Uniform flow}
+The uniform flow is the simplest place flow for which the streamlines are all straight and parallel, and the magnitude of the velocity is constant.
+For the general case in which the uniform flow has a velocity \(U\) and an angle \(\alpha\) with the \(x\)-axis, the stream and potential functions are
+\begin{align*}
+  \psi = v (y \cos\alpha - x \sin\alpha)
+  \qquad \phi = v (x \cos\alpha + y \sin\alpha)
+\end{align*}
+and the velocity components are
+\begin{align*}
+  v_x & = U \cos\alpha \\
+  v_y & = U \sin\alpha \\
+\end{align*}
+
+
+\subsubsection{Source and sink}
+Let \(m\) be the volume rate of flow emanating per unit length.
+The flow rate \(m\) is the strength of the source or sink
+\[
+  2\pi r v_r = m \iff v_r = \frac{m}{2\pi r}
+\]
+and \(v_\theta = 0\) since the flow is purely radial.
+
+For the a source, the stream and potential functions are
+\begin{align}
+  \psi = \frac{m}{2\pi} \theta
+  \qquad \phi = \frac{m}{2\pi} \ln r
+\end{align}
+
+If \(m > 0\) the flow is a source and if \(m < 0\) the flow is a sink.
+
+\begin{remark}
+  The streamlines are radial lines and the equipotential lines are concentric circles centered at the origin.
+\end{remark}
+
+
+\subsubsection{Vortex}
+A vortex represents a flow in which the streamlines are concentric circles.
+The velocity \(\vec{v}\) is described as
+For a free vortex, the stream and potential functions are
+\begin{align}
+  \psi = - \frac{\Gamma}{2\pi} \ln r
+  \qquad \phi = \frac{\Gamma}{2\pi} \theta
+\end{align}
+where \(\Gamma\) is the circulation defined as \(\Gamma = 2\pi K\) where \(K\) is a constant.
+
+If \(\Gamma > 0\), the motion is counterclockwise and if \(\Gamma < 0\), the motion is clockwise
+
+The irrotational vortex is called a free vortex, while the rotational vortex is called forced vortex.
+
+\begin{remark}
+  The free vortex is an irrotational flow as the rotation refers to the orientation of a fluid element and not the path followed by the element.
+\end{remark}
+
+\begin{remark}
+  The streamlines are concentric circles centered at the origin and the equipotential lines are radial lines.
+\end{remark}
+
+
+\subsubsection{Doublet}
+A doublet is formed by an appropriate source-sink pair: by letting the source and sink approach one another so that the distance \(2a\) between them is 0 while increasing their strength \(m\) to infinity so that the product \(\frac{ma}{\pi}\) remains constant.
+For a doublet, the stream and potential functions are
+\begin{align}
+  \psi = - \frac{K \sin\theta}{r}
+  \qquad \phi = \frac{K \cos\theta}{r}
+\end{align}
+where \(K = \frac{ma}{r}\) is a constant and is the strength of the doublet.
+
+\begin{remark}
+  The streamlines are circles passing through the origin and tangent to the \(x\)-axis.
+\end{remark}
+
+
+\subsection{Superposition of basic plane potential flows}
+The flow around a half body can be modeled as the superposition of a uniform flow and a source.
+
+The flow around a closed full body can be modeled as the superposition of a uniform flow, a source and a sink.
+
+The flow around a cylinder can be modeled as the superposition of a uniform flow and a doublet.
+
+The flow around a rotating cylinder can be modeled as the superposition of a uniform flow, a doublet and a free vortex.
+
+
+\subsubsection{Solving steps}
+The general solving steps are:
+\begin{enumerate}
+  \item Find equivalent stream \(\psi\) or potential \(\phi\) functions by adding the flow equations and unifying the coordinate axis;
+  \item Find the velocity components;
+  \item Use Bernoulli equation to find the pressure;
+  \item Find the location of stagnation points.
+\end{enumerate}
+
+
+\subsection{Potential flows not at the origin}
+If the potential flow is not at the origin, trigonometric must be used in order to express the stream and potential functions as functions of \(r\) and \(\theta\).
+
+For a sink and a source lying at a distance \(2a\) from each each other and a distance \(a\) from the origin, the stream function \(\psi\) is
+\[
+  \psi = -\frac{m}{2\pi} \arctan \left( \frac{2ar\sin\theta}{r^2 - a^2} \right)
+\]
+which for small values of \(a\) approaches:
+\[
+  \psi = -\frac{mar\sin\theta}{\pi\left( r^2 - a^2 \right)}
+\]
+
+
+
+
+\section{Dimensionless groups}
+
+
+\subsection{Reynolds number Re}
+Reynolds number is a measure of the ration between the inertia force and the viscous force:
+\[
+  \mathrm{Re} = \frac{\mathrm{inertia}}{\text{viscosity}} = \frac{\rho v_\mathrm{avg} L}{\mu} = \frac{v_\mathrm{avg} L}{\nu}
+\]
+
+The Reynolds number determines the type of flow: laminar, transitional and turbulent flow.
+% TODO: lec 18.29
+
+
+\subsection{Froude number Fr}
+% TODO: 16.61
+
+
+\subsection{Weber Number We}
+Weber
+\[
+  \mathrm{We} = \frac{\mathrm{inertia}}{\text{surface tension}} = \frac{\rho {v_\mathrm{avg}}^2 L}{\sigma}
+\]
+
+% TODO: 16.63
+
+
+
+
+\section{Viscous flows in pipes}
+Poiseuille's law is the best known exact solution to the Navier-Stokes equations which applies for a steady, incompressible, axisymmetric \footnote{a flow in which the streamlines are symmetrically located around an axis.} and laminar through a straight circular tube of constant cross-section.
+
+Flows in pipes are commonly called Hagen-Poiseuille flows or simply Poiseuille flows.
+
+Recall the velocity profile \(v_z\):
+\[
+  v_z = \frac{1}{4\mu} \partialderivative{P}{z} \left( r^2 - R^2 \right)
+\]
+
+The volume flow rate \(Q\) in the tube is:
+\[
+  Q = \frac{\pi R^4 P}{8 \mu l} = \frac{\pi D^4 P}{128 \mu l}
+\]
+
+\begin{remark}
+  Increasing the diameter has a more dramatic effect on the flow rate than increasing the pressure drop
+\end{remark}
+
+The average velocity is:
+\[
+  v_{z,\mathrm{avg}} = \frac{Q}{A} = -\frac{R^2 }{8 \mu}\partialderivative{P}{z} = \frac{R^2 \Delta P}{8\mu l}
+\]
+The maximum velocity \(v_{z,\mathrm{max}}\) occurs at the center of the tube:
+\[
+  v_{z,\mathrm{max}} = \frac{R^2 \Delta P}{4\mu l}
+\]
+The relations between the mean velocity \(v_{z,\mathrm{avg}}\) and the maximum velocity \(v_{z,\mathrm{max}}\) is:
+\[
+  v_{z,\mathrm{max}} = 2 v_{z,\mathrm{avg}}
+\]
+
+
+\subsection{Dimensionless analysis}
+Using the average velocity \(v_{z,\mathrm{avg}}\) as the characteristic velocity and the diameter \(D = 2R\) as the characteristic length, the dimensionless velocity profile becomes:
+\[
+  \hat{v}_z = 2(1 - 4 \hat{r}^2)
+\]
+
+
+\subsection{Pipe orientation and Navier-Stokes equations}
+% TODO: 18.36
+
+
+
+\subsection{Fully developed flow}
+Any fluid in a pipe have to enter the pipe at some location.
+The region of flow near where the fluid enters the pipe is called the entrance region.
+A fluid typically enters the pipe with a nearly uniform velocity profile, but as the fluid moves through the pipe, viscous effects cause it to stick to the pipe wall (no-slip boundary condition).
+
+Hence, a boundary layer in which viscous effects are important is produced along the pipe wall such that the velocity profile changes with distance \(x\) along the pipe, until the fluid reaches the end of the entrance length \(l_e\).
+Beyond the entrance length \(l_e\), the velocity profile does not vary with \(x\).
+
+Inside the entrance region, the viscous effect are not negligible in the boundary layer, but are negligible outside of the boundary layer, that is inside the inviscid core surrounding the center line.
+
+The flow stays fully developed unless there are bends, Ts, change in diameter, pumps, turbine, valves\dots{}
+
+
+\subsubsection{Entrance length}
+The entrance length \(l_e\) is dependent on the Reynolds number:
+\begin{align*}
+   & \text{Laminar flow: } \frac{l_e}{D} = 0.058 \mathrm{Re}           \\
+   & \text{Turbulent flow: } \frac{l_e}{D} = 4.4 \sqrt[6]{\mathrm{Re}} \\
+\end{align*}
+
+
+\subsection{General characteristics fo pipe flow}
+For all flows studied, it was assumed the pipe is completely fill with the fluid being transported.
+Hence, open-channel flow will not be considered.
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Closed vs. open-channel flow}
+  \label{tab:table-reference}
+  \centering % Horizontal alignment of the table
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right, S: siunitx numbers, L: left-aligned math, D: centered math) = number of column
+      r r
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule % Header
+    \\
+    \midrule % Content
+    % TODO: 18.55
+
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+
+\subsection{Shear stress in fully developed flow}
+Applying momentum analysis to a fluid element, the relationship between the shear wall stress and the velocity \(v_z\) is
+\[
+  v_z(r) = \frac{\tau_\mathrm{wall}D}{4\mu} \left[ 1 - \left( \frac{r}{R} \right)^2 \right] = v_{z,\mathrm{max}} \left[ 1 - \left( \frac{r}{R} \right)^2 \right]
+\]
+since \(\Delta P = \frac{4 l \tau_\mathrm{wall}}{D}\)
+
+
+\subsection{Laminar pipe flow equations for inclined pipes}.
+% TODO: 18.63
+
+
+\subsection{Laminar and turbulent flows}
+Laminar flow means the flow is made of layers, which implies it is an orderly flow.
+On the other hand, a turbulent flow is said to have to some degree of chaotic and unpredictable motion.
+
+
+\subsubsection{Mechnical stability in fluids}
+A fluid is stable if a disturbance is not damped by the fluid motion, while if the disturbance grows and alters the motion, the fluid is said to be unstable.
+
+
+\subsubsection{Order and chaos}
+\begin{description}
+  \item[Laminar flow:] The flow is an orderly flow with no chaos and when chaos (disturbances) appears and it is damped.
+  \item[Turbulent flow:] The flow has some degree of chaos and main orderly motion
+\end{description}
+
+Therefore, laminar flow is represented by smooth lines and layers.
+There is no exchange between layers, and the velocity profile is a smooth curve.\newline
+However, turbulent flow has sideway motion (chaos), exchange between layers, exchange of momentum and mass, which results in a flatness in the velocity profile.
+Turbulent flow in a pipeline is not totally chaotic as there is still an order such as the average direction of the flow.\newline
+Transitional flow is an unstable flow, which is why it is very difficult to study.
+
+
+\subsection{Navier-Stokes equations}
+It is impossible to expect a solution that exactly match the turbulent flow, but using a time average \(\bar{v}_x\) and a fluctuation components \(v_x'\), the turbulent flow can be approximated.
+
+Turbulence are a loss of energy, but they can be useful for heat exchange and mixing as it is quicker with a turbulent flow.
+
+The dimensionless velocity profile of a turbulent flow can be approximated as:
+\[
+  \bar{v}_z = \bar{v}_{z,\mathrm{max}}\left( 1 - \frac{r}{R} \right)^\frac{1}{n}
+\]
+where \(n\) change the from laminar profile to fully developed turbulent profile.
+In order to know \(n\), there is a relation ship between \(n\) and the Reynolds number Re.
+For most industrial applications in pipes, the Reynolds number Re is Re \(\approx \num{e5}\), which leads to \(n = 7\).
+
+The shear-stress \(\tau\) has a laminar component \(\tau_\mathrm{laminar} = \mu \derivative{\bar{v}_x}{y}\) and a turbulent component \(\tau_\mathrm{turbulent} = - \rho v_x'v_y'\) where \(v_x'\) and \(v'_y\) are the fluctuations.
+
+
+\subsubsection{Flow disturbances}
+In turbulent flows a viscous laminar sublayer exists close the wall.
+For rough walls, the disturbances are increased due to the holes and bumps of the wall.
+
+Disturbances are minimal in laminar flow, but they are not negligible in turbulent flow as they are responsible for destabilization of the flow.
+Disturbances comes from the roughness of the walls and this explains why there are vanes and nets in wind tunnels in order to fight against disturbances.
+
+
+\subsection{Friction in pipes}
+Using the dimensional analysis, the friction factor for laminar flow in pipes is
+\[
+  f = \frac{64}{\mathrm{Re}} = \frac{8\tau_\mathrm{wall}}{\rho v^2} \implies \Delta P = f \frac{L}{D} \frac{\rho v^2}{2}
+\]
+
+However, for turbulent flows in pipes, the Moody chart is used and valid for the entire non-laminar range and is based on the Colebrook equation:
+\[
+  \frac{1}{\sqrt{f}} = -2.0 \log\left( \frac{1}{3.7} \frac{\epsilon}{D} + \frac{2.51}{\mathrm{Re}\sqrt{f}} \right)
+\]
+Hence the friction factor is now also a function of the dimensionless roughness of the pipe wall.
+
+In order to get the roughness \(\epsilon\), Table \ref{tab:roughness} is used.
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table*}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Equivalent roughness for new pipes}
+  \label{tab:roughness}
+  \begin{center}
+    \centering % Horizontal alignment of the table
+    \begin{tabular}{ % Number of letter (l: left, c: center, r: right) = number of column
+        l S S
+      }
+      % Visible row border: \hline (needed for each row)
+      % Visible column border: | next to tabular declaration (needed for each column)
+      % Column separation: &, row separation: \\
+
+      \toprule
+      \multicolumn{1}{c}{\textbf{Pipe}} & \multicolumn{1}{c}{\(\epsilon\) [ft]} & \multicolumn{1}{c}{\(\epsilon\) [\si{\metre}]} \\
+      \midrule
+      Riveted steel                     & {[\num{3e-3}, \num{3e-2}]}            & {[\num{9e-4}, \num{9e-3}]}                     \\
+      Concrete                          & {[\num{1e-3}, \num{1e-2}]}            & {[\num{3e-4}, \num{3e-3}]}                     \\
+      Wood stave                        & {[\num{6e-4}, \num{3e-3}]}            & {[\num{18e-5}, \num{9e-4}]}                    \\
+      Cast iron                         & 85e-5                                 & 26e-5                                          \\
+      Galvanized iron                   & 5e-4                                  & 15e-5                                          \\
+      Commercial steel                  & 15e-5                                 & 45e-6                                          \\
+      Drawn tubing                      & 5e-6                                  & 15e-7                                          \\
+      Plastic, glass (smooth)           & 0                                     & 0                                              \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+\end{table*}
+
+Also, the volumetric flow rate \(Q\) of turbulent flow is:
+\[
+  Q = 2\pi R^2 v_{\mathrm{max}} \frac{n^2}{(n+1)(2n+1)}
+\]
+and
+\[
+  \frac{v_{\mathrm{avg}}}{v_{\mathrm{max}}}= \frac{2n^2}{(n+1)(2n+1)}
+\]
+
+
+
+\subsection{Energy}
+The energy equation is a form of the Bernoulli equation accounting for other parameters:
+\[
+  \frac{P_1}{\rho g} + z_1 + \alpha_1 \frac{{v_1}^2}{2g} + h_p = \frac{P_2}{\rho g} + z_2 + \alpha_2 \frac{{v_2}^2}{2g} + h_L + h_t
+\]
+\[
+  \begin{array}{|l}
+    P [\si{\pascal}] \text{: fluid pressure}                                     \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: fluid density}                 \\
+    g = \SI{9.81}{\metre\per\second\squared} \text{: gravitational acceleration} \\
+    z [\si{\metre}] \text{: fluid height}                                        \\
+    \alpha \text{: kinetic energy coefficients}                                  \\
+    v [\si{\metre\per\second}] \text{: fluid velocity}                           \\
+    h_p [\si{\metre}] \text{: pump head}                                         \\
+    h_L [\si{\metre}] \text{: head loss}                                         \\
+    h_t [\si{\metre}] \text{: turbine head}
+  \end{array}
+\]
+% TODO: 19.5 alpha
+
+
+\subsubsection{Type of losses}
+% TODO: 19.7 shear stress, 19.8 hL
+
+
+
+\subsubsection{External device (pump, turbine)}
+In the case of a pump, a pump head component \(h_p\) is added to the equation, where the relation between the pump power input and the head pump is
+\[
+  \dot{W}_p = \rho g Q h_p
+\]
+\[
+  \begin{array}{|l}
+    \dot{W}_p [\si{\watt}] \text{: pump power input}                             \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: fluid density}                 \\
+    g = \SI{9.81}{\metre\per\second\squared} \text{: gravitational acceleration} \\
+    Q [\si{\metre\cubed\per\second}] \text{: fluid volumetric flow rate}         \\
+    h_p [\si{\metre}] \text{: pump head}
+  \end{array}
+\]
+% TODO: conversion to hp
+
+For a turbine, the concept is very similar: a turbine head component \(h_t\) is added to the equation, where the relation between the turbine power output and the head turbine is
+\[
+  \dot{W}_t = \rho g Q h_t
+\]
+\[
+  \begin{array}{|l}
+    \dot{W}_t [\si{\watt}] \text{: turbine power output}                         \\
+    \rho [\si{\kilogram\per\metre\cubed}] \text{: fluid density}                 \\
+    g = \SI{9.81}{\metre\per\second\squared} \text{: gravitational acceleration} \\
+    Q [\si{\metre\cubed\per\second}] \text{: fluid volumetric flow rate}         \\
+    h_p [\si{\metre}] \text{: turbine head}
+  \end{array}
+\]
+
+
+\subsection{Non-circular conduit}
+The hydraulic diameter \(D_h\) is used in case of non-circular pipes in order to use the equations of the circular pipes.
+\[
+  D_h = \frac{4A}{p_\mathrm{wet}}
+\]
+\[
+  \begin{array}{|l}
+    D_h [\si{\metre}] \text{: hydraulic diameter}         \\
+    A [\si{\metre\squared}] \text{: cross-sectional area} \\
+    fore
+  \end{array}
+\]
+
+
+\subsection{Multiple pipe flow}
+\subsubsection{Series connection}
+For series pipe connection, the volumetric flow rate \(Q\) is constant.
+For \(n \in \set{R}{}{}\) pipe section, the volumetric flow rate \(Q\) is
+\[
+  Q = Q_n
+\]
+
+On the other hand, the losses \(h_L\) are
+\[
+  h_L = \sum{h_{L,n}}
+\]
+
+
+\subsubsection{Parallel connection}
+For series pipe connection, the volumetric flow rate \(Q\) is constant.
+For \(n \in \set{R}{}{}\) pipe section, the volumetric flow rate \(Q\) is
+\[
+  Q = \sum{Q_n}
+\]
+
+On the other hand, the losses \(h_L\) are
+\[
+  h_L = h_{L,n}
+\]
+
+% TODO: list of problems (iterative problems form ENGR 361)
+
+
+
+\section{Flows over immersed bodies}
+If an object is completely surrounded by the fluid, then the bodies is said to be immersed in the fluid.
+
+Correctly designing cars and trucks, it has become possible to greatly decrease the fuel consumption and improve the handling characteristics of the vehicle.
+
+The flow can be classified into 3 categories: two-dimensional, axisymmetric, three-dimensional.
+Body shapes can vary from being blunt and streamlines.
+
+Streamlines bodies have little effect on the surrounding fluid.
+Also, it is usually easier to force a streamlined body through a fluid that it is to force a blunt body at the same velocity.
+However, blunt object can be useful depending on the applications (parachute, sail, paddle\dots{})
+
+
+\subsection{The hydrodynamic force}
+In internal flows, the main engineering interest is in the relationship between the pressure drop and the flow rate, and the energy loss.
+
+In external flows, the relationship between the incoming velocity and the hydro-aero-dynamic (drag and lift) force is the center of engineering interest.
+The essential factor is the hydrodynamic force which the fluid exerts on the solid surfaces.
+This force is the resultant of normal (pressure) and tangential (shear) stresses, which the fluid applies to the solid surfaces.
+
+The hydrodynamic force \(F\) depends on the area \(A\), the kinetic energy per unit volume \(\frac{\rho v^2}{2}\), and the energy loss factor \(f\)
+\[
+  F = A \frac{\rho v^2}{2} f
+\]
+
+The characteristic area \(A\) is the projected area, also explained as the area "seen" by the fluid.
+In the case of lift \(L\) and drag \(D\), the energy loss factor \(f\) is the coefficients of lift \(c_L\) and drag \(c_D\).
+
+
+
+\subsection{Drag and lift forces}
+
+
+
+
+
+
+\subsection{The drag and lift coefficient}
+
+
+
+
+
+
+\subsection{The boundary layer theory}
+To study the motion around an immersed body, the concept of boundary layer is important.
+The boundary layers appears when the fluid flows over stream solid surfaces.
+
+Inside the boundary layer, the viscous effect of the flow are not negligible.
+
+
+\subsubsection{Turbulent boundary layer}
+Near the leading edge of a flat plate, the boundary layer flow is laminar.
+At some points, the boundary layer transition from laminar to turbulent is the plate is long enough.
+
+\subsubsection{Boundary layer over a flat plate}
+The Reynolds number Re calculations for the boundary layer over a flat plate is dependent on the position \(x\) at which the Reynolds number is computed:
+\[
+  \mathrm{Re}_x = \frac{v_\infty x}{\nu}
+\]
+
+The transition Reynolds number is on the order of \numrange{2e5}{3e6} and around \num{320e3}.
+The transition point is affect by the degree of surface roughness, meaning the transition can be delayed along the plate with improved surface smoothness and with the elimination of all incoming disturbances.
+
+
+\subsubsection{Prandtl-Blasius boundary layer solution}
+The Navier-Stokes equations are too complicated, meaning no analytical solution is available.
+However, for large Reynolds number Re, the simplified boundary layer equations can be derived.
+
+Physically, the flow is primarily parallel to the plate, hence the pressure can be considered to be constant in the boundary layer (case 5 of Navier-Stokes solution).
+
+Applying a dimensionless analysis with the boundary conditions, the dimensionless form of the boundary layer velocity profile is
+\[
+  \frac{v_x}{v_\infty} = f\left( \frac{y}{\delta} \right)
+\]
+\[
+  \begin{array}{|l}
+    % formulaexplanation
+    % TODO
+  \end{array}
+\]
+
+The solution for the dimensionless boundary layer thickness \(\frac{\delta}{x}\) is
+\[
+  \frac{\delta}{x} = \frac{5}{\sqrt{\mathrm{Re_x}}}
+\]
+
+
+\subsection{Separation and wake}
+In effect, for a boundary layer to be created, the lower limit is \(\mathrm{Re}_\mathrm{min} = 1000\).
+Otherwise, the viscous effect are present everywhere and the flow is not disturbed enough.
+
+
+\subsubsection{Flow past circular and cylindrical objects}
+The transition to turbulence can be provoked at lower speeds by roughness in the surface, because this surface introduces disturbances that accelerate the transition from laminar to turbulent.
+
+The more energy in the incoming flow, the further the separation of the flow from the surface happens.
+
+The velocity gradients within the boundary layer and wake regions are much larger than those in the remainder of the flow fluid, which means the viscous effects are confined to the boundary layer and wake regions.
+
+
+\subsubsection{Oscillating Karman vortex street wake}
+Karman vortex street is a repeating patterns of swirling vortices caused by the unsteady separation of flow of a fluid around blunt bodies, and it occurs in the wake region.
+
+Therefore, the wake behind streamed bodies can be of several types:
+\begin{description}
+  \item[No wake:] creeping Stokes flows.
+  \item[Steady separation bubble:] laminar boundary layer.
+  \item[Oscillating Karman vrotex street wake:] repeating patterns of swirling vortices.
+  \item[Wide turbulent wake:] laminar and turbulent boundary layer and separation point can be moved with more turbulent boundary layer.
+\end{description}
+
+Finally, dimples help to trigger the transition from a laminar boundary layer to a turbulent boundary layer and thus reduce the air drag on the object (golf ball)
+
+
+\subsection{Lift force for flows around airfoils and the lift coefficient}
+A body interacts with teh surrounding fluid through pressure ans shear stresses.
+\begin{description}
+  \item[Drag:] force component in the direction of upstream velocity.
+  \item[Lift:] force normal to upstream velocity
+\end{description}
+
+
+\subsubsection{Drag force}
+The drag force \(F_D\) of 2 components: the friction drag \(F_{D,\mathrm{friction}}\) and pressure drag \(F_{D,\mathrm{pressure}}\).
+\[
+  F_{D,\mathrm{friction}} = \int_\mathrm{body}{\tau_w \diffint{A}}
+\]
+\[
+  F_{D,\mathrm{pressure}} = \int_\mathrm{body}{P \diffint{A}}
+\]
+
+The resultant of the shear stress and the pressure distributions can be obtained by integrating the effect of these two quantities on the body surface:
+\begin{align*}
+  F_D & = \int{P \cos\theta \diffint{A}} + \int{\tau_w \sin\theta \diffint{A}}   \\
+  F_L & = - \int{P \sin\theta \diffint{A}} + \int{\tau_w \cos\theta \diffint{A}}
+\end{align*}
+
+
+\subsection{Drag and lift coefficients}
+Drag and lift coefficients are dimensionless forms of lift and drag.
+\begin{align*}
+  F_D & = \frac{F_D}{\frac{1}{2}\rho {v_\infty}^2 A} \\
+  F_L & = \frac{F_L}{\frac{1}{2}\rho {v_\infty}^2 A}
+\end{align*}
+where \(A\) is typically taken as the frontal area, the projected area "seen" by flow.
+
+Similar to the drag coefficient, the lift coefficient is a function of several parameters: \(c_L = \phi\left( \mathrm{shape}, \mathrm{Re}, \mathrm{Ma}, \mathrm{Fr}, \frac{\epsilon}{L} \right)\).
+The shape is the most important parameter affecting the lift coefficient.
+The Mach number Ma is of importance for the relatively high speed subsonic and supersonic flows (Ma \(> 0.8\)).
+
+
+\subsection{Airfoils}
+Lift force for flows around airfoils generally depends on the design of the airfoil (symmetrical or asymmetrical) and the angle of attack \(\alpha\).
+
+For a symmetrical airfoil, the angle of attack need to be positive in order to generate lift, otherwise there is no net pressure distribution between the upper and the lower surface. \newline
+Having a non-symmetrical airfoils allows the wing to provide lift force with no angle of attack while the place is cruising.
+
+The aspect ratio is the relationship between the span of the wing and the area of the wing.
+The greater the aspect ratio, the greater the span and the smaller the chord.
+\[
+  AR = \frac{b^2}{S_\mathrm{ref}}
+\]
+\[
+  \begin{array}{|l}
+    AR \text{: aspect ratio}           \\
+    b [\si{\metre}] \text{: wing span} \\
+    S_\mathrm{ref} [\si{\metre\squared}] \text{: wing area}
+  \end{array}
+\]
+
+
+\subsection{Stall}
+The stall angle of attack is the maximum angle at which the separation point is too close to the leading edge, the wake region is too large and the lift suddenly drop.
+
+
+\subsubsection{Vortex generators}
+A very effect yet simple solution is to use devices called vortex generators, which created a swirling wake and brings energy from the main flow.
+This results in airplanes with a higher stall angle of attack and a lower stall speed.
+
+
+\subsubsection{Boundary layer}
+Airplanes wings can have a suction boundary layer or a injection boundary layer.
+The aim is to control the boundary layer, energize it in order to reduce the size of the wake region.
+
+
+\subsection{The Magnus effect}
+The Magnus effect appears when a rotating object is subjected to a fluid flow.
+
+The rotation of the object create a change in the flow velocity, inducing a pressure change a thus a lift change.
+
+The wind for flying objects simulates the Magnus effect.
+This explains why places take off and land against the wind, since they achieve higher lift at lower speeds.
+
+
+\section{High speed compressible gas flows}
+Compressibility is a measure of the change in volume of a fluid under the action of external forces.
+
+With compressible flows, unintuitive phenomena such as fluid acceleration because of friction, fluid deceleration ina converging duct or fluid temperature decrease with heating.
+
+Only ideal gas flows will be considered.
+
+
+\subsection{Thermodynamics rules for ideal gas}
+\subsubsection{Transmission of pressure}
+The pressure at a certain point in a fluid volume changes and is transmitted through fluid particles in all directions.
+
+Particles transmit this pressure signal from one to another at very high speed.
+
+Key features of the pressure changes:
+\begin{itemize}
+  \item Pressure is transmitted from a particle to neighboring particles independent of their state of motion (no pressure in vacuum).
+  \item It is transmitted simultaneously in all directions.
+  \item It travels with the same speed \(c\) from particle to particle.
+\end{itemize}
+
+The actual speed of transmission of pressure in a certain direction is relative to the speed of the particle.
+
+
+\subsubsection{Speed of sound}
+The speed of sound \(c\), also the velocity of propagation of a small pressure disturbance in a fluid, is
+\[
+  c = \sqrt{\gamma R T}
+\]
+\[
+  \begin{array}{|l}
+    c [\si{\metre\per\second}] \text{: speed of sound in the fluid}          \\
+    \gamma \text{: fluid isentropic coefficient}                             \\
+    R [\si{\joule\per\kilogram\per\kelvin}] \text{: specific fluid constant} \\
+    T [\si{\kelvin}] \text{: fluid temperature}
+  \end{array}
+\]
+
+
+\subsection{Subsonic vs supersonic flows}
+The Mach number Ma is the ratio of local fluid speeds over fluid sound speed.
+\[
+  M = \frac{v}{c} = \frac{v}{\sqrt{\gamma R T}}
+\]
+\[
+  \begin{array}{|l}
+    v [\si{\metre\per\second}] \text{: local fluid speed}                    \\
+    c [\si{\metre\per\second}] \text{: speed of sound in the fluid}          \\
+    \gamma \text{: fluid isentropic coefficient}                             \\
+    R [\si{\joule\per\kilogram\per\kelvin}] \text{: specific fluid constant} \\
+    T [\si{\kelvin}] \text{: fluid temperature}
+  \end{array}
+\]
+
+
+Mach ranges:
+\begin{description}
+  \item[Ma \(\leqslant\) 0.3: ] incompressible flows where any disturbance is too slow in comparison to the speed of sound.
+  \item[0.3 < Ma < 1: ] compressible subsonic flow.
+  \item[Ma = 1: ] sonic flow.
+  \item[Ma > 1: ] compressible supersonic flow generating a Mach cone.
+\end{description}
+
+\begin{remark}
+  For 0.9 \(\leqslant\) Ma \(\leqslant\)1.2, the flow is said to be transonic.
+  For Ma > 5, the flow is said to be hypersonic.
+\end{remark}
+
+The Doppler effect appears for a compressible subsonic flow: the waves a the front have a higher frequency than the wave at the back due to the motion of the wave emitter.
+
+
+
+\subsection{Normal and oblique shock waves}
+Shock waves are surfaces of strong discontinuities in fluid parameters and propagates with the speed of sound.
+Any body moving with a speed equal or exceeding the speed of sound produces shock waves in the fluid.
+
+For blunt objects, the shock wave is detached from the body and generates a lot of losses at the front of the object. \newline
+For sharp objects, the shock wave is attached to the body and thus less energy is lost.
+
+
+\subsubsection{The Mach cone}
+For Ma > 1, the angle \(\alpha\) of the Mach cone is
+\[
+  \sin\alpha = \frac{c}{v} = \frac{1}{\mathrm{Ma}} \iff \alpha = \arcsin\frac{1}{\mathrm{Ma}}
+\]
+
+The shock is seen because the air is humid and condensation forms on the shock due to the low pressure.
+
+
+\subsection{Converging diverging ducts}
+\subsubsection{Maximum velocity in a duct}
+When given two reservoirs connected by a constant cross-sectional area duct, by continually lowering the pressure in the downstream, the flow reaches the speed of sound, the flow chokes and cannot go quicker. \newline
+Therefore, flow starting through a constant cross-section pipeline will never become supersonic.
+
+In order to achieve supersonic flow, a converging-diverging duct, the minimum area can go up to the speed of sound and in the diverging section, the flow can exceed the speed of sound.
+This is explained by the conservation of mass for a compressible flow \(\dot{m} = \rho v A = \constant\), where the density \(\rho\), the cross-sectional area \(A\) and the flow velocity \(v\) can all vary are different points in the flow.
+
+
+\subsubsection{Relation between area and flow parameters}
+The equation relating the velocity, pressure, density and area changes for different Mach number is:
+\begin{align*}
+  \frac{\diff{}{v}}{v}        & = - \frac{1}{1 - \mathrm{Ma}^2}\frac{\diff{}{A}}{A}           \\
+  \frac{\diff{}{P}}{\rho v^2} & = \frac{1}{1 - \mathrm{Ma}^2}\frac{\diff{}{A}}{A}             \\
+  \frac{\diff{}{\rho}}{\rho}  & = \frac{\mathrm{Ma}^2}{1 - \mathrm{Ma}^2}\frac{\diff{}{A}}{A} \\
+\end{align*}
+
+Meaning:
+\begin{description}
+  \item[Subsonic flows (Ma < 1):] the velocity compared to area changes are in opposite directions, but the pressure and density compared to area changes are in the same direction, \(A\uparrow \implies v\downarrow, P\uparrow, \rho \uparrow\).
+  \item[Supersonic flows (Ma > 1):] the velocity compared to area changes are in the same direction, but the pressure and density compared to area changes are in opposite directions, \(A\uparrow \implies v\uparrow, P\downarrow, \rho \downarrow\).
+\end{description}
+
+Since \(\dot{m} = \rho v A = \constant\) must remain constant when teh duct diverges and the flow is subsonic, density and area both increase and thus flow velocity must decrease. \newline
+However, for supersonic flow through a diverging duct, then the area increases, the density decreases enough so that the flow velocity has to increase to keep \(\dot{m} = \rho v A = \constant\).
+
+
+\subsubsection{Duct type}
+A nozzle is a duct that increases the velocity and a diffuser a duct that decreases the velocity.
+
+For subsonic flows, a nozzle is a converging duct and a diffuser a diverging duct.
+However, for a supersonic flow, it is the opposite as a nozzle is a diverging duct and a diffuser is a converging duct.
+
+
+\end{document}

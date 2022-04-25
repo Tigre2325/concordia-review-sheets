@@ -1,0 +1,466 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{MECH 368: Electronics for Mechanical Engineers}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+% \renewcommand{\abstractname}{} % Change the abstract titles
+\section{Introduction}
+\subsection{Electrical energy}
+The electrical energy is defined as
+\[
+  E_\mathrm{elec} = Q \Delta V
+\]
+\[
+  \begin{array}{|l}
+    E_\mathrm{elec} [\si{\joule}] \text{: electrical potential energy} \\
+    Q [\si{\coulomb}] \text{: electric charge}                         \\
+    \Delta V [\si{\volt}] \text{: electric potential (or voltage)}
+  \end{array}
+\]
+
+\SI{1}{\volt} is defined as the potential difference between two parallel, infinite planes spaced 1 meter apart that create an electric field of \SI{1}{\newton\per\coulomb}.
+
+
+\subsection{Power}
+Electrical power is the rate per unit time at which electrical energy is transferred by an electric circuit.
+\[
+  P_\mathrm{elec} = \dot{W}_\mathrm{elec} = \derivative{E_\mathrm{elec}}{t} = \frac{\Delta VQ}{t} = \Delta VI
+\]
+\[
+  \begin{array}{|l}
+    P_\mathrm{elec}, \dot{W}_\mathrm{elec} [\si{\watt}] \text{: electrical power} \\
+    E_\mathrm{elec} [\si{\joule}] \text{: electrical potential energy}            \\
+    Q [\si{\coulomb}] \text{: electric charge}                                    \\
+    \Delta V [\si{\volt}] \text{: electric potential (or voltage)}                \\
+    t [\si{\second}] \text{: time}                                                \\
+    I [\si{\ampere}] \text{: electric current}
+  \end{array}
+\]
+Sign convention:
+\begin{description}
+  \item[Source:]
+        \begin{olditemize}
+          \item Power generated: \(P = \Delta VI\).
+          \item Power dissipated: \(P = -\Delta VI\).
+        \end{olditemize}
+  \item[Load:]
+        \begin{olditemize}
+          \item Power generated: \(P = -\Delta VI\).
+          \item Power dissipated: \(P = \Delta VI\).
+        \end{olditemize}
+\end{description}
+
+\begin{remark}
+  Since the joule [\si{\joule}] is a very small unit, the electrical energy supplied to consumers is bought in kilowatt-hour [\si{\kilo\watt\hour}].
+  \SI{1}{\kilo\watt\hour} is the amount of energy that is converted by a \SI[scientific-notation = false]{1000}{\watt} appliance when used for \SI{1}{\hour}.
+\end{remark}
+
+
+\subsection{Ideal sources}
+\subsubsection{Ground}
+The concept of reference voltage finds a practical use in the ground voltage of a circuit.
+Ground represents a specific reference voltage that is usually a clearly identified point in a circuit.
+The ground reference can be identified with the case or enclosure of an instruments, or with the earth itself.
+In residential electric circuits, the ground reference is a large conductor that is physically connected to the earth.
+It is convenient to assign a potential of \SI{0}{\volt} to the ground voltage reference.
+
+
+\subsubsection{Ideal voltage source}
+An ideal voltage source provides the prescribed voltage across its terminals irrelevant to the current drawn from it.
+
+
+\subsubsection{Ideal current source}
+An ideal current source provides the prescribed current to any circuit connected to it, irrelevant to the voltage on its terminals.
+
+
+\subsection{I-V characteristic}
+I-V characteristics of a component or a circuit is the relation between the current and the voltage between the two terminals of the component or the two nodes of the circuit.
+
+\begin{example}
+  The I-V characteristic of an ideal voltage source is a vertical line at \(\Delta V = \Delta V_\mathrm{source}\).
+  The I-V characteristic of an ideal current source is a horizontal line at \(I = I_\mathrm{source}\).
+\end{example}
+
+
+\subsection{Electrical system}
+An electrical system is composed of at least one source and one load, where the source compels the electric field in the circuit and the electrons flow opposite to the electric field.
+
+Some terminology on electrical circuits:
+\begin{description}
+  \item[Branch:] any portion of a circuit with two terminals.
+  \item[Node:] a junction of two or more branches.
+  \item[Supernode:] a region that encloses more than one node.
+  \item[Loop:] any closed connection of branches.
+  \item[Mesh:] a loop that does not include other loops.
+\end{description}
+
+
+\subsection{Resistance}
+The resistance \(R\) in \si{\ohm} is an electrical quantity that measures how the device or material reduces the electric current flow through it.
+
+\begin{remark}
+  Every material has resistance: copper has a low resistance (\(\approx\) \SI{1}{\ohm\per\metre}) and wood has a high resistance (\(\approx\) \SI{10e+6}{\ohm\per\metre}).
+\end{remark}
+
+A conductor is any material that will allow an electrical current to flow through it.
+The ability of any conductor in an electrical circuit to pass current is judged by its electrical resistance.
+The resistance of a conductor depends mainly on three things:
+\begin{itemize}
+  \item the length \(L\) of the conductor, \(R \propto L\)
+  \item the cross sectional area \(A\) of the conductor \(R \propto \frac{1}{A}\)
+  \item the material of which the conductor is made
+\end{itemize}
+
+If two conductors of exactly the same dimensions have a different resistance, they must be made of different materials.
+One way to describe any material is by its resistivity \(\rho\) in \si{\ohm\metre}, which is the amount of resistance present in a piece of the material of length \SI{1}{\metre} and cross sectional area \SI{1}{\metre\squared}.
+Hence, the resistance is:
+\[
+  R = \frac{\rho L}{A}
+\]
+\[
+  \begin{array}{|l}
+    R [\si{\ohm}] \text{: resistance}           \\
+    \rho [\si{\ohm\metre}] \text{: resistivity} \\
+    L [\si{\metre}] \text{: length}             \\
+    A [\si{\metre\squared}] \text{: cross sectional area}
+  \end{array}
+\]
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table}[ht] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Resistivity of common materials at room temperature}
+  \label{tab:resistivity-common-materials}
+  \centering % Horizontal alignment of the table
+  \begin{tabular}{ % Number of letter (l: left, c: center, r: right) = number of column
+      lS
+    }
+    % Visible row border: \hline (needed for each row)
+    % Visible column border: | next to tabular declaration (needed for each column)
+    % Column separation: &, row separation: \\
+
+    \toprule
+    Material & {Resistivity [\si{\ohm\metre}]} \\
+    \midrule
+    Aluminum & 2.733e-8                        \\
+    Carbon   & 3.5e-5                          \\
+    Copper   & 1.725e-8                        \\
+    Gold     & 2.271e-8                        \\
+    Iron     & 9.98e-8                         \\
+    Nickel   & 7.20e-8                         \\
+    Platinum & 10.8e-8                         \\
+    Silver   & 1.629e-8                        \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\subsubsection{Ohm's law}
+Ohm's law states that: "In metallic conductors at a constant temperature and in a zero magnetic field, the current flowing is proportional to the voltage across the ends of the conductor and is inversely proportional to the resistance of the conductor".
+\[
+  \Delta V = IR
+\]
+\[
+  \begin{array}{|l}
+    \Delta V [\si{\volt}] \text{: voltage} \\
+    I [\si{\ampere}] \text{: current}      \\
+    R [\si{\ohm}] \text{: resistance}
+  \end{array}
+\]
+
+
+The I-V characteristic of the ideal resistor is linear, with \(I = \frac{V}{R}\).
+
+
+\subsubsection{Kirchhoff laws}
+\paragraph{Kirchhoff current law}
+Kirchhoff current law (or junction rule) represent the conservation of charges, meaning at any node:
+\[
+  \sum{I_\mathrm{in}} = \sum{I_\mathrm{in}}
+\]
+
+
+\paragraph{Kirchhoff voltage law}
+Kirchhoff voltage law (or loop rule) states that the net voltage across a closed loop is zero
+\[
+  \Delta V_{\mathrm{loop}} = \sum_k {\Delta V_k } = 0
+\]
+
+
+\subsubsection{Resistors in series and voltage dividers}
+When resistance are in series (the current from one flows exclusively into the next one), they have the same current and the equivalent resistance is
+\[
+  R_\mathrm{eq} = \sum{R_k}
+\]
+
+The voltage divider equation formed by resistors in series is:
+\[
+  \Delta V_n = \Delta V_\mathrm{source} \frac{R_n}{R_\mathrm{eq}}
+\]
+where \(\Delta V_n\) is the voltage drop at the terminals of the resistor \(n\).
+
+
+\subsubsection{Resistors in parallel and current dividers}
+When resistance are in parallel (they share the same terminals), they have the same voltage and the equivalent resistance is:
+\[
+  \frac{1}{R_\mathrm{eq}} = \frac{1}{\sum{R_k}}
+\]
+
+The current divider equation formed by resistors in parallel is:
+\[
+  I_n = I_\mathrm{source} \frac{R_\mathrm{eq}}{R_n}
+\]
+where \(I_n\) is the current in the resistor \(n\).
+
+
+\subsubsection{Open circuit}
+An open circuit is a circuit element whose resistance approaches infinity, meaning no current can flow through regardless of the externally applied voltage.
+
+The idealization of the open circuit does not hold for very high voltages: the insulating material between the two terminal can break down at a sufficiently high voltage (arcing phenomenon, which is used in spark-ignition internal combustion engines).
+
+
+\subsubsection{Temperature effect in resistance}
+The resistance of a material changes with temperature: conductors tend to increase their resistance with an increase in temperature (positive temperature coefficient), while insulators tend to decrease their resistance with an increase in temperature (negative temperature coefficient).
+
+The resistance of a resistor increases when the temperature of the resistor increases:
+\[
+  R_2 = R_1 [1 + \alpha (T_2 - T_1)]
+\]
+\[
+  \begin{array}{|l}
+    R_2 [\si{\ohm}] \text{: resistance at temperature } T_2    \\
+    R_1 [\si{\ohm}] \text{: resistance at temperature } T_1    \\
+    \alpha [\si{\per\kelvin}] \text{: temperature coefficient} \\
+    T [\si{\kelvin}] \text{: temperature}
+  \end{array}
+\]
+
+
+\subsubsection{Resistor parameters}
+\paragraph{Frequency response}
+At high frequencies, some resistance also have characteristics of capacitance and/or inductance, which is called reactance.
+The frequency response specify the frequencies for which the resistor acts as a pure resistor, without any significant effects of the reactance.
+
+
+\paragraph{Power dissipation}
+The power dissipation is a measure of the amount of power that a resistor can dissipate without causing it to overheat.
+
+
+\paragraph{Maximum temperature}
+Resistors are designed to operate within a specified temperature range, within which the nominal characteristics (temperature coefficient, tolerance\dots{}) are guaranteed.
+The long-term effect on a resistor being subjected to high operating temperature is a gradual increase in its resistance value (drift).
+
+
+\paragraph{Power de-rating}
+For power resistors, power de-rating is an alternative to the maximum temperature, which specifies how much the power rating of the resistor must be reduced at various temperature above the normal operating range.
+
+
+\paragraph{Maximum voltage}
+The voltage across a resistor places an electrical stress on the materials, which in case of to high voltage, the resistor can breakdown and create a short-circuit.
+
+All the above parameters and others, such as the amount of random electrical noise generated, have to be taken into account when selecting a resistor for a particular application.
+
+\begin{remark}
+  Reliability engineering is an engineering field that deals with the study, evaluation and life-cycle management of reliability, which is defined as the ability (measured in probability) of a system or component to perform its required function under sated conditions for a specified period of time.
+\end{remark}
+
+
+\subsection{Practical sources}
+\subsubsection{Practical voltage source}
+A practical voltage source is represented in a circuit as an ideal voltage source in series with a resistor (internal resistor or source resistor).
+
+
+\subsubsection{Practical current source}
+A practical current source is represented in a circuit as an ideal current source in parallel with a resistor (internal resistor or source resistor).
+
+
+\subsection{Equivalent networks}
+The impact of a source on a load is completely determined by the I-V characteristic of the source.
+This implies that one-port networks (sources and loads) are electrically equivalent if they have the same I-V characteristic.
+
+
+\subsubsection{Load-line nalysis of circuits}
+Linear circuits are made of linear elements such as ideal sources, resistors, capacitors, and inductors.
+
+Using Kirchhoff laws, the relation between current and voltage can be known for a specific circuit and knowing the relation for a specific element, the intersection point gives the current and the voltage that this component is exposed to.
+
+For non-linear elements such as diodes and transistors, the non-linear element needs to be treated as a load and then Thévenin equivalent of the source circuit needs to be found.
+
+
+\subsection{Thévenin's and Norton's theorems}
+In order to simplify the analysis of a complex circuit, each element can be broken down into simpler element such as loads, ideal sources\dots{}
+
+Thévenin's and Norton's theorems are used to replace a voltage source by a current source of vice-versa, and also to study circuit's initial conditions and steady-state response.
+
+
+\begin{olddescription}
+  \item[Thévenin:] when viewed form the load, any circuit of resistors and independent sources can be represented as an equivalent circuit of an ideal voltage source \(V_T\) in series with an equivalent resistor \(R_T\).
+  \item[Norton:] when viewed from the load, any circuit of resistors and independent sources can be represented as an equivalent circuit of an ideal current source \(I_N\) in parallel with an equivalent resistor \(R_N\).
+\end{olddescription}
+
+
+\subsubsection{Find the equivalent source and internal resistance}
+
+\paragraph{Equivalent internal resistance}
+\begin{enumerate}
+  \item Remove the desired studied load (cut the wire)
+  \item Zero all voltage source (short the voltage source)
+  \item Find the total resistance between the terminals of the removed load, which becomes the internal resistance \(R_T = R_N\)
+\end{enumerate}
+
+
+\paragraph{Thévenin's equivalent voltage source \(\Delta V_T\)}
+\begin{enumerate}
+  \item Remove the desired studied load (cut the wire)
+  \item Define the open circuit voltage \(\Delta V_T\) on the open load terminals
+  \item Apply any circuit analysis technique to find \(\Delta V_T\)
+\end{enumerate}
+
+
+\paragraph{Norton's equivalent current source}
+\begin{enumerate}
+  \item Short-circuit the desired studied load
+  \item Define the short-circuit current \(I_N\) through the shorted load
+  \item Apply any circuit analysis technique to find \(I_N\)
+\end{enumerate}
+
+
+\section{Transient analysis}
+The value of an inductor current or a capacitor voltage just prior to the closing (or opening of a switch) is equal to the value just after the switch has ben closed (or opened):
+\begin{align*}
+  v_C(0^-) & = v_C(0^+) \\
+  i_C(0^-) & = i_C(0^+) \\
+\end{align*}
+where the notation \(0^-\) means "just before \(t = 0\)" and \(0^+\) means "just after \(t = 0\)".
+
+
+\subsection{Elements of transient analysis}
+\subsubsection{RC circuit}
+At the initial DC steady-state (\(t < 0\)), a capacitor acts as an open-circuit.
+
+For a capacitor in a RC circuit, the time constant \(\tau\), which is defined as the time taken to reach \(1 - e^{-1} \approx\) \SI{63.2}{\percent} of the final value, is:
+\[
+  \tau_{RC} = R_T C
+\]
+where \(R_T\) is the equivalent resistance seen by the capacitor.
+
+\paragraph{Charging capacitor}
+In a charging capacitor, the charge \(q(t)\), the voltage \(\Delta v(t)\) across its terminals and the current \(i(t)\) passing through it are:
+\begin{align*}
+  q(t)        & = Q_\mathrm{max} \left( 1 - e^{-\frac{t}{\tau}} \right) = C \Delta V_C \left( 1 - e^{-\frac{t}{\tau}} \right)                      \\
+  \Delta v(t) & = \Delta V_C \left( 1 - e^{-\frac{t}{\tau}} \right) = \frac{Q_\mathrm{max}}{C} \left( 1 - e^{-\frac{t}{\tau}} \right)              \\
+  i(t)        & = I_\mathrm{max} e^{-\frac{t}{\tau}} = \frac{\Delta V_C }{R_T}e^{-\frac{t}{\tau}} = \frac{Q_\mathrm{max}}{\tau}e^{-\frac{t}{\tau}}
+\end{align*}
+
+
+\paragraph{Discharging capacitor}
+In a discharging capacitor, the charge \(q(t)\), the voltage \(\Delta v(t)\) across its terminals and the current \(i(t)\) passing through it are:
+\begin{align*}
+  q(t)        & = Q_\mathrm{max} e^{-\frac{t}{\tau}} = C \Delta V_C e^{-\frac{t}{\tau}}                                                              \\
+  \Delta v(t) & = \Delta V_C e^{-\frac{t}{\tau}} = \frac{Q_\mathrm{max}}{C} e^{-\frac{t}{\tau}}                                                      \\
+  i(t)        & = I_\mathrm{max} e^{-\frac{t}{\tau}} = \frac{\Delta V_C }{R_T} e^{-\frac{t}{\tau}} = \frac{Q_\mathrm{max}}{\tau} e^{-\frac{t}{\tau}}
+\end{align*}
+
+
+\subsubsection{RL circuit}
+At the initial DC steady-state (\(t < 0\)), an inductor as a short-circuit.
+For an inductor in a RL circuit, the time constant \(\tau\) is:
+\[
+  \tau_{RL} = \frac{L}{R_T}
+\]
+
+In the inductor, the current is as follows:
+\begin{align*}
+  i_\mathrm{increase}(t) & = I_\mathrm{max} \left( 1 - e^{-\frac{t}{\tau}} \right) = \frac{\Delta V_R }{R_T} \left( 1 - e^{-\frac{t}{\tau}} \right) \\
+  i_\mathrm{decrease}(t) & = I_\mathrm{max} e^{-\frac{t}{\tau}} = \frac{\Delta V_R }{R_T} e^{-\frac{t}{\tau}}                                       \\
+\end{align*}
+
+The power dissipated \(P_L\) and the energy stored in the magnetic field of and inductor \(E_L\) are:
+\begin{align*}
+  P_L & = L I \derivative{I}{t} \\
+  E_L & = \frac{1}{2} L I^2
+\end{align*}
+
+
+
+\subsection{Steps of analysis for RL and RC circuits}
+In these steps, \(x(t)\) represent either the voltage \(v(t)\) of the capacitor or the current \(i(t)\) of the inductor.
+\begin{enumerate}
+  \item Solve for the steady-state response of the circuit \(x(0)\) (\(t = 0\)) and \(x(\infty)\) (\(t \to \infty\));
+  \item Find the equivalent Thévenin resistor seen by the energy storage element (capacitor or inductor);
+  \item Solve for the time constant of the circuit;
+  \item Write the complete solution for the circuit in the form:
+        \[
+          x(t) = x(\infty) + [x(0) - x(\infty)]e^{-\frac{t}{\tau}}
+        \]
+\end{enumerate}
+
+
+
+\section{Diode}
+\subsection{Composition}
+A diode is composed of N-type and P-type semiconductors.
+
+
+\subsubsection{N-type semiconductor}
+N-type semiconductors are made of silicium as well as another atom that has 5 valence electrons (e.g. arsenic).
+The material is negatively charged due to electrons not being bounded to their atom.
+The extra electron becomes available to conduct current flow.
+
+
+
+\subsubsection{P-type semiconductor}
+P-type semiconductors are made of silicium as well as another atom that has 3 valence electrons (e.g. boron).
+The missing electron is referred as an electron hole, which means the material is positively charged.
+
+
+\subsubsection{The PN junction}
+At the junction of P-type and N-type semiconductors, a depletion region is formed, in which the free electrons of the N-type semiconductor have found a place in an electron hole of the P-type semiconductor.
+
+However once enough electrons have found their places, no more can cross this depletion zone since electrons need to go from positive to negative, which is the other way of their natural flow.
+
+A diode is made of P-type and N-type semiconductors, which is why when a sufficient voltage is applied from the anode (P-type) to the cathode (N-type), the diode is in forward bias and the electrons flow freely.
+However, if the voltage is applied the from the cathode to the anode, the diode is in reverse bias and no electrons flows.
+
+
+\subsubsection{Relations}
+The net diode current under forward bias is:
+\[
+  I_D = I_0 \left( e^{\frac{e \Delta V_D}{KT}} - 1\right)
+\]
+\[
+  \begin{array}{|l}
+    I_D [\si{\ampere}] \text{: diode current}                          \\
+    I_0 [\si{\ampere}] \text{: TODO}                                   \\
+    e = \SI{-1.6022e-19}{\coulomb} \text{: elementary charge}          \\
+    \Delta V_D [\si{\volt}] \text{: diode voltage}                     \\
+    K = \SI{1.3806e-23}{\joule\per\kelvin} \text{: Boltzmann constant} \\
+    T [\si{\kelvin}] \text{: operating temperature}
+  \end{array}
+\]
+
+\begin{remark}
+  \(\frac{KT}{e}\) = \SI{25e-3}{\volt} at room temperature (\SI{25}{\celsius}).
+\end{remark}
+
+
+
+\end{document}

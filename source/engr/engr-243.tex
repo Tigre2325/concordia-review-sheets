@@ -1,0 +1,1050 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{ENGR 243: Dynamics}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+% \renewcommand{\abstractname}{} % Change the abstract title
+
+\part{Kinematics}
+\section{Particles}
+Dynamics use equations that dictate the evolution of a system usually over time.
+From a mechanics perspective, dynamics is divided in two parts:
+\begin{description}
+  \item[Kinematics:] pure motion, displacement, velocity, acceleration, where the effects of mass and forces are ignored
+  \item[Kinetics:] the effects of mass, inertia and forces are considered
+\end{description}
+
+A particle is an object with a mass but no dimension.
+We use particles because engineering is all about approximation and simplification of a system and they let us simplify systems.
+
+
+\subsection{Rectilinear motion}
+\subsubsection{Position, velocity and acceleration}
+Important variable notations:
+\begin{itemize}
+  \item Position \(x\)
+  \item Velocity \(v = \dot{x}\)
+  \item Acceleration \(a = \dot{v} = \ddot{x}\)
+  \item Origin \(O\)
+  \item Time \(t\)
+\end{itemize}
+
+\paragraph{Position \(x\)}
+To express position, the basis need to be defined (origin and axis).
+Position is usually a function of time such as \(x = 6t^2 - t^3\).
+
+\paragraph{Velocity \(v\)}
+The velocity is the change of position over time.
+\begin{itemize}
+  \item Average velocity: \(v_\mathrm{avg} = \frac{\Delta x}{\Delta t}\)
+  \item Instantaneous velocity: \(v = \derivative{x}{t}\)
+\end{itemize}
+
+\paragraph{Acceleration \(a\)}
+The acceleration is the change of velocity over time.
+\begin{itemize}
+  \item Average acceleration: \(a_\mathrm{avg} = \frac{\Delta v}{\Delta t}\)
+  \item Instantaneous acceleration: \(a = \derivative{v}{t} = \nderivative{2}{x}{t} = v \derivative{v}{x}\)
+\end{itemize}
+
+Determining increasing and decreasing velocity (acceleration and deceleration)
+\begin{itemize}
+  \item If \(a\) and \(v\) have the same signs, then \(v\) increases with time
+  \item If \(a\) and \(v\) have opposite signs, then \(v\) is decreasing with time
+\end{itemize}
+
+\begin{remark}
+  The derivative of acceleration is called "jerk" \(j\) and \(j = \nderivative{3}{x}{t} = \dddot{x}\)
+\end{remark}
+
+
+\subsubsection{Determining the motion of a particle}
+In this part, we will figure out how a particle moves given the initial conditions.
+Thus, we use integration with respect to time, letting us to get velocity from acceleration and position from velocity.
+
+\paragraph{Acceleration as a function of time}
+Let us first compute the velocity \(v\).
+Given acceleration \(a = f(t) = \derivative{v}{t}\), we will find the velocity \(v\) and the position \(x\):
+\[
+  v = \int{a \diffint{t}} = \int{f(t) \diffint{t}}
+\]
+
+To define a system uniquely, we use definite integrals with integration limits (get rid of the \(+ C\)):
+\[
+  v_2 - v_1 = \int_{t_1}^{t_2}{a \diffint{t}} = \int_{t_1}^{t_2}{f(t) \diffint{t}}
+\]
+
+By setting lower limits as initial conditions (i.e. \(t_1 = t_0\) and \(v_1 = v_0\)), and setting upper limits as variables (i.e. \(t_2 = t\) and \(v_2 = v\)), we get:
+\[
+  v = \int_{t_0}^t {a \diffint{t}} + v_0 = \int_{t_0}^t {f(t) \diffint{t}} + v_0
+\]
+
+Then, we look at the position \(x\).
+Similarly to the velocity, we have:
+\begin{align*}
+  x & = \int_{t_0}^t {v \diffint{t}} + x_0                                           \\
+    & = \int_{t_0}^t {\left( \int_{t_0}^t {a \diffint{t}} + v_0 \right) \diffint{t}} \\
+    & = \iint_{t_0}^t {a \diffint{t}^2} + v_0 \left( t - t_0 \right) + x_0
+\end{align*}
+
+\paragraph{Acceleration as a function of position}
+Recall that \(a = v \derivative{v}{x}\), which leads to get the velocity as:
+\[
+  v^2 = 2\int_{x_0}^x {a \diffint{x}} + {v_0}^2
+\]
+
+\paragraph{Acceleration as a function of velocity}
+Again using \(a = v \derivative{v}{x}\), we have
+\[
+  \int{\diffint{x}} = \int{\frac{v}{a} \diffint{v}}
+\]
+
+Problem solving strategy:
+\begin{enumerate}
+  \item Define the coordinate system (origin and coordinate axes)
+  \item Write down the assumptions, the knowns and the unknowns
+  \item Determine the high lever problem solving sequence (the general steps to solve)
+  \item Solve the problem
+\end{enumerate}
+
+
+\subsection{Special cases and relative motion}
+\subsubsection{Gravity}
+Assumptions:
+\begin{itemize}
+  \item constant acceleration
+  \item object is in free fall
+\end{itemize}
+\[
+  a = -g = -\SI{9.81}{\metre\per\second} = -32.2 ft/s^2
+\]
+
+\paragraph{Function of time \(t\)}
+\begin{align*}
+  a(t) & = -g = \derivative{v}{t}                          \\
+  v(t) & = -g(t - t_0) + v_0                               \\
+  x(t) & = -\frac{1}{2} g (t - t_0)^2 + v_0(t - t_0) + x_0
+\end{align*}
+
+\paragraph{Function of postion \(x\)}
+\begin{align*}
+  a(x) & = -g = v \derivative{v}{x}     \\
+  v(x) & = \sqrt{{v_0}^2 - 2g(x - x_0)}
+\end{align*}
+
+
+\subsubsection{Motion of several particles}
+The relative position of \(B\) with respect to a point \(A\) is \(x_{B/A} = x_B - x_A\).
+The relative velocity of \(B\) with respect to point \(A\) is \(v_{B/A} = v_B - v_A\).
+The relative acceleration of \(B\) with respect to point \(A\) is \(a_{B/A} = a_B - a_A\).
+
+\begin{remark}
+  Understanding the signs:
+  \begin{itemize}
+    \item \(x_{B/A} > 0\) means \(B\) is on the positive side of \(A\)
+    \item \(v_{B/A} > 0\) means \(B\) is moving in the positive direction compared to \(A\)
+    \item \(q_{B/A} > 0\) means \(B\) is accelerating in the positive direction compared to \(A\)
+  \end{itemize}
+\end{remark}
+Sometimes, the motion of particles are dependent on each other (ex: pulleys, gears).
+This is called \emph{dependent motion} and can be related mathematically by the constraint equation.
+
+In a system with 2 pulleys, there is only one degree of freedom in the system: \(x_A + 2x_B = l\), where \(l\) is the length of the rope.
+In a system with 4 pulleys, there are two degree of freedom in the system, implying:
+\begin{align*}
+  2x_A + 2x_B + x_C = l \\
+  2v_A + 2v_B + v_C = 0 \\
+  2a_A + 2a_B + a_C = 0
+\end{align*}
+
+\addtocounter{subsection}{1}
+\subsection{Curvilinear motion of particles}
+In order to describe a motion in more than one dimension, we use the position vector \(\vec{p}\).
+The velocity vector \(\vec{v}\) is always tangent to the path of the particle.
+Now, we can better define the speed as \(\normvec{v} = \sqrt{x^2 + y^2 + z ^2}\).
+The effect of acceleration is now more important: it can change the velocity's direction \emph{and/or} magnitude.
+
+\begin{remark}
+  By bringing the velocity vectors to a common origin, they form a curve called hodograph and the acceleration is tangent to this curve.
+\end{remark}
+
+Combining motion in more that a dimension and relative motion, we have the following relations:
+\begin{align*}
+  \vec{p}_B & = \vec{p}_A + \vec{p}_{B/A} \\
+  \vec{v}_B & = \vec{v}_A + \vec{v}_{B/A} \\
+  \vec{a}_B & = \vec{a}_A + \vec{a}_{B/A}
+\end{align*}
+This only works when there no rotation of the axes at \(A\).
+
+
+\subsubsection{Projectile motion}
+For a projectile motion where air resistance in negligible, we have on the \(x\)-axis
+\[
+  x = v_{x,0}(t - t_0) + x_0
+\]
+and on the \(y\)-axis (\(a_y = -g\))
+\begin{align*}
+  y     & = \frac{1}{2}a_y(t - t_0)^2 + v_{y,0}(t - t_0) + y_0 \\
+  v_y   & = a_y(t - t_0) + v_{y,0}                             \\
+  v_y^2 & = 2a_y(y - y_0) + {v_{y,0}}^2
+\end{align*}
+
+
+\subsection{Non-rectangular components}
+\subsubsection{Tangential and normal components}
+Tangential and normal unit vectors \(\hat{\mathrm{e}}_t\) and \(\hat{\mathrm{e}}_n\) can be defined at the position of the particle.
+Using these, we have
+\begin{align*}
+  \vec{v} & = v\hat{\mathrm{e}}_t                                                                                                      \\
+  \vec{a} & = a_t\hat{\mathrm{e}}_t + a_n\hat{\mathrm{e}}_n = \derivative{v}{t}\hat{\mathrm{e}}_t + \frac{v^2}{\rho}\hat{\mathrm{e}}_n
+\end{align*}
+where \(\rho\) is the radius of curvature of the path.
+
+
+\subsubsection{Radial and transverse components}
+\paragraph{Polar coordinates}
+Radial and transverse components are use in the polar coordinates system so the position is a function of the radius \(r\) and the angle \(\theta\).
+
+The radial component is defined by the unit vector \(\hat{\mathrm{e}}_r\) which defined the radial direction, always pointing from the origin to the particle.
+The transverse component is defined by the unit vector \(\hat{\mathrm{e}}_\theta\) and is always normal to \(\hat{e}_r\).
+
+Thus we get
+\begin{align*}
+  \vec{p} & = r\hat{\mathrm{e}}_r                                                                                                                       \\
+  \vec{v} & = \dot{r}\hat{\mathrm{e}}_r + r\dot{\theta}\hat{\mathrm{e}}_\theta                                                                          \\
+  \vec{a} & = \left( \ddot{r} - r\dot{\theta}^2 \right)\hat{\mathrm{e}}_r + \left( r\ddot{\theta} + 2\dot{r}\dot{\theta} \right)\hat{\mathrm{e}}_\theta
+\end{align*}
+
+\paragraph{Cylindrical coordinates}
+In cylindrical coordinates, we simply have
+\begin{align*}
+  \vec{p} & = r\hat{\mathrm{e}}_r + z\kvec                                                                                                                              \\
+  \vec{v} & = \dot{r}\hat{\mathrm{e}}_r + r\dot{\theta}\hat{\mathrm{e}}_\theta + \dot{z}\kvec                                                                           \\
+  \vec{a} & = \left( \ddot{r} - r\dot{\theta}^2 \right)\hat{\mathrm{e}}_r + \left( r\ddot{\theta} + 2\dot{r}\dot{\theta} \right)\hat{\mathrm{e}}_\theta + \ddot{z}\kvec
+\end{align*}
+
+
+\section{Rigid bodies}
+A rigid body can be analysed as a group of particles that have fixed relative position.
+
+% 1cm = 10mm = 28pt = 1/2.54in
+\begin{table}[h!] % Options: b (bottom), t (top), h (here), ! (insist)
+  \caption{Difference particle vs. rigid body}
+  % \label{tab:}
+  \begin{center}
+    \centering % Horizontal alignment of the table
+    \begin{tabular}{ % Number of letter (l: left, c: center, r: right) = number of column
+        c|c|c
+      }
+      % Visible row border: \hline (needed for each row)
+      % Visible column border: | next to tabular declaration (needed for each column)
+      % Column separation: &, row separation: \\
+
+                     & Particle & Rigid body \\
+      \hline
+      Mass           & Yes      & Yes        \\
+      \hline
+      Dimension      & No       & Yes        \\
+      \hline
+      Translation    & Yes      & Yes        \\
+      \hline
+      Rotation       & No       & Yes        \\
+      \hline
+      Changes shapes & -        & No
+    \end{tabular}
+  \end{center}
+\end{table}
+
+
+\subsection{Translation and fixed-axis rotation of rigid bodies}
+Rectilinear translation:
+\begin{itemize}
+  \item all particles have the same path
+  \item the path is a straight line
+  \item the orientation is maintained
+\end{itemize}
+
+Curvilinear translation:
+\begin{itemize}
+  \item all particle have the same path
+  \item the path is a curved line
+  \item the orientation is maintained
+\end{itemize}
+
+Fixed-axis rotation:
+\begin{itemize}
+  \item Has a single axis of rotation
+  \item not all particle have the same path
+  \item paths are circular about the axis of rotation
+\end{itemize}
+
+
+\subsubsection{Translation}
+The relative position between to particles in the rigid body is constant.
+This implies all points have the same velocities and accelerations, which equal to the velocity and acceleration of the body.
+
+
+\subsubsection{Rotation about a fixed-axis}
+Every particles have a constant radius between their position and the axis of rotation.
+Also, the angle \(\phi\) between the position \(\vec{p}\) and the axis of rotation is constant.
+
+The relation between arc length \(s\) and the angle \(\theta\) in a circle is \(s = R\theta = \normvec{p}\sin(\phi)\theta\) with R the radius from the axis of rotation to \(P\).
+
+The velocity of the particle is \(v = R\dot{\theta} = \normvec{p}\sin(\phi)\dot{\theta}\).
+
+Angular components:
+\begin{align*}
+  \vec{\omega} & = \vec{\dot{\theta}}                       \\
+  \vec{\alpha} & = \vec{\dot{\omega}} = \vec{\ddot{\theta}}
+\end{align*}
+
+Linear components:
+\begin{align*}
+  \vec{v} & = \vec{\omega} \times \vec{p}                                                                                                                              \\
+  \vec{a} & = \vec{\alpha} \times \vec{p} + \vec{\omega} \times \vec{v} = \vec{\alpha} \times \vec{p} + \vec{\omega} \times \left( \vec{\omega} \times \vec{p} \right)
+\end{align*}
+where \(\vec{\alpha} \times \vec{p}\) is the tangential acceleration and \(\vec{\omega} \times \vec{v}\) is the normal acceleration.
+
+In the special case of planar movement, we have
+\begin{align*}
+  a_N & = r\omega^2 \text{ pointing to the center of rotation}     \\
+  a_T & = r\alpha \text{ perpendicular to the normal acceleration}
+\end{align*}
+
+
+\subsubsection{Equations defining rotation}
+By assuming constant acceleration \(\alpha\)
+\begin{align*}
+  \omega(t)      & = \alpha (t - t_0) + \omega_0                                   \\
+  \theta(t)      & = \frac{1}{2} \alpha (t - t_0)^2 + \omega_0(t - t_0) + \theta_0 \\
+  \omega(\theta) & = \sqrt{{\omega_0}^2 + 2\alpha(\theta - \theta_0)}
+\end{align*}
+
+
+\subsection{General plane motion - velocity}
+The general plane motion can be break down into translational and rotational components.
+The motion breakdown can be non-unique, it depends on the reference point that is chosen.
+
+Breaking down plane motion in general:
+\begin{enumerate}
+  \item Pick a reference point \(A_1\)
+  \item Translate body such that point \(A_1\) reaches its desired position \(A_2\)
+  \item Rotate about \(A_2\) until point \(B_1'\) reach the desired position \(B_2\)
+\end{enumerate}
+
+For the general plane motion, the velocity between points on a rigid body is
+\[
+  \vec{v}_B = \vec{v}_A + \vec{\omega} \times \vec{p}_{B/A}
+\]
+
+The angular velocity \(\omega\) of a rigid body in plane motion is independent of the reference point, meaning the angular velocity of the entire body is \(\omega\) no matter where we are.
+Moreover, any rigid bodies that are in contact with each other must have the same absolute velocity.
+
+
+\subsection{Instantaneous center of rotation}
+Another way to represent motion is using the instantaneous center of rotation (instantaneous center of zero velocity): there exists a point \(C\) where the generalized motion of a rigid body can be described purely as a rotation about that point.
+This is a shortcut for calculating angular velocity of rigid body or linear velocities of points on the rigid body.
+
+At \(C\), we would have
+\[
+  \omega = \frac{v_A}{\Normvec{AC}}
+\]
+
+A pure translation in this representation is represented with \(C\) at infinity, and an angular velocity \(\omega = 0\).
+Instantaneous center of rotation representation is restricted ot rigid bodies since they do not deform, and it is only valid for calculating instantaneous velocities, but not the acceleration.
+The path draw by the instantaneous center of rotation is called "space centrode".
+
+
+\subsection{General plane motion - acceleration}
+As with velocity, the general plane motion can be broken down into translation and rotation, but with acceleration, we use the normal and tangential acceleration because the path is a circle, and when working with circles, those acceleration are easier to use.
+
+By choosing \(A\) as the reference point, we still use \(\vec{a}_B = \vec{a}_A + \vec{a}_{B/A}\), but now we have
+\[
+  \vec{a}_{B/A} = \vec{\alpha}_{AB} \times \vec{p}_{B/A} + \vec{\omega}_{AB} \times \left( \vec{\omega}_{AB} \times \vec{p}_{B/A} \right)
+\]
+meaning, in the end, we can get \(\vec{a}_B\) in general plane motion:
+\[
+  \vec{a}_B = \vec{a}_A + \vec{\alpha}_{AB} \times \vec{p}_{B/A} + \vec{\omega}_{AB} \times \left( \vec{\omega}_{AB} \times \vec{p}_{B/A} \right)
+\]
+
+
+\subsubsection{Bodies in contact}
+Pin-connected bodies (rotary joints) must have the same absolute acceleration at the point of connection.
+For meshed gears, they have the same tangential acceleration at the point of contact, but their normal acceleration is different.
+
+
+\subsubsection{Four-bar linkages}
+The purpose of four-bar linkages is to convert a uniform rotary motion into other cyclical motion:
+\begin{itemize}
+  \item ground/fixed link which does not move
+  \item crank which fully rotates 360° (usually the input and sometimes the output)
+  \item coupler which is the link joining other link (usually non-circular motion)
+  \item Rocker which has a non 360° periodic motion
+\end{itemize}
+
+
+\subsection{Motion with respect to rotating frames}
+\subsubsection{Frames of reference, coordinate frames}
+A frame of reference is a coordinate frames that are not necessarily fixed.
+In planar motion, the 2 types of coordinate frames are rectangular or polar frames, and in space motion, the 3 types of coordinate frames are rectangular, cylindrical and spherical frames.
+
+Let \(\vec{Q}(t)\) a vector changing with time, \(R\) a rotating frame of angular velocity \(\Omega\) to which the unit vectors \(\ivec\), \(\jvec\) and \(\kvec\) are attached, and \(F\) a fixed frame.
+Thus with respect to the rotating frame \(R\), we have:
+\begin{align*}
+  \frames{\vec{Q}}{R}                 & = Q_x \ivec + Q_y \jvec + Q_z \kvec                   \\
+  \frames{\derivative{\vec{Q}}{t}}{R} & = \dot{Q_x} \ivec + \dot{Q_y} \jvec + \dot{Q_z} \kvec
+\end{align*}
+
+But with respect to the fixed frame \(F\):
+\begin{align*}
+  \frames{\vec{Q}}{F}                 & = Q_x \ivec + Q_y \jvec + Q_z \kvec                                                                                                       \\
+  \frames{\derivative{\vec{Q}}{t}}{F} & = \dot{Q_x} \ivec + \dot{Q_y} \jvec + \dot{Q_z} \kvec + Q_x \derivative{\ivec}{t} + Q_y \derivative{\jvec}{t} + Q_z \derivative{\kvec}{t} \\
+                                      & = \left( \dot{\vec{Q}} \right)_R + \vec{\Omega} \times \vec{Q}
+\end{align*}
+
+
+\subsubsection{Plane motion of a partical relative to a rotating frame}
+Let a particle \(P\), a rotating frame \(R\) and a fixed frame \(F\) both centered at \(O\), then
+\[
+  \vec{v}_P = \vec{v}_O + \vec{\Omega} \times \vec{p}_{P/O} + \frames{\vec{v}_{P/O}}{R}
+\]
+\[
+  \begin{array}{|l}
+    \vec{v}_P [\si{\metre\per\second}] \text{: velocity of } P \text{ in } F                                            \\
+    \vec{v}_O [\si{\metre\per\second}] \text{: velocity of } O \text{ in } F                                            \\
+    \vec{\Omega} [\si{\radian\per\second}] \text{: angular velocity of } R                                              \\
+    \vec{p}_{P/O} [\si{\metre}] \text{: position of } P \text{ with respect to } O                                      \\
+    \frames{\vec{v}_{P/O}}{R} [\si{\metre\per\second}] \text{: velocity of } P \text{ with respect to } O \text{ in } R \\
+  \end{array}
+\]
+
+
+\subsubsection{Acceleration in rotating frames}
+Let a particle \(P\), a rotating frame \(R\) and a fixed frame \(F\) both centered at \(O\), then
+\begin{multline*}
+  \vec{a}_P = \vec{a}_O + \dot{\vec{\Omega}} \times \vec{p}_{P/O} + \vec{\Omega} \times \left( \vec{\Omega} \times \vec{p}_{P/O} \right) \\
+  + 2\vec{\Omega} \times \frames{\vec{v}_{P/O}}{R} + \frames{\vec{a}_{P/O}}{R}
+\end{multline*}
+\[
+  \begin{array}{|l}
+    \vec{a}_P [\si{\metre\per\second}] \text{: acceleration of } P \text{ in } F                                        \\
+    \vec{a}_O [\si{\metre\per\second}] \text{: acceleration of } O \text{ in } F                                        \\
+    \vec{\Omega} [\si{\radian\per\second}] \text{: angular velocity of } R                                              \\
+    \vec{p}_{P/O} [\si{\metre}] \text{: position of } P \text{ with respect to } O                                      \\
+    \frames{\vec{v}_{P/O}}{R} [\si{\metre\per\second}] \text{: velocity of } P \text{ with respect to } O \text{ in } R \\
+    \frames{\vec{a}_{P/O}}{R} [\si{\metre\per\second}] \text{: acceleration of } P                                      \\
+    \text{ with respect to } O \text{ in } R                                                                            \\
+  \end{array}
+\]
+
+
+\subsubsection{Coriolis acceleration}
+Coriolis acceleration \(\vec{a}_\mathrm{coriolis}\) is due to the change of velocity when a particle change its radius of motion:
+\[
+  \vec{a}_\mathrm{coriolis} = 2\vec{\Omega} \times \frames{\vec{v}_{P/O}}{R}
+\]
+\[
+  \begin{array}{|l}
+    \vec{a}_\mathrm{coriolis} [\si{\metre\per\second}] \text{: coriolis acceleration}                                   \\
+    \vec{\Omega} [\si{\radian\per\second}] \text{: angular velocity of } R                                              \\
+    \frames{\vec{v}_{P/O}}{R} [\si{\metre\per\second}] \text{: velocity of } P \text{ with respect to } O \text{ in } R \\
+  \end{array}
+\]
+
+\part{Kinetics: Newton's Second Law in general plane motion}
+\section{Particles}
+\subsection{Newton's second law and linear momentum}
+Newton's second law states that \(\sum{\vec{F}} = m \vec{a}\).
+In statics, we had \(\vec{a} = \vec{0}\) and thus Newton's second law became Newton's first law.
+
+By defining linear momentum as \(\vec{L} = m \vec{v}\), then Newton's second law becomes  \(\sum{\vec{F}} = \dot{\vec{L}}\).
+
+
+\subsection{Angular momentum and orbital motion}
+The angular momentum of a rotating object measures how hard it is to stop such rotating object when it is in motion.
+We define angular momentum as
+\[
+  \vec{H}_O = \vec{p}_{P/O} \times m\vec{v}_{P/O}
+\]
+\[
+  \begin{array}{|l}
+    \vec{H}_O [\si{unit}] \text{: angular momentum at } O                                     \\
+    \vec{p}_{P/O} [\si{\metre}] \text{: position of } P \text{ with respect to } O            \\
+    m [\si{\kilogram}] \text{: mass of the rotating object}                                   \\
+    \vec{v}_{P/O} [\si{\metre\per\second}] \text{: velocity of } P \text{ with respect to } O \\
+  \end{array}
+\]
+
+% Comparison table
+
+
+\subsubsection{Components of angular momentum}
+In cartesian coordinates, we have \(\vec{H} = \vec{p} \times m \vec{v}\), while in polar coordinates, the angular momentum is \(H = m r^2 \dot{\theta}\) in the direction perpendicular to the plane.
+
+
+\subsubsection{Newton's second law for angular motion}
+Newton's second law for angular motion is \(\sum{\vec{M}_O} = \dot{\vec{H}}_O\), which is very similar to Newton's second law for linear motion \(\sum{\vec{F}} = \dot{\vec{L}}\).
+
+
+\subsubsection{Central force}
+A net force \(\vec{F}\) applied on a particle \(P\) directed towards point is called a central force.
+This force does not change the angular momentum because \(\vec{F}\) does not create any moment around \(O\).
+
+
+\subsubsection{Newton's law of gravitation}
+Newton's law of universal gravitation states that:
+Two particles of masses \(M\) and \(m\) at a distance \(r\) from each other have a mutual attraction  of equal and opposite forces \(\vec{F}\) and \(-\vec{F}\) directed along the line joining the particles.
+Thus, we have
+\[
+  F = G \frac{m_1 m_2}{r^2}
+\]
+\[
+  \begin{array}{|l}
+    F [\si{\newton}] \text{: gravitation force}                      \\
+    G = \SI{66.73 e-12}{\metre\squared\per\kilogram\per\sec\squared} \\
+    m [\si{\kilogram}] \text{: mass of the objects}                  \\
+    r [\si{\metre}] \text{: distance between the objects}
+  \end{array}
+\]
+
+Using this equation, we can find that on Earth, \(GM = gR^2\) where \(R = \SI{6.373 e+6}{\metre}\) is the Earth radius and \(g = \SI{9.81}{\metre\per\second\squared}\).
+
+
+\section{Rigid bodies}
+\subsection{Kinetics of rigid bodies}
+Now, we will take the body shape into account when analyzing effect of forces on a mass.
+\(G\) is defined as the center of mass, and we will use the following equations:
+\begin{align*}
+  \sum{\vec{F}}   & = \dot{\vec{L}} = m\vec{a}_G \\
+  \sum{\vec{M}_G} & = \dot{\vec{H}}_G
+\end{align*}
+
+
+\subsubsection{Angular momentum of a rigid body in plane motion}
+The angular momentum of a rigid body in plane motion can be defined using its mass moment of inertia \(I_G\):
+\[
+  \vec{H}_G = I_G \vec{\omega}
+\]
+which implies that in plane motion, \(\sum{\vec{M}_G} = I_G \vec{\alpha}\).
+
+
+\paragraph{Mass moment of inertia \(I\)}
+For rigid bodies, the shape and reference point influences the moment of inertia.
+
+For any arbitrary point \(P\), the parallel axis theorem states \(I_P = I_G + md^2\) where \(d\) is the perpendicular (shortest) distance between \(P\) and \(G\).
+
+
+\paragraph{Radius of gyration}
+The radius of gyration is defined as \(k = \sqrt{\frac{I_G}{m}}\) and is the distance at which a point with same mass would give the same moment of inertia \(I = k^2 m\).
+
+The parallel axis theorem in this case becomes \({k_P}^2 = {k_G}^2 + d^2\).
+
+
+\subsubsection{Kinetics of rigid bodies in plane motion}
+Here, only motion \(xy\)-plane and rotation about \(z\)-axis are considered.
+The motion of the rigid body is completely defined by the resultant force and resultant moment about \(G\) acting on the body.
+Thus, in plane motion, we have the following equations at the center of gravity \(G\):
+\begin{align*}
+   & \text{In } \vec{x}:\sum{F_x} = m a_{G,x}  \\
+   & \text{In } \vec{y}:\sum{F_y} = m a_{G,y}  \\
+   & \text{In } \vec{z}:\sum{M_G} = I_G \alpha
+\end{align*}
+
+
+\subsubsection{Using other points of reference}
+We can choose any arbitrary point \(P\) of reference to sum moments.
+About \(G\): \(\sum{\vec{M}_G} = I_G \vec{\alpha}\)
+About \(P\): \(\sum{\vec{M}_P} = \sum{\vec{M}_G} + \vec{p}_{G/P} \times m\vec{a}_G\)
+
+
+\subsubsection{Static friction and kinetic friction}
+Friction is a resistive force that opposes motion and it depends on the normal force \(\vec{N}\).
+\begin{description}
+  \item[Static friction:] the object is not moving (\(v = 0\)): \(F_s \leqslant \mu_s N\) and the direction is opposite to the applied force.
+  \item[Kinetic friction:] the object is moving:  \(F_k = \mu_k N\) and the direction is opposite to velocity.
+\end{description}
+
+
+\paragraph{Rolling motion}
+\begin{description}
+  \item[Rolling, no sliding:] \(F_s \leqslant \mu_s N\) and \(a_G = r\alpha\)
+  \item[Rolling, sliding impending:] \(F_s = \mu_s N\) and \(a_G = r\alpha\)
+  \item[Rolling, sliding:] \(F_k = \mu_k N\) and \(a_G\), \(\alpha\) independent
+\end{description}
+
+
+\subsection{Constrained plane motion}
+\paragraph{Unbalanced disk}
+For an unbalanced disk, the center of mass \(G\) and the centroid \(O\) are not at the same position, thus:
+\[
+  \vec{a}_G = \vec{a}_O + \vec{\alpha}_{OG} \times \vec{p}_{G/O} + \vec{\omega}_{OG} \times \left( \vec{\omega}_{OG} \times \vec{p}_{G/O} \right)
+\]
+
+
+\part{Kinetics: energy method in general plane motion}
+\section{Particles}
+\subsection{Work and energy}
+Work \(W\) is the energy transferred to or from an object via the application of force along a displacement.
+It is a scalar: positive when the force is in the same the direction of motion and negative when the force is in the opposite direction of motion.
+\[
+  W_{1 \to 2} = \int_1^2{\vec{F} \bullet \diffint{\vec{p}}}
+\]
+
+\subsubsection{Principle of work and energy}
+In an absolute reference frame, using Newton's Second Law, we can get that the work of a tangential force along a displacement of a mass is:
+\[
+  W_{1 \to 2} = \frac{1}{2}m \left( {v_2}^2 - {v_1}^2 \right) = E_\mathrm{kinetic,2} - E_\mathrm{kinetic,1}
+\]
+
+\subsubsection{Power}
+Power is defined as the time rate at which work is done:
+\[
+  P = \dot{W} = \derivative{W}{t} = \vec{F} \bullet \vec{v}
+\]
+
+\begin{remark}
+  1 hp = 550 \(\mathrm{ft} \cdot \mathrm{lb} \cdot \mathrm{s}^{-1}\) = 550 \(\times\) 1.356 \(\si{\watt}\)
+\end{remark}
+
+
+\subsubsection{Mechanical efficiency}
+The mechanical efficiency is defined as:
+\[
+  \eta = \frac{\dot{W}_\mathrm{out}}{\dot{W}_\mathrm{in}}
+\]
+
+
+\subsection{Conservation of energy}
+Energy can be transformed from one type to another, but energy is never created nor lost.
+It is a property of the state of an object at a particular point in time and space.
+When changing energy states, work occurs.
+
+
+\subsubsection{Potential energy}
+The potential energy is "stored" energy that has the potential to be converted back into another type of energy (usually kinetic energy).
+
+\paragraph{Gravitational potential energy}
+The gravitational potential energy \(E_\mathrm{g}\) is energy stored from the elevation of a mass:
+\[
+  E_\mathrm{g} = mgz
+\]
+\[
+  \begin{array}{|l}
+    E_\mathrm{g} [\si{\joule}] \text{: gravitational potential energy}     \\
+    m [\si{\kilogram}] \text{: object mass}                                \\
+    g [\si{\meter\per\second\squared}] \text{: gravitational acceleration} \\
+    z [\si{\metre}] \text{: elevation from the ground}                     \\
+  \end{array}
+\]
+
+
+\paragraph{Elastic potential energy}
+The elastic potential energy \(E_\mathrm{e}\) is defined as:
+\[
+  E_\mathrm{e} = \frac{1}{2}kx^2
+\]
+\[
+  \begin{array}{|l}
+    E_\mathrm{e} [\si{\joule}] \text{: elastic potential energy}       \\
+    k [\si{\newton\per\meter}] \text{: spring constant}                \\
+    x [\si{\meter\per\second\squared}] \text{: spring deflection from} \\
+    \text{the non-deformed position}                                   \\
+  \end{array}
+\]
+
+Thus the work of the spring is:
+\[
+  W_\mathrm{1 \to 2, e} = \frac{1}{2} k \left( {x_1}^2 - {x_2}^2 \right) = - \frac{1}{2} (F_1 + F_2) (x_2 - x_1)
+\]
+where \(F = kx\)
+
+\subsubsection{Conservative forces}
+A conservative force is a force with the property that the total work done in moving a particle between two points is independent of the path taken.
+
+\begin{example}
+  Gravity, elastic and magnetic forces are conservative while friction is a non-conservative force.
+\end{example}
+
+
+\subsubsection{Principle of conservation of energy}
+Since energy can only be converted, then the energy between two states must be conserved (without friction):
+\[
+  E_\mathrm{k,1} + E_\mathrm{g,1} + E_\mathrm{e,1} = E_\mathrm{k,2} + E_\mathrm{g,2} + E_\mathrm{e,2}
+\]
+\[
+  \begin{array}{|l}
+    E_\mathrm{k} [\si{\joule}] \text{: kinetic energy}               \\
+    E_\mathrm{g} [\si{\joule}] \text{: gravitation potential energy} \\
+    E_\mathrm{e} [\si{\joule}] \text{: elastic potential energy}     \\
+  \end{array}
+\]
+
+\subsubsection{Energy loss from friction}
+Friction forces being non-conservative, the total mechanical energy is not conserved, thus a term needs to be added in the equation:
+\[
+  E_\mathrm{k,1} + E_\mathrm{g,1} + E_\mathrm{e,1} + W_\mathrm{1 \to 2, nc} = E_\mathrm{k,2} + E_\mathrm{g,2} + E_\mathrm{e,2}
+\]
+where \(W_\mathrm{1 \to 2, nc}\) is the work done by the non-conservative forces.
+
+
+\section{Rigid bodies}
+\subsection{Principle of work and energy}
+The principle of work and energy is the same for rigid bodies as for a particle:
+\[
+  E_\mathrm{kinetic,1} + W_{1 \to 2} = E_\mathrm{kinetic,2}
+\]
+
+\subsection{Work of forces acting on a rigid body}
+For a displacement force, the work of forces acting on a rigid body is:
+\[
+  W_{1 \to 2,\mathrm{displacement}} = \int_1^2{\vec{F} \bullet \diffint{\vec{p}}}
+\]
+
+However, now we also have to account for moments as we are dealing with rigid bodies:
+\[
+  W_{1 \to 2,\mathrm{rotation}} = \int_1^2{\normvec{M} \diffint{\theta}}
+\]
+
+\begin{remark}
+  Some forces do no work: normal forces, support forces, friction force in rolling without sliding.
+\end{remark}
+
+\subsection{Kinetic energy of a rigid body in plane motion}
+The kinetic energy of a rigid body in general plane motion is broken down into two components (the translation part and the rotation part):
+\[
+  E_\mathrm{k} = \frac{1}{2} m {v_G}^2 + \frac{1}{2} I_G \omega^2
+\]
+
+
+\subsection{Conservation of energy}
+The principle of conservation of energy for rigid bodies is the same as for particles.
+Without friction:
+\[
+  E_\mathrm{k,1} + E_\mathrm{g,1} + E_\mathrm{e,1} = E_\mathrm{k,2} + E_\mathrm{g,2} + E_\mathrm{e,2}
+\]
+\[
+  \begin{array}{|l}
+    E_\mathrm{k} [\si{\joule}] \text{: kinetic energy}               \\
+    E_\mathrm{g} [\si{\joule}] \text{: gravitation potential energy} \\
+    E_\mathrm{e} [\si{\joule}] \text{: elastic potential energy}     \\
+  \end{array}
+\]
+
+With friction:
+\[
+  E_\mathrm{k,1} + E_\mathrm{g,1} + E_\mathrm{e,1} + W_\mathrm{1 \to 2, nc} = E_\mathrm{k,2} + E_\mathrm{g,2} + E_\mathrm{e,2}
+\]
+where \(W_\mathrm{1 \to 2, nc}\) is the work done by the non-conservative forces.
+
+
+\subsection{Power}
+The power of forces in general plane motion on a rigid body is divided into two components, linear and angular:
+\begin{align*}
+  \dot{W}_\mathrm{linear}  & = \vec{F} \bullet \vec{v}_G \\
+  \dot{W}_\mathrm{angular} & = M_G \omega
+\end{align*}
+
+
+\part{Kinetics: momentum method in general plane motion}
+\section{Particles}
+\subsection{Impulse and momentum of particles}
+Recall the equations of momentum:
+\begin{align*}
+  \sum{\vec{F}}   & = \dot{\vec{L}} = \derivative{}{t}[m\vec{v}]                  \\
+  \sum{\vec{M}_G} & = \dot{\vec{H}}_G = \derivative{}{t}[\vec{p} \times m\vec{v}]
+\end{align*}
+
+An impulse quantifies the overall effect of a force acting over time:
+\[
+  \vec{J}_{1 \to 2} = \int_1^2{\vec{F} \diffint{t}}
+\]
+Thus the linear momentum equation becomes:
+\[
+  m\vec{v}_1 + \vec{J}_{1 \to 2} = m\vec{v}_2
+\]
+
+Impulse and momentum method is used with impacts and collisions.
+
+
+\subsubsection{Conservation of linear momentum}
+In the absence of external impulses, total momentum of particles is conserved:
+\[
+  m\vec{v}_1 = m\vec{v}_2
+\]
+
+
+\subsubsection{Impulsive motion and impulsive forces}
+In certain cases, impulses and changes in momentum occur in very short time frames where \(\Delta t \approx 0\).
+Thus slow acting forces such as weight or springs can be ignored.
+Forces acting on a particle during a very short time interval but large enough to produce a definite change in momentum are called \emph{impulsive forces} that result in \emph{impulsive motion}.
+
+
+
+\subsection{Impacts of particles}
+An impact is defined as two bodies that collide with each other with significant force acting on each other.
+
+\begin{description}
+  \item[Line of impact:] common normal to the surfaces in contact during impact
+  \item[Central impact:] the mass centers of the two bodies lie on the line of impact
+  \item[Eccentric impact:] the mass centers of the two bodies does not lie on the line of impact
+  \item[Oblique impact:] impact for which one or both of the bodies move along a line other than the line of impact
+\end{description}
+
+
+\subsubsection{Direct central impact}
+There are 3 stages of impacts:
+\begin{enumerate}
+  \item Before impact, the distance between the object is narrowing
+  \item During impact
+        \begin{oldenumerate}
+          \item Objects come into contact
+          \item Period of deformation
+          \item Achieve maximum deformation and the objects travel at the same speed \(\vec{v}\)
+          \item Period of restitution
+          \item Objects may or may not separate
+        \end{oldenumerate}
+  \item After impact, the particles return to original shape or stay permanently deformed and the linear momentum is conserved
+\end{enumerate}
+
+
+\paragraph{During impact - period of deformation}
+By isolating one of the two colliding objects \(A\), the impact \(B\) is a force over time applied to \(A\).
+Thus, we will use the impulse and momentum methods to analyse \(A\):
+\[
+  m_A - \int{\vec{P} \diffint{t}} = m_A \vec{u}
+\]
+
+
+\paragraph{During impact - period of restitution}
+The restitution is the exact opposite of the deformation, thus the equation becomes:
+\[
+  m_A \vec{u} - \int{\vec{R} \diffint{t}} = m_A \vec{v}_{A,2}
+\]
+
+
+\paragraph{Coefficient of resitution \(e\)}
+Usually the force during the period of deformation \(\vec{P}\) and the force of restitution \(\vec{R}\) are not the same, thus we can define the coefficient of restitution \(e\) as:
+\[
+  \begin{split}
+    e & = \frac{\int{R \diffint{t}}}{\int{P \diffint{t}}} = \frac{u - v_{A,2}}{v_{A,1} - u} \\
+    & = \frac{v_{B,2} - v_{A,2}}{v_{A,1} - v_{B,1}}
+  \end{split}
+\]
+
+By studying the equation of the coefficient of restitution, it measures the changes in relative velocity after impact.
+The coefficient of restitution depends on the two materials involved, impact velocity, and shape and size of objects.
+\begin{description}
+  \item[\(e = 0\):] perfectly plastic impact, there is zero relative velocity between \(A\) and \(B\), meaning they are moving at the same speed
+  \item[\(e = 1\):] perfectly elastic impact, the relative velocity is unchanged.
+\end{description}
+
+\paragraph{Impacts and energy}
+Linear momentum is always conserved since there are no external impulse, but kinetic energy is only conserved if the impact is perfectly elastic.
+
+
+\subsubsection{Oblique central impact}
+In oblique central impact, the mass centers of the two bodies lie on the line of impact, but the bodies move along a line other than the line of impact.
+In order to study this more general case of impacts, we define the tangential and normal coordinate system according to surface normal and the line of impact.
+
+Since the impulses are along the line of impact, there is no change in the tangential momenta of particle.
+Then looking at the normal component, we can analyze it as a direct central impact.
+Thus:
+\begin{itemize}
+  \item Tangential components are constant and do not change from impact
+        \begin{align*}
+          v_{A,t,1} = v_{A,t,2} &  & \mathrm{and} &  & v_{B,t,1} = v_{B,t,2}
+        \end{align*}
+  \item Total momentum along normal direction is conserved
+        \[
+          m_A v_{A,n,1} + m_B v_{B,n,1} = m_A v_{A,n,2} + m_B v_{B,n,2}
+        \]
+  \item The coefficient of restitution can be used along normal direction
+        \[
+          e = \frac{v_{B,n,2} - v_{A,n,2}}{v_{A,n,1} - v_{B,n,1}}
+        \]
+\end{itemize}
+
+
+\subsubsection{Constrained oblique central impact}
+When there is a constrained system, the trick is to look at different systems and coordinate axis in order to find all the equations needed to solve the problem.
+
+
+\section{Rigid bodies}
+\subsection{Momentum method for a rigid body}
+\subsubsection{Principle of impulse and momentum}
+The principle of impulse and momentum for rigid bodies needs to account fo the angular momentum, meaning in general plane motion at the center of gravity \(G\):
+\begin{align*}
+  \text{Linear: }  & m\vec{v}_{G,1} + \sum{\int_1^2{\vec{F} \diffint{t}}} = m\vec{v}_{G,2}         \\
+  \text{Angular: } & I_G\vec{\omega}_1 + \sum{\int_1^2{\vec{M}_G \diffint{t}}} = I_G\vec{\omega}_2
+\end{align*}
+
+\paragraph{Non-centroidal motion}
+For a non-centroidal motion about point \(P\), the angular momentum equation becomes:
+\[
+  I_G\omega_1 + m\vec{v}_{G,1}d_1 + \sum{\int_1^2{\vec{M}_P \diffint{t}}} = I_G\omega_2 + m\vec{v}_{G,2}d_2
+\]
+
+If we have \emph{fixed axis rotation} about point \(P\), the linear and angular velocity can be related (\(\vec{v} = \omega d\)) and thus:
+\[
+  I_P\omega_1 + \sum{\int_1^2{\vec{M}_P \diffint{t}}} = I_P\omega_2
+\]
+
+
+\subsubsection{Conservation of angular momentum}
+If there are no external impulses acting on the system, both linear and angular momenta are conserved.
+Also, if an impulse goes through the reference point, and there are not impulse moment, then linear momentum is not conserved, but angular momentum is (case for central forces).
+
+
+\subsection{Eccentric impacts for rigid bodies}
+In an eccentric impact, the mass centers are not located on the line of impact.
+During the max deformation phase, the two rigid bodies have the same velocity along the line of action at their contact points:
+\[
+  \vec{u}_{A,n} = \vec{u}_{B,n}
+\]
+
+\subsubsection{Impulse and momentum analysis of eccentric impact}
+We split the analysis into 4 cases: linear and angular, and deformation and restitution.
+\begin{align*}
+  \text{Linear, deformation: }  & m v_{G,n,1} - \int{P_n \diffint{t}} =  m u_{G,n}     \\
+  \text{Linear, restitution: }  & m u_{G,n} - \int{R_n \diffint{t}} =  m v_{G,n,2}     \\
+  \text{Angular, deformation: } & I_G \omega_1 - r\int{P_n \diffint{t}} =  I_G\omega^* \\
+  \text{Angular, restitution: } & I_G \omega^* - r\int{P_n \diffint{t}} =  I_G\omega_2
+\end{align*}
+
+The coefficient of restitution for eccentric impacts and fixed axis eccentric impacts is the same as for central impacts:
+\[
+  e = \frac{v_{B,n,2} - v_{A,n,2}}{v_{A,n,1} - v_{B,n,1}}
+\]
+where \(A\) and \(B\) are the contact points along the line of impact.
+
+
+\subsubsection{Summary for impacts}
+\begin{enumerate}
+  \item Separate impacts into normal (along the line of impact) and tangential (perpendicular to the line of impact) components
+  \item Coefficient of restitution generalizes to point of impacts in the surface normal direction
+  \item Momentum is conserved along directions without external impulses
+\end{enumerate}
+
+
+\part{Kinetics: Mechanical vibrations}
+\section{Particles}
+A mechanical vibration is the motion of a particle or body that oscillates about a position of equilibrium.
+
+Typically, vibrations are undesirable and causes stress and energy losses which may lead to part failure.
+However, not all vibrations are bad: ultrasound probes, mixers, massage tools, etc.
+Also, electricity can be generated using vibrations.
+
+Systems with vibrations can often be represented by mass-spring or mass-spring-damper systems.
+
+Forces that are trying to restore the system to the equilibrium point are restorative forces (gravity in a pendulum, mass-spring system).
+
+
+\subsection{Terminology}
+Vibrations are typically cyclical, meaning they can be defined by:
+\begin{description}
+  \item[Period \(T\):] time interval to complete a full cycle of motion
+  \item[Frequency \(f\):] number of cycles per unit time, \(f = \frac{1}{T}\)
+  \item[Amplitude:] max displacement from equilibrium
+\end{description}
+
+Then there are different type of vibrations:
+\begin{description}
+  \item[Undamped vibration:] ignore the effect of frictions, amplitude does not decrease over time
+  \item[Damped vibration:] amplitude decrease over time
+  \item[Free vibration:] no additional external force are applied on the system
+  \item[Forced vibration:] periodic external force applied
+\end{description}
+
+
+\subsection{Vibration without damping}
+For a free undamped motion of a mass-spring system of spring constant \(k\) and mass \(m\), using Hooke's law (\(F = -ks\), where \(k \in \set{R}{*}{+}\)) and Newton's Second law (\(F = ma\)), the following equation of motion is obtained:
+\[
+  \ddot{x} + \omega^2 x = 0
+\]
+where \(\omega^2 = \frac{k}{m}\).
+This equation describes a simple harmonic motion, also called free undamped motion.
+
+The solution of this differential equation is
+\[
+  x(t) = c_1\cos{\omega t} + c_2\sin{\omega t}
+\]
+where \(c_1 = \) and \(c_2 = \) are the initial conditions.
+
+An alternative form of \(x(t)\) is used to find the amplitude of vibration \(x_\mathrm{max}\) and the phase angle \(\phi\) of the system:
+\[
+  x(t) = x_\mathrm{max}\sin(\omega t + \phi) = x_\mathrm{max}\cos(\omega t + \phi - \frac{\pi}{2})
+\]
+where \(x_\mathrm{max} = \sqrt{{x_0}^2 + \left( \frac{v_0}{\omega} \right)^2 }\) and \(\phi = \arctan\left( \frac{x_0}{c_2} \right)\).
+With this equation, we can find that:
+\begin{align*}
+  v_\mathrm{max} & = x_\mathrm{max} \omega   \\
+  a_\mathrm{max} & = x_\mathrm{max} \omega^2
+\end{align*}
+
+The period of vibration is
+\[
+  \tau = \frac{2\pi}{\omega}
+\]
+and the frequency is
+\[
+  f = \frac{1}{T} = \frac{\omega}{2\pi}
+\]
+
+\begin{remark}
+  The natural frequency \(\omega\), the period \(\tau\) and the frequency \(f\) is independent of the weight and the initial conditions.
+\end{remark}
+
+
+\begin{example}
+  A pendulum can be modeled using vibrations (assuming the angle is small enough) and we get that \(\omega = \frac{l}{g}\) where \(l\) is the length of the pendulum and \(g\) is the gravity constant.
+\end{example}
+
+
+\subsubsection{Multiple spring systems}
+If the springs are in parallel, we have
+\[
+  k_{\mathrm{equivalent}} = k_1 + k_2 + \cdots
+\]
+If the springs are in series, we have
+\[
+  \frac{1}{k_{\mathrm{equivalent}}} = \frac{1}{k_1}+ \frac{1}{k_2} + \cdots
+\]
+
+
+\subsubsection{Importance of natural frequency \(\omega\)}
+The natural frequency is the frequency at which resonance occurs for forced vibrating systems, this can leads to bridges moving uncontrollably.
+Transmissibility plot can be made in which the amplitude is a function of the frequency and at the natural frequency, without damping, the amplitude can go up to infinity.
+
+
+\section{Rigid bodies}
+\subsection{Free vibrations of rigid bodies}
+Simple harmonic motion is expressed in linear and angular motion, where \(\omega\) is the natural frequency of the rigid body:
+\begin{description}
+  \item[Linear:] \(\ddot{x} + \omega^2 x = 0\)
+  \item[Angular:] \(\ddot{\theta} + \omega^2 \theta = 0\)
+\end{description}
+
+In order to study vibration of a rigid body, isolate the rigid body, analyse using kinematics the motion for a small displacement and solve for the moment around the center of rotation.
+
+
+
+\end{document}

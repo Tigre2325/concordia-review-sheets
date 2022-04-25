@@ -1,0 +1,436 @@
+\documentclass[10pt, twocolumn]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Cover page
+\title{ENGR 242: Statics}
+\date{\today}
+\author{Anthony Bourboujas}
+
+\makeatletter
+\let\Title\@title
+\let\Author\@author
+\let\Date\@date
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Preamble
+\input{../preamble.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% New document specific commands
+% \renewcommand{\contentsname}{Table of contents} % Change the table of contents title
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Beginning of the document
+\begin{document}
+\maketitle % Insert the cover page
+% \tableofcontents
+% \layout % Show a drawing of page layout
+% \renewcommand{\abstractname}{} % Change the abstract title
+
+\section{Introduction}
+Newton's laws:
+\begin{description}
+  \item[First law:] \(\sum{\vec{F}} = \vec{0}\)
+  \item[Second law:] \(\sum{\vec{F}} = m\vec{a}\)
+  \item[Third law:] \(\vec{F}_{A \to B} = - \vec{F}_{B \to A}\)
+\end{description}
+
+Newton's law of gravitation:
+\[
+  \norm{\vec{F}_{A \to B}} = \norm{\vec{F}_{B \to A}} = G \frac{m_A m_B}{r^2}
+\]
+\[
+  \begin{array}{|l}
+    F (\si{\newton}) \text{: attraction force}                         \\
+    G = \SI{6.674 e-11}{\metre\cubed\per\kilo\gram\per\second\squared} \\
+    m (\si{\kilo\gram}) \text{: mass of the object}                    \\
+    r (\si{\metre}) \text{: distance between the objects}
+  \end{array}
+\]
+
+\section{Statics of rigid bodies}
+\subsection{Concepts for rigid bodies}
+\subsubsection{Principle of transmissibility}
+A force \(\vec{F}\) can be moved anywhere on its line of action without affecting the conditions of equilibrium or motion.
+
+\subsubsection{Moments}
+A moment is a measurement of how much a force acting ona rigid body causes its rotation.
+
+The moment of a force about a point is
+\[
+  \vec{M}_B = \vec{M}_A + \Vec{BA} \times \vec{F}
+\]
+\subsection{Moment of a couple}
+Two forces \(\vec{F}\) and \(- \vec{F}\) having the same magnitude and opposite direction are said to form a couple.
+The sum of these forces is \(\vec{0}\), but the sum of the moments about a given point is different from \(\vec{0}\).
+
+The value of a couple is \(\normvec{M} = d\normvec{F}\) where \(d\) is the smallest distance between the 2 forces.
+
+\subsection{Moment of a force about an axis}
+\subsubsection{Moment about a given axis}
+The value of a moment of a force \(\vec{F}\) with a point of application \(A\) about an arbitrary axis \(BC\) is
+\[
+  \norm{\vec{M}_{BC}} = \frac{\Vec{BC}}{\Normvec{BC}} \bullet \left( \Vec{BA} \times \vec{F} \right)
+\]
+
+\subsection{Reduction of a system of forces}
+A system of forces can be reduced to a single force \(\vec{R}\) and moment \(\vec{M}_O(\vec{R})\):
+\begin{align*}
+  \vec{R} = \sum{\vec{F}} &  & \vec{M}_O(\vec{R}) = \sum{\vec{M}_O(\vec{F})}
+\end{align*}
+
+To find the equivalent system, the forces can be moved from their position to a point \(O\) only if their moments about \(O\) are added.
+A pure moment (couple) can be moved anywhere without affecting the system.
+
+\subsection{Further reduction of a system of forces}
+A system of forces can be reduced to a single force if the force and its moment are mutually perpendicular.
+This condition is satisfied if:
+\begin{itemize}
+  \item Forces are coplanar (2D case)
+  \item Forces are concurrent
+  \item Forces are parallel to the same axis
+\end{itemize}
+
+\subsection{Reduction to a wrench}
+A force-moment system can be reduced to a wrench, a force \(\vec{R}\) and a moment \(\vec{M}\) along \(\vec{R}\).
+The ratio \(p = \frac{\normvec{M}}{\normvec{R}}\) is called the pitch of the wrench, and we have
+\[
+  \vec{M} = \mathrm{proj}_{\vec{R}}\vec{M}_O = \frac{\vec{R} \bullet \vec{M}_O(\vec{R})}{\normvec{R}^2}\vec{R}
+\]
+
+\subsection{Equilibrium of rigid bodies}
+The equations of equilibrium for a rigid body are
+\begin{align*}
+  \sum{\vec{F}} = \vec{0} &  & \sum{\vec{M}_O(\vec{F})} = \vec{0}
+\end{align*}
+
+\subsection{Equilibrium in 3D}
+\subsubsection{Reactions at supports and connections}
+\emph{See Pascal Klinguer paper for a comprehensive table with the reactions at supports and connections.}
+
+The basic thing is to put a 0 on the free components.
+
+\subsubsection{Steps for solving}
+\begin{enumerate}
+  \item Isolate the body
+  \item Define the basis
+  \item Express all forces and moments in components
+  \item Apply equilibrium equations \(\sum{\vec{F}} = \vec{0}\) and \(\sum{\vec{M}_O(\vec{F})} = \vec{0}\)
+\end{enumerate}
+
+\section{Centroids and centers of gravity}
+\subsection{Planar centers of gravity and centroids}
+In this section, we will consider that the body is homogeneous (uniform density \(\rho\)) and have uniform thickness \(t\).
+
+In order to find the centroid, we need to find the area of the plate:
+\[
+  A = \iint{\diffint{A}} \\
+\]
+
+Next, we introduce the first moments of the shape as:
+\begin{align*}
+  Q_y = M_y = \iint{x \diffint{A}} &  & Q_x = M_x = \iint{y \diffint{A}}
+\end{align*}
+
+Finally, we have the centroid location \((\bar{x}, \bar{y})\) is at:
+\begin{align*}
+  \bar{x} = \frac{Q_y}{A} &  & \bar{y} = \frac{Q_x}{A}
+\end{align*}
+
+The negative signs are determined using a table of sign, where the negative sign appears in the negative axis and for holes.
+
+\subsection{Wires}
+For a wire, a similar equation can be derived:
+\begin{align*}
+  \bar{x} = \frac{Q_y}{L} = \frac{\int{x \diffint{L}}}{L} &  & \bar{y} = \frac{Q_x}{L} = \frac{\int{y \diffint{L}}}{L}
+\end{align*}
+where
+\[
+  L = \int{\norm{\vec{r}'} \diffint{t}} = \int{\sqrt{\left[ x'(t)^2 \right] + \left[ y'(t)^2 \right]} \diffint{t}}
+\]
+
+\subsection{Application of centroids}
+\subsubsection{Distributed loads on beams}
+One of the application of centroids is to find the concentrated load which is equivalent to the given distributed load.
+It is used to to get reaction forces, but not internal forces and deflections.
+
+\subsubsection{Forces on submerged surfaces}
+The forces on submerged surface are distributed along the length of the body.
+Using the the formula of pressure, we have
+\[
+  \vec{W} = t \rho h \vec{g}
+\]
+\[
+  \begin{array}{|l}
+    \vec{W} (\si{\newton}) \text{: weight of the body}                      \\
+    t (\si{\metre}) \text{: thickness of the body}                          \\
+    \rho (\si{\kilo\gram\per\metre\cubed}) \text{: density of the body}     \\
+    h (\si{\metre}) \text{: vertical distance from the surface to the body} \\
+    \vec{g} = (0, 0, -9.81)\si{\metre\per\second\squared} \text{ (on Earth)}
+  \end{array}
+\]
+
+
+For forces exerted by a liquid on a curved body:
+\begin{enumerate}
+  \item Isolate the volume of liquid above the body
+  \item Determine the forces exerted on it (including weight of the liquid)
+  \item The force that the body exerts on the water has the same magnitude and line of action but an opposite direction.
+\end{enumerate}
+
+\subsection{Center of gravity and centroids of volumes}
+\subsubsection{3D center of gravity and centroids}
+The mass a solid is given by
+\[
+  m = \iiint{\rho(x, y, z) \diffint{V}}
+\]
+
+The first moments of the solid about the coordinate planes indicated by the subscripts are given by
+\begin{align*}
+  M_{xy} & = \iiint{z\rho(x, y, z) \diffint{V}} \\
+  M_{xz} & = \iiint{y\rho(x, y, z) \diffint{V}} \\
+  M_{yz} & = \iiint{x\rho(x, y, z) \diffint{V}}
+\end{align*}
+
+The coordinates of the center of mass \(G\) of the solid are given by
+\begin{align*}
+  x_G = \frac{M_{yz}}{m} &  & y_G = \frac{M_{xz}}{m} &  & z_G = \frac{M_{xy}}{m}
+\end{align*}
+
+\section{Analysis of structures}
+\subsection{Equilibrium of a two-force body}
+A rigid body in equilibrium subjected to two forces is called a "two-force body".
+The two forces have the same magnitude and line of action, but an opposite direction.
+
+Therefore, if a member is subjected to two forces, the internal forces are at the joints and must have the same line of action crossing the joints.
+
+\subsection{Categories of structures}
+\begin{description}
+  \item[Trusses:] they are stationary and used to support loads, they are fully constrained and exclusively made of two-force members
+  \item[Frames:] they are stationary and used to support loads, and they always have at least one multi-force member
+  \item[Mechanisms:] they are designed to transmit and modify forces, they have moving parts and they always have at least one multi-force member
+\end{description}
+
+\subsection{Analysis of trusses}
+Trusses are made of straight members connected at joints.
+Bolded or welded connections are assumed to be pinned together.
+It is usually assumed that members are pinned, therefore, the forces acting at each end are reduced to a force and no moment.
+Only two-force members are considered.
+
+\subsubsection{Zero-force members}
+If there are two members at a joint with no external forces and the two members are not aligned, then these two members are zero-force members.
+
+If there are three members at a joint with no external forces and two are aligned, then the third member is a zero-force members.
+
+\subsubsection{Analysis of trusses by method of joints}
+The line of actions of all internal forces are known, the analysis is reduced to finding their magnitude and determining their stress: either "compression" or "tension".
+
+\begin{enumerate}
+  \item Isolate the entire truss as a rigid body
+  \item Find reaction forces using equilibrium equations
+  \item Isolate each joint
+  \item Find internal reaction forces using equilibrium at each joint
+\end{enumerate}
+
+\subsubsection{Analysis of trusses by method of sections}
+If the force in on member or very few members are needed, the method of sections is more efficient.
+
+\begin{enumerate}
+  \item Isolate the entire truss as a rigid body
+  \item Find reaction forces using equilibrium
+  \item Cut the truss through the members of interest
+  \item Represent the forces of the cut members
+  \item Equilibrium of one fo the cut truss (the one with less external forces)
+\end{enumerate}
+
+\subsection{Analysis of frames and mechanisms}
+\subsubsection{Frames}
+Frames are stationary and used to support loads, and they always have at least one multi-force member.
+
+\begin{enumerate}
+  \item Isolate the entire frame as a rigid body
+  \item Find reaction forces using equilibrium
+  \item Isolate each member
+  \item Find internal forces using equilibrium
+\end{enumerate}
+
+\subsubsection{Mechanisms}
+Mechanisms are designed to transmit and/or modify forces, they have moving parts and they always have at least one multi-force member.
+
+\begin{enumerate}
+  \item Isolate the entire mechanism as a rigid body
+  \item Find reaction forces using equilibrium
+  \item Isolate each member
+  \item Find internal forces using equilibrium
+\end{enumerate}
+
+\subsection{Internal forces in members}
+For a straight two-force member, the internal force is equivalent to axial forces.
+
+For a not straight member or a multi-force member, the internal forces are not limited to producing just compression or tension, they also produce shear force \(\vec{V}\) and bending moment \(\vec{M}\).
+
+\subsection{Beams}
+\subsubsection{Types of loading and support}
+
+\subsubsection{Shear and bending moment in a beam}
+Steps to analyze a beam:
+\begin{enumerate}
+  \item Isolate the entire beam as a rigid body
+  \item Find reaction forces using equilibrium
+  \item Cut the beam at the desired location
+  \item Find the internal shearing force \(\vec{V}\) and the bending moment \(\vec{M}\) using the sign convention
+  \item Plot the values of the shearing force \(\vec{V}\) and the bending moment \(\vec{M}\) with respect to a distance \(x\) to get the shear and bending diagrams
+\end{enumerate}
+
+\paragraph*{Sign convention}
+At first, shearing force \(\vec{V}\) is assumed to be directed down on the left side of the cut, and up on the right side of the cut.
+The bending moment \(\vec{M}\) is assumed to be directed counterclockwise on the left side of the cut, and clockwise on the right side of the cut.
+
+\subsubsection{Relation between loads, shear and bending moment}
+When there are continuous loads \(w\), the following relation can be used:
+\begin{align*}
+  \derivative{V}{x} = - w &  & \derivative{M}{x} = V
+\end{align*}
+
+\section{Friction}
+\subsection{Friction equations}
+Static equation:
+\[
+  \vec{F}_S = \mu_S \vec{N}
+\]
+\[
+  \begin{array}{|l}
+    \vec{F}_S (\si{\newton}) \text{: static friction force} \\
+    \mu_S \text{: coefficient of static friction}           \\
+    \vec{N} (\si{\newton}) \text{: normal force}
+  \end{array}
+\]
+
+Kinetic equation:
+\[
+  \vec{F}_K = \mu_K \vec{N}
+\]
+\[
+  \begin{array}{|l}
+    \vec{F}_K (\si{\newton}) \text{: kinetic friction force} \\
+    \mu_K \text{: coefficient of kinetic friction}           \\
+    \vec{N} (\si{\newton}) \text{: normal force}
+  \end{array}
+\]
+
+\subsection{Friction on a horizontal surface}
+\begin{description}
+  \item[Case \Romannumeral{1}:] No friction \(\implies\) no horizontal force \(\implies\) no opposing friction force
+  \item[Case \Romannumeral{2}:] No motion \(\implies\) external force \(\vec{P}\) not high enough to overcome static friction force \(\vec{F}_S\)
+  \item[Case \Romannumeral{3}:] Motion impending (imminent) \(\implies\) applied forces such that the body is just about to slide \(\implies\) \(\vec{F} = \vec{F}_S\)
+  \item[Case \Romannumeral{4}:] Motion \(\implies\) \(\vec{F} = \vec{F}_K\)
+\end{description}
+
+\subsection{Angles of friction}
+\begin{description}
+  \item[Case \Romannumeral{1}:] Motion impending \(\implies\) \(\mu_S = \tan\phi_S = \frac{\norm{\vec{F}_S}}{\normvec{N}}\)
+  \item[Case \Romannumeral{2}:] Motion \(\implies\) \(\mu_K = \tan\phi_K = \frac{\norm{\vec{F}_K}}{\normvec{N}}\)
+\end{description}
+
+\subsection{Problems involving friction}
+\begin{itemize}
+  \item All applied forces are given and coefficients of frictions are known \(\implies\) determine whether the body will remain at rest or slide
+  \item Applied forces are known and the body is in impending motion \(\implies\) determine friction force, normal force and coefficients of friction
+  \item Coefficients of friction are known and the body is in impending motion \(\implies\) determine one of the external forces that will cause impending motion
+\end{itemize}
+
+\subsection{\(P_\mathrm{min}\) and \(P_\mathrm{max}\) to equilibrium}
+For a block with a weight \(\vec{W}\) on an inclined surface, pushed by a force \(\vec{P}\), we have:
+\[
+  P_\mathrm{max, min} = \normvec{W} \sin\theta \pm \mu_S \normvec{N} \\
+\]
+where \(P_\mathrm{min}\) and \(P_\mathrm{max}\) are the boundaries in which the block will not move.
+
+\section{Moment of inertia}
+\subsection{Area moment of inertia}
+\subsubsection{Calculation of the area moment of inertia}
+In the 2D case, we have:
+\begin{align*}
+  I_x = \iint{y^2 \diffint{A}} &  & I_y = \iint{x^2 \diffint{A}}
+\end{align*}
+
+\subsubsection{Poplar moment of inertia}
+When dealing with torsion, the polar moment of inertia is generally more important:
+\begin{align*}
+  J_O & = \iint{r^2 \diffint{A}} = \iint{x^2 + y^2 \diffint{A}} \\
+      & = I_x + I_y
+\end{align*}
+
+\subsubsection{Radius of gyration of an area}
+To get the same \(I\) between a blob and a strip, the strip should be placed at the radius of gyration \(K\):
+\begin{align*}
+  K_x = \sqrt{\frac{I_x}{A}} &  & K_y = \sqrt{\frac{I_y}{A}} &  & K_O = \sqrt{\frac{J_O}{A}}
+\end{align*}
+
+\subsection{Parallel-axis theorem and composite areas}
+Often, complex shapes can be broken into a sum of simple shapes.
+Since we need the moment of inertia of each simple shapes with respect to the same axis, we need to use the parallel-axis theorem.
+
+The moment of inertia of the area \(A\) about a non-centroidal axis can be obtained using
+\begin{align*}
+  I_x = I_{x_O} + A {d_x}^2 &  & I_y = I_{y_O} + A {d_y}^2
+\end{align*}
+where \(d_x\) is the distance between the two \(x\)-axis and \(d_y\) is the distance between the two \(y\)-axis.
+
+Hence, the moment of inertia's of a composite chape made of several areas is
+\begin{align*}
+  I_x & = \sum{I_{x_i}} + \sum{A {d_x}^2} \\
+  I_y & = \sum{I_{y_i}} + \sum{A {d_y}^2}
+\end{align*}
+
+The change in the radius of gyration is \(K^2 = {K_O}^2 + d^2\)
+
+\subsection{Mass moment of inertia}
+\subsubsection{Moment of inertia of a simple mass}
+The mass moment of inertia is defined as:
+\[
+  I = \int{r^2 \diffint{m}}
+\]
+\[
+  \begin{array}{|l}
+    I (\si{\kilo\gram\metre\squared}) \text{: mass moment of inertia about an axis} \\
+    r (\si{\metre}) \text{: distance for the center of mass to the axis}            \\
+  \end{array}
+\]
+
+We can express \(I\) in terms of the standard \(xyz\)-basis:
+\begin{align*}
+  I_x & = \int{y^2 + z^2 \diffint{m}} \\
+  I_y & = \int{x^2 + z^2 \diffint{m}} \\
+  I_z & = \int{x^2 + y^2 \diffint{m}}
+\end{align*}
+
+\subsubsection{Parallel-axis theorem for mass moments of inertia}
+\begin{align*}
+  I_{x_O} & = I_{x_G} + m({y_O}^2 + {z_O}^2) \\
+  I_{y_O} & = I_{y_G} + m({x_O}^2 + {z_O}^2) \\
+  I_{z_O} & = I_{z_G} + m({x_O}^2 + {y_O}^2) \\
+\end{align*}
+where \(G\) is the center of mass and \(O\) is the destination point.
+
+
+\subsubsection{Mass moment of inertia of a 3D body by integration}
+The general formula for the mass moment of inertia of a 3D body is:
+\begin{align*}
+  I_x & = \iiint{(y^2 + z^2 )\rho(x, y, z) \diffint{V}} \\
+  I_y & = \iiint{(x^2 + z^2 )\rho(x, y, z) \diffint{V}} \\
+  I_z & = \iiint{(x^2 + y^2 )\rho(x, y, z) \diffint{V}}
+\end{align*}
+
+\subsection{Transformation of moment of inertia}
+If we want to find the axis that generate the maximum and minimum moment of inertia, we first need to define the product of inertia:
+\begin{align*}
+  I_{xy} = \iint{xy \diffint{A}} &  & I_{xy} = I_{x_G y_G} + x_G y_G A
+\end{align*}
+
+Now, we can obtain Mohr's circles, which let use get the minimum and maximum moments of inertia for a body:
+\[
+  I_\mathrm{max, min} = I_\mathrm{average} \pm R = \frac{I_x + I_y}{2} \pm \sqrt{\left( \frac{I_x - I_y}{2} \right)^2 + {I_{xy}}^2}
+\]
+\end{document}
