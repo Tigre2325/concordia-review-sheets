@@ -22,6 +22,7 @@ ENGR:
 AERO:
   - [x] AERO 201: Introduction to Flight and Aerospace Systems
   - [x] AERO 371: Modelling and Control Systems
+
 ENGR:
   - [ ] ENGR 213: Applied Ordinary Differential Equations
   - [x] ENGR 233: Applied Advanced Calculus
@@ -30,10 +31,12 @@ ENGR:
   - [x] ENGR 251: Thermodynamics I
   - [x] ENGR 311: Transform Calculus and Partial Differential Equations
   - [x] ENGR 361: Fluid Mechanics I
+
 MECH:
   - [ ] MECH 351: Thermodynamics II
   - [ ] MECH 361: Fluid Mechanics II
   - [ ] MECH 368: Electronics for Mechanical Engineers
+
 PHYS:
   - [x] PHYS 205: Electricity and Magnetism
 
