@@ -1,0 +1,40 @@
+# ignore a single file
+# mycode.class
+
+# ignore an entire directory
+# .vscode/
+# node_modules/
+
+# ignore a file type
+# *.json
+# *.code-workspace
+*.aux
+*.bbl
+*.blg
+*.idx
+*.ind
+*.lof
+*.lot
+*.out
+*.toc
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.fls
+*.log
+*.fdb_latexmk
+*.snm
+*.synctex(busy)
+*.synctex.gz(busy)
+*.nav
+*.synctex
+*.synctex.gz
+*.bcf
+*.run.xml
+*blx.bib
+
+# add an exception (using !) to the preceding rule to track a specific file
+# !package.json
