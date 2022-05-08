@@ -14,31 +14,44 @@ In the `other` folder, there is an Excel file that I made for thermodynamics and
 
 ### Currently being taken
 
+ECON:
+
+- [ ] ECON 203: Introduction to Macroeconomics
+
+ENCS:
+
+- [ ] ENCS 282: Technical Writing and Communication
+
 ENGR:
-  - [ ] ENGR 371: Probability and Statistics in Engineering
+
+- [ ] ENGR 371: Probability and Statistics in Engineering
 
 ### Previously taken
 
 AERO:
-  - [x] AERO 201: Introduction to Flight and Aerospace Systems
-  - [x] AERO 371: Modelling and Control Systems
+
+- [x] AERO 201: Introduction to Flight and Aerospace Systems
+- [x] AERO 371: Modelling and Control Systems
 
 ENGR:
-  - [ ] ENGR 213: Applied Ordinary Differential Equations
-  - [x] ENGR 233: Applied Advanced Calculus
-  - [x] ENGR 242: Statics
-  - [x] ENGR 243: Dynamics
-  - [x] ENGR 251: Thermodynamics I
-  - [x] ENGR 311: Transform Calculus and Partial Differential Equations
-  - [x] ENGR 361: Fluid Mechanics I
+
+- [ ] ENGR 213: Applied Ordinary Differential Equations
+- [x] ENGR 233: Applied Advanced Calculus
+- [x] ENGR 242: Statics
+- [x] ENGR 243: Dynamics
+- [x] ENGR 251: Thermodynamics I
+- [x] ENGR 311: Transform Calculus and Partial Differential Equations
+- [x] ENGR 361: Fluid Mechanics I
 
 MECH:
-  - [ ] MECH 351: Thermodynamics II
-  - [ ] MECH 361: Fluid Mechanics II
-  - [ ] MECH 368: Electronics for Mechanical Engineers
+
+- [ ] MECH 351: Thermodynamics II
+- [ ] MECH 361: Fluid Mechanics II
+- [ ] MECH 368: Electronics for Mechanical Engineers
 
 PHYS:
-  - [x] PHYS 205: Electricity and Magnetism
+
+- [x] PHYS 205: Electricity and Magnetism
 
 ## Background story
 
