@@ -24,6 +24,234 @@
 % \layout % Show a drawing of page layout
 % \renewcommand{\abstractname}{} % Change the abstract title
 
+\section{Probability}
+\subsection{Sample spaces and events}
+\subsubsection{Random experiments}
+An experiment is a procedure that is carried out under controlled conditions and executed to discover an unknown result.
+
+A random experiment is an experiment that can result in different outcomes, even though it is repeated in the same manner every time.
+
+
+\subsubsection{Sample spaces}
+The sample space \(S\) is the set of all possible outcomes of a random experiment.
+\(\abs{S}\) is the cardinality of the sample space \(S\), meaning the total number of possible outcomes.
+
+\paragraph{Type of sample space:}
+\begin{description}
+  \item[Discrete:] \(S\) consists of a finite or countable infinite set of outcomes
+  \item[Continuous:] \(S\) contains an interval of real numbers.
+\end{description}
+
+
+\subsubsection{Events}
+An event \(E\) is a subset of the sample space \(S\) of a random experiment.
+
+\paragraph{Type of subset}
+\begin{description}
+  \item[Proper \(E \subset S\):] \(S\) cannot be made of only \(E\).
+  \item[Improper \(E \subseteq S\):] \(S\) can be made of only \(E\).
+\end{description}
+
+
+\paragraph{Even combinations}
+\begin{description}
+  \item[Complement \(\bar{A}\) or \(A'\):] the complement of an event is the set of outcomes in the sample space that are \textbf{not} contained in the event.
+  \item[Union \(A \cup B\):] the union of two events consists of all outcomes that are contained in one event \textbf{or} the other.
+  \item[Intersection \(A \cap B\):] the intersection of two events consists of all outcomes that are contained in one event \textbf{and} the other.
+\end{description}
+
+Mutually exclusive events are event that do not share any common outcome: \(A \cap B = \varnothing\) the occurrence of one even precludes the occurrence of the other.
+
+Two sets \(A\) and \(B\) are complement if and only if:
+\begin{itemize}
+  \item They are disjoint sets (mutually exclusive events), \(A \cap B = \varnothing\)
+  \item they are collectively exhaustive, \(A \cup B = S\)
+\end{itemize}
+Then \(B = \bar{A}\) and \(A = \bar{B}\).
+
+
+\subsubsection{Counting techniques}
+There are 3 counting techniques used to determine the number of outcomes in events.
+
+
+\paragraph{Multiplication rule}
+For an experiment consisting of \(k\) steps with \(n_1\) ways of completing step 1, \(n_2\) ways of completing step 2, \dots, and \(n_k\) ways of completing step \(k\), the total number of ways to perform the \(k\) steps is:
+\[
+  n_1 n_2 \cdots n_k = \prod_{i = 1}^k{n_i}
+\]
+
+
+\paragraph{Permutation rule}
+A permutation is a unique sequence of distinct items in which the order matters.
+The number of permutation of subsets of \(r\) elements selected from a set of \(n\) different elements is:
+\[
+  P_r^n = \frac{n!}{(n - r)!}
+\]
+
+Permutation with similar items is used when some items are identical (order does not matter for those items).
+The number of permutations of \(n = n_1 + n_2 + \cdots + n_k\) objects of which \(n_1\) are of one type, \(n_2\) are of a second type, \dots, and \(n_k\) are of an \(k\)th type is
+\[
+  \frac{n!}{n_1! n_2! \cdots n_k!}
+\]
+
+
+\paragraph{Combination rule}
+A combination is a selection of \(r\) elements from a set of \(n\) elements in which the order does not matter.
+The number of combinations of subsets of \(r\) elements that can be selected from a set of \(n\) elements is:
+\[
+  C_r^n = \binom{n}{r} = \frac{n!}{r!(n - r)!}
+\]
+
+\begin{remark}
+  It can be seen that:
+  \[
+    P_r^n = r! C_n^r \iff C_n^r = \frac{P_r^n}{r!}
+  \]
+\end{remark}
+
+
+\begin{remark}
+  The multiplication rule applies when the experiment is with replacement (the same item can be picked again), while permutation and combination rule apply when the experiment is without replacement (the same item cannot be picked again).
+\end{remark}
+
+\subsection{Interpretations and axioms of probability}
+Probability is the likelihood or chance that a particular outcome or event from a random experiment will occur.
+
+Probability is a number in the interval \([0,1]\) where 1 means certainty and 0 means impossibility.
+
+For a discrete sample space, the probability of an event \(E\) is:
+\[
+  P(E) = \frac{\abs{E}}{\abs{S}}
+\]
+\[
+  \begin{array}{|l}
+    E \text{: event, set of events}          \\
+    \abs{E} \text{: cardinality of } E       \\
+    S \text{: sample space, set of outcomes} \\
+    \abs{S} \text{: cardinality of } S
+  \end{array}
+\]
+
+\paragraph{Equally likely outcomes}
+Whenever a sample space consists of \(N = \abs{S}\) possible outcomes that are equally likely, the probability of each outcome is \(\frac{1}{N} = \frac{1}{\abs{S}}\).
+
+
+\paragraph{Axioms of probability}
+Probability is a number that is assigned to each member of a collection of events from a random experiment that satisfies the following properties: if \(S\) is the sample space and \(E\) is any event in a random experiment:
+\begin{enumerate}
+  \item \(P(S) = 1\)
+  \item \(P(E) \in [0,1]\)
+  \item For 2 events \(A\) and \(B\) with \(A \cap B = \varnothing\), then
+        \[
+          P(A \cup B) = P(A) + P(B)
+        \]
+\end{enumerate}
+
+These axioms imply the following for the empty set \(\varnothing\) and for any event \(E\):
+\[
+  P(\varnothing) = 0 \qquad P(\bar{E}) = 1 - P(E)
+\]
+
+
+\subsection{Addition rules}
+The general addition rule defines the probability of a union:
+\begin{align*}
+  \abs{A \cup B}   & = \abs{A} + \abs{B} - \abs{A \cap B} \\
+  \iff P(A \cup B) & = P(A) + P(B) - P(A \cap B)
+\end{align*}
+and if \(A\) and \(B\) are mutually exclusive events, then \(\abs{A \cup B} = \abs{A} + \abs{B} \iff P(A \cup B) = P(A) + P(B)\).
+
+
+\subsection{Conditional probability}
+The conditional probability of an event \(B\) given an event \(A\) is:
+\[
+  P(B|A) = \frac{P(A \cap B)}{P(A)}
+\]
+
+
+\subsection{Multiplication and total probability rules}
+Using conditional probabilities, the general multiplication rule is found:
+\[
+  P(A \cap B) = P(A) P(B|A) = P(B) P(A|B)
+\]
+
+The total probability for any events \(A\) and \(B\) is:
+\begin{align*}
+  P(B) & = P(B \cap A) + P(B \cap \bar{A})       \\
+       & = P(A) P(B|A) + P(\bar{A}) P(B|\bar{A}) \\
+\end{align*}
+
+
+
+\subsection{Independence}
+Two events are independent if and only if:
+\begin{align*}
+  P(A|B)           & = P(A)      \\
+  \iff P(B|A)      & = P(B)      \\
+  \iff P(A \cap B) & = P(A) P(B)
+\end{align*}
+
+
+\subsection{Bayes' theorem}
+Bayes' theorem is another form and extension of the general multiplication rule which uses the conditional probabilities.
+If \(E_1\), \(E_2\), \dots, \(E_k\) are \(k\) mutually exclusive and exhaustive events and \(B\) is any event:
+\[
+  P(E_1|B) = \frac{P(E_1)P(B|E_1)}{\sum_{i = 1}^k{P(E_i)P(B|E_i)}}
+\]
+
+
+\subsection{Random variables}
+A random variable is a function that assigns a real number to each outcome in the sample space \(S\) of a random experiment.
+
+A random variable is denoted by an uppercase letter such as \(X\).
+After an experiment is conducted, the measured value of the random variable is denoted by a lower case such as \(x\).
+
+
+\paragraph{Discrete vs continuous}
+\begin{description}
+  \item[Discrete:] a random variable with a finite (or countably infinite) range.
+  \item[Continuous:] a random variable with an interval (either finite or infinite) or real numbers for its range.
+\end{description}
+
+
+\section{Discrete random variables and probability distributions}
+\subsection{Discrete random variables}
+
+
+
+\subsection{Probability distributions and probability mass functions}
+
+
+
+\subsection{Cumulative distribution functions}
+
+
+
+\subsection{Mean and variance of a discrete random variable}
+
+
+
+\subsection{Discrete uniform distribution}
+
+
+
+\subsection{Binomial distribution}
+
+
+
+\subsection{Geometric and negative binomial distributions}
+
+
+
+\subsection{Hypergeometric distribution}
+
+
+
+\subsection{Poisson distribution}
+
+
+
+
 
 
 
