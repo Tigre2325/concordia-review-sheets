@@ -9,25 +9,37 @@
 \usepackage{amssymb} % TeX fonts from the American Mathematical Society
 \usepackage{amsthm} % Typesetting theorems (AMS style)
 \usepackage{array} % Extending the array and tabular environments
+% \usepackage[backend=biber,style=ieee,sorting=none]{biblatex}
+\usepackage{bold-extra} % Use bold small caps and typewriter fonts
 \usepackage{cellspace} % Ensure minimal spacing for table cells
 \usepackage{chemformula} % Command for typesetting chemical formulas and reactions
 % \usepackage{colortbl} % Add colour to LaTeX tables
-% \usepackage{comment} % Selectively include/exclude portions of text
+\usepackage{comment} % Selectively include/exclude portions of text
+\usepackage{csquotes} % Context sensitive quotation facilities
 % \usepackage[en-US,showdow]{datetime2} % Formats for dates, times and time zones
+% \usepackage{diagbox} % Table heads with diagonal lines
 \usepackage{enumitem} % Control layout of itemize, enumerate, description
 \usepackage{esint} % Extended set of integrals for Computer Modern
 \usepackage{graphicx} % Enhanced support for graphics
+% \usepackage{listings} % Typeset source code listings using LaTeX
 % \usepackage{lipsum} % Easy access to the Lorem Ipsum dummy text
 \usepackage{mathrsfs} % Support for using RSFS fonts in maths
+% \usepackage{matlab-prettifier} % Pretty-print Matlab source code
 \usepackage{moreverb} % Extended verbatim
 \usepackage{multicol} % Intermix single and multiple columns
 \usepackage{multirow} % Create tabular cells spanning multiple rows
+% \usepackage{pgfplots} % Plots
+% \usepackage{pgfplotstable} % Loads, rounds, format and post-processes numerical tables (generates table from CSV)
+% \usepackage{pdfpages} % Include PDF document in LaTeX
+% \usepackage{rotating} % Rotation tools, including rotated full-page floats with sidewaysfigure
 \usepackage[scr]{rsfso} % A mathematical calligraphic font based on rsfs
 \usepackage{setspace} % Set space between lines
-% \usepackage{soul} % Hyphenation for letterspacing, underlining, and more
+\usepackage{soul} % Hyphenation for letterspacing, underlining, and more
 \usepackage{threeparttable} % Tables with captions and notes all the same width
+% \usepackage{verbatim} % Reimplementation of and extensions to LaTeX verbatim
 \usepackage{wrapfig} % Produces figures which text can flow around
 \usepackage{xcolor} % Driver-independent color extensions for LaTeX
+\usepackage{xurl} % Verbatim with URL-sensitive line breaks, allow URL breaks at any alphanumerical character
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% Lengths
@@ -102,7 +114,7 @@
 \usepackage{fancyhdr} % Extensive control of page headers and footers in LaTeX
 \pagestyle{fancy}
 % Options: \leftmark (chapter title), \rightmark(section title), \thepage (page number), \thechapter(chapter number), \thesection (section number)
-\lhead{\Title}
+\lhead{\thetitle}
 \chead{}
 \rhead{}
 \lfoot{}
@@ -116,8 +128,8 @@
 \definecolor{blue}{RGB}{0, 0, 255} % rgb(0, 0, 255)
 \hypersetup{
   % unicode            = true,
-  pdftitle           = {\Title},
-  pdfauthor          = {\Author},
+  pdftitle           = {\thetitle},
+  pdfauthor          = {\theauthor},
   % pdfsubject       = {},
   %%%% Reference
   % bookmarks          = true,
